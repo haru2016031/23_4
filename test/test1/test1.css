@@ -1,0 +1,111 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body{
+    box-sizing: border-box;
+    background-image: url(../img/img.png);
+    font-family:'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#chatbot{
+    position:fixed;
+    overflow:hidden;
+    opacity:1;
+    transition: .4s;
+    background: #1d1b1b;
+    /* PC */
+    height: 80vh; 
+    width: 350px;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    box-shadow: 0px 0 25px -5px #808;
+    border-radius: 10px;
+    top: 50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    
+}
+
+#chatbot-header{
+    height: 60px;
+    background: #3a717c;
+    position: relative;
+    display:flex;
+    justify-content: space-around;
+}
+
+/* 「AI Chatbot」の部分 */
+#chatbot-logo{
+    color:rgb(218, 53, 199);
+    line-height: 60px;
+    padding:0 30px;
+    font-size: 16px;
+}
+
+/* フルスクリーンボタン */
+#chatbot-zoom-icon{
+    display: block;
+    height: 100%;
+    line-height: 60px;
+    padding:0 20px;
+    color: #FFF;
+    cursor:pointer;
+}
+
+#chatbot-body{
+    width: 100%;
+    height: calc(80vh - 110px);
+    padding-top: 10px;
+    background: #FFF;
+    box-sizing: border-box;
+    /* 横スクロール禁止 */
+    overflow-x: hidden;
+    /* 縦スクロール禁止 */
+    overflow-y: scroll;
+}
+
+#chatbot-zoom-icon:active{
+    background: #4d635d;
+}
+#chatbot-footer{
+    width: 100%;
+    height:50px;
+    display: flex;
+    box-sizing: border-box;
+    background: #FFF;
+    border-top: 1.5px solid #EEE;
+}
+/* 文字を入力する場所 */
+#chatbot-text{
+    height: 40px;
+    width: 72%;
+    display: block;
+    font-size: 16px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    margin:auto 10px auto 15px;
+    color: #777;
+    border: 0;
+    outline: 0;
+}
+
+/* 送信ボタン */
+#chatbot-submit{
+    cursor: pointer;
+    height: 35px;
+    width: 20%;
+    margin: auto;
+    margin-right: 15px;
+    font-size:16px;
+    background: #335c80;
+    color: white;
+    display: block;
+    /* デフォルトのボーダーを消す */
+    border: none;
+    box-sizing: border-box;
+    border-radius: 7px;
+}

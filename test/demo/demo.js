@@ -311,7 +311,6 @@ chatSubmitBtn.addEventListener('click', () => {
 
 	// ulとliを作り、右寄せのスタイルを適用し投稿する
 	const ul = document.getElementById('chatbot-ul');
-    console.log(ul);
 	const li = document.createElement('li');
 	// このdivにテキストを指定
 	const div = document.createElement('div');
