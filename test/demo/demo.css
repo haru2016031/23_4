@@ -42,9 +42,9 @@ a {
     opacity: 1;
     transition: .4s;
     background: #FFF;
-    /* -webkit-font-smoothing: none;
+    -webkit-font-smoothing: none;
     -webkit-font-smoothing: antialiased;
-    -webkit-font-smoothing: subpixel-antialiased; Safari での Default値 */
+    /* -webkit-font-smoothing: subpixel-antialiased; Safari での Default値 */
 }
 #chatbot.chatbot-zoom {
     height: 100vh;
@@ -112,6 +112,20 @@ a {
 }
 
 /*チャットのフィールド*/
+#chatbot-body {
+    width: 100%;
+    height: calc(80vh - 110px);
+    padding-top: 10px;
+    background: #FFF;
+    box-sizing: border-box;
+    /*横向きのスクロール禁止*/
+    overflow-x: hidden;
+    /*縦向きのスクロール許可*/
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    /*IE、Edgeでスクロールバーを非表示にする*/
+    -ms-overflow-style: none;
+}
 
 @media screen and (max-width: 700px) { /*スマホ*/
   #chatbot-body {
@@ -209,9 +223,9 @@ a {
     position: relative;
 }
 
-#chatbot-ul > li > div.chatbot-short {
+/* #chatbot-ul > li > div.chatbot-short {
     width: 53%;
-}
+} */
 /*相手の吹き出しのデザイン*/
 .chatbot-left{
     margin-left: 20px;
@@ -239,7 +253,7 @@ a {
 .right{
   text-align: right;
 }
-.choice-title {
+/* .choice-title {
     position: absolute;
     width: 100%;
     height: 25px;
@@ -254,12 +268,12 @@ a {
     letter-spacing: .05em;
 }
 .choice-q {
-/*     width: 180px; */
+
     margin: 25px 0 .7rem;
     font-size: 15px;
     line-height: 1.3em;
     letter-spacing: .05em;
-}
+} */
 .choice-button {
     cursor: pointer;
     user-select: none;
