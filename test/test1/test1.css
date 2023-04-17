@@ -109,3 +109,79 @@ body{
     box-sizing: border-box;
     border-radius: 7px;
 }
+
+#chatbot-ul{
+    /* ulのデフォルトの隙間を消す */
+    padding: 0;
+    list-style: none;
+}
+
+#chatbot-ul > li{
+    position: relative;
+    width: 100%;
+    padding-bottom: 10px;
+    word-wrap: break-word;
+}
+
+#chatbot-ul > li > div {
+    display: inline-block;
+    box-sizing: border-box;
+    min-height: 23px;
+    max-width: 70%;
+    padding: 7px 13px;
+    font-size: 16px;
+    line-height: 1.3em;
+    position: relative;
+}
+
+/* 相手の吹き出しのデザイン */
+.chatbot-left{
+    margin-left: 20px;
+    background: #E6F0F7;
+    border-radius: 9px;
+    color:#3a717c;
+}
+
+.chatbot-left-rounded{
+    margin-left: 20px;
+    background: #E6F0F7;
+    border-radius: 9px;
+    color: #1A5F80;
+}
+
+/* 自分の吹き出し */
+.chatbot-right{
+    margin-right: 20px;
+    background: #456F99;
+    text-align: left;
+    border-radius: 9px 0 9px 9px;
+    color: #FFF;
+}
+.left{
+    text-align: left;
+}
+.right{
+    text-align: right;
+}
+
+.choice-title{
+    position: absolute;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 9px 9px 0 0;
+    text-align: center;
+    font-size: 15px;
+    top: 0;
+    left: 0;
+    background: #456F99;
+    color: #FFF;
+    letter-spacing: .05em;
+}
+
+.choice-q{
+    margin: 25px 0 .7rem;
+    font-size: 15px;
+    line-height: 1.3em;
+    letter-spacing: .05em;
+}
