@@ -185,3 +185,27 @@ body{
     line-height: 1.3em;
     letter-spacing: .05em;
 }
+
+.choice-button{
+    cursor:pointer;
+    background: #456F99;
+    color: #FFF;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    text-align: left;
+    padding: 7px 13px;
+    font-size: 16px;
+    line-height: 1.3em;
+    letter-spacing: .05em;
+    border: none;
+    display: block;
+    width: 100%;
+}
+
+.choice-button:active{
+    background: #B8D1E6;
+}
+
+.choice-button-disabled{
+    background: #B8D1E6;
+}
