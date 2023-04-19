@@ -209,3 +209,18 @@ body{
 .choice-button-disabled{
     background: #B8D1E6;
 }
+
+#robot-loading-field{
+    display: inline-block;
+    height: 100%;
+    width: 26px;
+    position: relative;
+}
+
+#robot-loading-field > span{
+    color: #335C80;
+    font-size: 10px;
+    transform: scale(.7);
+    position: absolute;
+    top: -12px;
+}
