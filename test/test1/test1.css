@@ -18,7 +18,7 @@ body{
     background: #1d1b1b;
     /* PC */
     height: 80vh; 
-    width: 350px;
+    width: 500px;
     bottom: 0;
     right: 0;
     margin: 0;
@@ -40,7 +40,7 @@ body{
 
 /* 「AI Chatbot」の部分 */
 #chatbot-logo{
-    color:rgb(218, 53, 199);
+    color:#FFF;
     line-height: 60px;
     padding:0 30px;
     font-size: 16px;
@@ -136,17 +136,25 @@ body{
 
 /* 相手の吹き出しのデザイン */
 .chatbot-left{
-    margin-left: 20px;
+    margin-left: 10px;
     background: #E6F0F7;
     border-radius: 9px;
     color:#3a717c;
 }
 
 .chatbot-left-rounded{
-    margin-left: 20px;
+    margin-left: 10px;
     background: #E6F0F7;
     border-radius: 9px;
     color: #1A5F80;
+}
+
+.chatbot-icon{
+    margin-left: 10px;
+    height: 32px;
+    width: 32px;
+    background-image: url(../img/botIcon1.png);
+    vertical-align: top;
 }
 
 /* 自分の吹き出し */
@@ -223,4 +231,70 @@ body{
     transform: scale(.7);
     position: absolute;
     top: -12px;
+}
+
+#robot-loading-circle1{
+    animation: rlc1 .8s linear infinite alternate;
+}
+
+@keyframes rlc1{
+    0%{
+        margin-top: -6px;
+    }
+    25%{
+        margin-top: 0px;
+    }
+    50%{
+        margin-top: 6px;
+    }
+    75%{
+        margin-top: 0px;
+    }
+    100%{
+        margin-top: -6px;
+    }
+}
+
+#robot-loading-circle2{
+    animation: rlc2 .8s linear infinite;
+    margin-left: 8px;
+}
+@keyframes rlc2{
+    0% {
+        margin-top: 0px;
+    }
+    25% {
+        margin-top: -6px;
+    }
+    50% {
+        margin-top: 0px;
+    }
+    75% {
+        margin-top: 6px;
+    }
+    100% {
+        margin-top: 0px;
+    }
+}
+
+#robot-loading-circle3{
+    animation: rlc3 .8s linear infinite alternate;
+    margin-left: 16px;
+}
+@keyframes rlc3 {
+    0% {
+        margin-top: 6px;
+    }
+    25% {
+        margin-top: 0px;
+    }
+    50% {
+        margin-top: -6px;
+    }
+    75% {
+        margin-top: 0px;
+    }
+    100% {
+        margin-top: 6px;
+    }
 }

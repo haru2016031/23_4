@@ -13,15 +13,16 @@ const chatList = {
     11: {text: {title: 'Q2', question: 'どの山が世界一高いでしょう？', choices: ['エベレスト', 'K2', '富士山'], answer: '0'}, continue: false, option: 'choices'},
     12: {text: {qTrue: '', qFalse:'残念！正解は「エベレスト」でした。'}, continue: true, option: 'normal'},
     13: {text: '', continue: true, option: 'normal'},
-    // 14: {text: {title: '満足度調査', question: 'このAIチャットボットの満足度を5段階で教えてください（数字が大きいほど満足度が高いものとします。）。', choices: ['5', '4', '3', '2', '1']}, continue: false, option: 'choices'},
-    // 15: {text: 'ありがとうございます。最後に、ご感想をお聞かせください。', continue: false, option: 'normal'},
-    // 16: {text: '', continue: false, option: 'normal'}
-
+    14: {text: {title: '満足度調査', question: 'このAIチャットボットの満足度を5段階で教えてください（数字が大きいほど満足度が高いものとします。）。', choices: ['5', '4', '3', '2', '1']}, continue: false, option: 'choices'},
+    15: {text: 'ありがとうございます。最後に、ご感想をお聞かせください。', continue: false, option: 'normal'},
+    16: {text: '', continue: false, option: 'normal'}
 };
 
 function textSpecial(){
     chatList[7].text = `こんにちは！${userData[1]}先生`;
     chatList[12].text.qTrue = `正解！${userData[1]}先生,すごいですねー`;
+    chatList[13].text = `${userData[1]}先生、ありがとうございました。今日はここで終了とさせていただきます。`; 
+    chatList[16].text = `${userData[1]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
 }
 
 let userCount = 0;
@@ -80,6 +81,15 @@ function pushChoice(e){
     robotOutput();
 }   
 
+function ChangeIcon(e){
+    $('.chatbot-icon').css({
+        backgroundImage: $('.chatbot-icon').css('background-image').replace('botIcon1.png', 'botIcon2.png')
+    });   
+    //  const targetImg = document.getElementById('chatbotIcon');
+    // targetImg.style.backgroundImage = 'url(../img/botIcon2.png)';
+    // console.log(e.height);
+}
+
 function robotOutput(){
     robotCount ++;
     console.log('robotCount:' + robotCount);
@@ -88,6 +98,14 @@ function robotOutput(){
     const li = document.createElement('li');
     li.classList.add('left');
     ul.appendChild(li);
+
+    //botアイコン表示
+    const robotIconDiv = document.createElement('div');
+    li.appendChild(robotIconDiv);
+    robotIconDiv.id = 'chatbotIcon';
+    robotIconDiv.classList.add('chatbot-icon');
+    //アイコンクリックでアイコンの変更
+    robotIconDiv.setAttribute('onclick','ChangeIcon(this)')
 
     //考え中アニメ
     const robotLoadingDiv = document.createElement('div');
@@ -169,7 +187,7 @@ function robotOutput(){
         //下までスクロール
         chatToBottom();
 
-            //連続投稿
+         //連続投稿
         if(chatList[robotCount].continue){
             robotOutput();
         }
