@@ -40,6 +40,8 @@ const chatSubmitBtn = document.getElementById('chatbot-submit');
 
 // ロボットの投稿回数
 let robotCount = 0;
+//ロボットアイコンID
+let robotIconID = 1;
 
 //選択肢の正解個数
 let qPoint = 0;
@@ -81,10 +83,27 @@ function pushChoice(e){
     robotOutput();
 }   
 
-function ChangeIcon(e){
-    $('.chatbot-icon').css({
-        backgroundImage: $('.chatbot-icon').css('background-image').replace('botIcon1.png', 'botIcon2.png')
-    });   
+function ChangeIcon(el){
+    // console.log(el.value);
+
+    //ファイルパス加工
+    //C:\fakepath\botIcon1.png
+    //botIcon1を取得する
+    console.log(typeof el.value)
+    let regexp = RegExp('[/\h\.]');
+    const botName = el.value.split(regexp);
+    console.log(botName);
+
+    // robotIconID++;
+    // $('.chatbot-icon').css({
+    //     backgroundImage: $('.chatbot-icon').css('background-image').replace('botIcon'+(robotIconID-1)+'.png', 'botIcon'+robotIconID+'.png')
+    // });   
+    // var fileReader = new FileReader();
+	// fileReader.onload = (function() {
+	// 	document.getElementById('preview').src = fileReader.result;
+	// });
+	// fileReader.readAsDataURL(obj.files[0]);
+
     //  const targetImg = document.getElementById('chatbotIcon');
     // targetImg.style.backgroundImage = 'url(../img/botIcon2.png)';
     // console.log(e.height);
@@ -102,10 +121,23 @@ function robotOutput(){
     //botアイコン表示
     const robotIconDiv = document.createElement('div');
     li.appendChild(robotIconDiv);
-    robotIconDiv.id = 'chatbotIcon';
     robotIconDiv.classList.add('chatbot-icon');
+    robotIconDiv.style.backgroundImage = `url(../img/botIcon${robotIconID}.png)`;
+    //画像変更のためのファイル選択
+    const robotIconFile = document.createElement('input');
+    li.appendChild(robotIconFile);
+    robotIconFile.type = 'file';
+    robotIconFile.accept = '.png';
+    robotIconFile.classList.add('icon-button');
     //アイコンクリックでアイコンの変更
-    robotIconDiv.setAttribute('onclick','ChangeIcon(this)')
+
+    robotIconDiv.addEventListener('click',(e)=>{
+        if(robotIconFile){
+            robotIconFile.click();
+            ChangeIcon(robotIconFile);
+        }
+    })
+    // robotIconDiv.setAttribute('onclick','ChangeIcon(robotIconFile)');
 
     //考え中アニメ
     const robotLoadingDiv = document.createElement('div');

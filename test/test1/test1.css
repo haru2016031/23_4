@@ -153,8 +153,11 @@ body{
     margin-left: 10px;
     height: 32px;
     width: 32px;
-    background-image: url(../img/botIcon1.png);
     vertical-align: top;
+}
+
+.icon-button{
+    display: none;
 }
 
 /* 自分の吹き出し */
