@@ -153,6 +153,11 @@ body{
     margin-left: 10px;
     height: 32px;
     width: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    overflow: hidden;
     vertical-align: top;
 }
 
@@ -162,12 +167,19 @@ body{
 
 /* 自分の吹き出し */
 .chatbot-right{
-    margin-right: 20px;
+    margin-right: 10px;
     background: #456F99;
     text-align: left;
     border-radius: 9px 0 9px 9px;
     color: #FFF;
+    vertical-align: top;
 }
+
+.myIcon{
+    margin: -7px -13px;
+    vertical-align: top;
+}
+
 .left{
     text-align: left;
 }

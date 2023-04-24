@@ -41,7 +41,7 @@ const chatSubmitBtn = document.getElementById('chatbot-submit');
 // ロボットの投稿回数
 let robotCount = 0;
 //ロボットアイコンID
-let robotIconID = 1;
+let robotIconID = '../img/botIcon1.png';
 
 //選択肢の正解個数
 let qPoint = 0;
@@ -83,30 +83,18 @@ function pushChoice(e){
     robotOutput();
 }   
 
-function ChangeIcon(el){
-    // console.log(el.value);
+function ChangeIcon(){
+    const file = window.event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function () {
+    robotIconID = reader.result;
+    console.log(robotIconID);
+    $('.chatbot-icon').css({
+        backgroundImage: `url(${robotIconID})`
+    });
+}
+    reader.readAsDataURL(file);
 
-    //ファイルパス加工
-    //C:\fakepath\botIcon1.png
-    //botIcon1を取得する
-    console.log(typeof el.value)
-    let regexp = RegExp('[/\h\.]');
-    const botName = el.value.split(regexp);
-    console.log(botName);
-
-    // robotIconID++;
-    // $('.chatbot-icon').css({
-    //     backgroundImage: $('.chatbot-icon').css('background-image').replace('botIcon'+(robotIconID-1)+'.png', 'botIcon'+robotIconID+'.png')
-    // });   
-    // var fileReader = new FileReader();
-	// fileReader.onload = (function() {
-	// 	document.getElementById('preview').src = fileReader.result;
-	// });
-	// fileReader.readAsDataURL(obj.files[0]);
-
-    //  const targetImg = document.getElementById('chatbotIcon');
-    // targetImg.style.backgroundImage = 'url(../img/botIcon2.png)';
-    // console.log(e.height);
 }
 
 function robotOutput(){
@@ -122,22 +110,22 @@ function robotOutput(){
     const robotIconDiv = document.createElement('div');
     li.appendChild(robotIconDiv);
     robotIconDiv.classList.add('chatbot-icon');
-    robotIconDiv.style.backgroundImage = `url(../img/botIcon${robotIconID}.png)`;
+    robotIconDiv.style.backgroundImage = `url(${robotIconID})`;
+
     //画像変更のためのファイル選択
-    const robotIconFile = document.createElement('input');
+    let robotIconFile = document.createElement('input');
     li.appendChild(robotIconFile);
     robotIconFile.type = 'file';
     robotIconFile.accept = '.png';
     robotIconFile.classList.add('icon-button');
-    //アイコンクリックでアイコンの変更
+    robotIconFile.addEventListener('change',ChangeIcon);
 
+    //アイコンクリックでアイコンの変更
     robotIconDiv.addEventListener('click',(e)=>{
         if(robotIconFile){
             robotIconFile.click();
-            ChangeIcon(robotIconFile);
         }
     })
-    // robotIconDiv.setAttribute('onclick','ChangeIcon(robotIconFile)');
 
     //考え中アニメ
     const robotLoadingDiv = document.createElement('div');
@@ -243,11 +231,23 @@ function myOutput(){
     //作成したdivに入力内容を挿入
     const div = document.createElement('div');
 
+    // 入力内容を含む要素を作成し、アイコンを追加する
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('chatbot-right');
+    contentDiv.textContent = userText.value;
+    li.appendChild(contentDiv);
+
+
+    // アイコン用の要素を作成し、チャットボットのアイコンを設定する
+    const iconDiv = document.createElement('div');
+    iconDiv.classList.add('myIcon');
+    const iconImg = document.createElement('img');
+    iconImg.setAttribute('src', '../img/botIcon2.png'); // ここにアイコンの画像ファイルのパスを指定する
+    iconDiv.appendChild(iconImg);
+    li.appendChild(iconDiv);
+
     li.classList.add('right');
     ul.appendChild(li);
-    li.appendChild(div);
-    div.classList.add('chatbot-right');
-    div.textContent = userText.value;
 
     //一番下までスクロール
     chatToBottom();
