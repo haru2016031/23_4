@@ -1,28 +1,52 @@
-const chatList = {
 
-    1: {text: 'ようこそ「chatbot」へ!',continue:true,option:'normal'},
-    2: {text: '会話内容は管理者へ送信されませんので、ご安心ください。',continue: true,option: 'normal'},
-    3: {text: {title:'Q1',question:'何を知りたいですか？',choices:['開発者について','参考にしたチャットボット','デモアプリ','島根県']},continue:false,option:'choices',quetionNextSupport: true},
-    4: {text: ['https://mf3px.sakura.ne.jp/', 'https://www.hubspot.jp/', 'https://gallery.flutter.dev/', 'https://www.town.shimane-misato.lg.jp/misatoto/'], continue: true, option: 'normal', link: true},
-    5: {text: 'こちらの文字をクリックしてください。', continue: true, option: 'normal'},
-    6: {text: 'あなたのお名前は何ですか？', continue: false, option: 'normal'},
-    7: {text: '', continue: true, option: 'normal'},
-    8: {text: '今日の体調はいかがですか？', continue: false, option: 'normal'},
-    9: {text: ['そうですか！', 'わかりました！', '承知致しました！'], continue: true, option: 'random'},
-    10: {text: 'ここで問題です！', continue: true, option: 'normal'},
-    11: {text: {title: 'Q2', question: 'どの山が世界一高いでしょう？', choices: ['エベレスト', 'K2', '富士山'], answer: '0'}, continue: false, option: 'choices'},
-    12: {text: {qTrue: '', qFalse:'残念！正解は「エベレスト」でした。'}, continue: true, option: 'normal'},
-    13: {text: '', continue: true, option: 'normal'},
-    14: {text: {title: '満足度調査', question: 'このAIチャットボットの満足度を5段階で教えてください（数字が大きいほど満足度が高いものとします。）。', choices: ['5', '4', '3', '2', '1']}, continue: false, option: 'choices'},
-    15: {text: 'ありがとうございます。最後に、ご感想をお聞かせください。', continue: false, option: 'normal'},
-    16: {text: '', continue: false, option: 'normal'}
-};
+
+// const chatList = {
+
+//     1: {text: 'ようこそ「chatbot」へ!',continue:true,option:'normal'},
+//     2: {text: '会話内容は管理者へ送信されませんので、ご安心ください。',continue: true,option: 'normal'},
+//     3: {text: {title:'Q1',question:'何を知りたいですか？',choices:['開発者について','参考にしたチャットボット','デモアプリ','島根県']},continue:false,option:'choices',quetionNextSupport: true},
+//     4: {text: ['https://mf3px.sakura.ne.jp/', 'https://www.hubspot.jp/', 'https://gallery.flutter.dev/', 'https://www.town.shimane-misato.lg.jp/misatoto/'], continue: true, option: 'normal', link: true},
+//     5: {text: 'こちらの文字をクリックしてください。', continue: true, option: 'normal'},
+//     6: {text: 'あなたのお名前は何ですか？', continue: false, option: 'normal'},
+//     7: {text: '', continue: true, option: 'normal'},
+//     8: {text: '今日の体調はいかがですか？', continue: false, option: 'normal'},
+//     9: {text: ['そうですか！', 'わかりました！', '承知致しました！'], continue: true, option: 'random'},
+//     10: {text: 'ここで問題です！', continue: true, option: 'normal'},
+//     11: {text: {title: 'Q2', question: 'どの山が世界一高いでしょう？', choices: ['エベレスト', 'K2', '富士山'], answer: '0'}, continue: false, option: 'choices'},
+//     12: {text: {qTrue: '', qFalse:'残念！正解は「エベレスト」でした。'}, continue: true, option: 'normal'},
+//     13: {text: '', continue: true, option: 'normal'},
+//     14: {text: {title: '満足度調査', question: 'このAIチャットボットの満足度を5段階で教えてください（数字が大きいほど満足度が高いものとします。）。', choices: ['5', '4', '3', '2', '1']}, continue: false, option: 'choices'},
+//     15: {text: 'ありがとうございます。最後に、ご感想をお聞かせください。', continue: false, option: 'normal'},
+//     16: {text: '', continue: false, option: 'normal'}
+// };
+
 
 function textSpecial(){
     chatList[7].text = `こんにちは！${userData[1]}先生`;
     chatList[12].text.qTrue = `正解！${userData[1]}先生,すごいですねー`;
     chatList[13].text = `${userData[1]}先生、ありがとうございました。今日はここで終了とさせていただきます。`; 
     chatList[16].text = `${userData[1]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
+}
+
+let chatList = "";
+let loadFlag = false;
+
+function LoadJs(){
+      var script = $('<script>').attr({
+        'type': 'text/javascript',
+        'src': '../resource/data/loadjson.js'
+      });
+      script.onload = function(){
+        loadFlag = true;
+        console.log('読み込み完了');
+      };
+      console.log(window.SWEETS);
+    //   script.on('load', function(){
+    //     var data = window.SWEETS;
+    //     console.log(data);
+    //   });
+      $('body')[0].appendChild(script[0]);
+
 }
 
 let userCount = 0;
@@ -41,7 +65,9 @@ const chatSubmitBtn = document.getElementById('chatbot-submit');
 // ロボットの投稿回数
 let robotCount = 0;
 //ロボットアイコンID
-let robotIconID = '../img/botIcon1.png';
+let robotIconID = '../resource/img/botIcon1.png';
+//自分のアイコンID
+let myIconID = '../resource/img/botIcon2.png';
 
 //選択肢の正解個数
 let qPoint = 0;
@@ -83,23 +109,41 @@ function pushChoice(e){
     robotOutput();
 }   
 
-function ChangeIcon(){
+function ChangeRobotIcon(){
     const file = window.event.target.files[0];
     const reader = new FileReader();
     reader.onload = function () {
-    robotIconID = reader.result;
-    console.log(robotIconID);
-    $('.chatbot-icon').css({
-        backgroundImage: `url(${robotIconID})`
-    });
+        robotIconID = reader.result;
+        console.log(robotIconID);
+        $('.chatbot-icon').css({
+            backgroundImage: `url(${robotIconID})`
+        });
 }
     reader.readAsDataURL(file);
 
 }
 
+function ChangeMyIcon(){
+    const file = window.event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function () {
+        myIconID = reader.result;
+        var imgs =  document.querySelectorAll(".myIconImg");
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].src = myIconID;
+          }
+    }
+    reader.readAsDataURL(file);
+}
+
 function robotOutput(){
+
     robotCount ++;
     console.log('robotCount:' + robotCount);
+
+    //返信を不可にする
+    chatSubmitBtn.disabled = true;
+
     // ulとliを作り、左寄せのスタイルを適用し投稿
     const ul = document.getElementById('chatbot-ul');
     const li = document.createElement('li');
@@ -118,10 +162,10 @@ function robotOutput(){
     robotIconFile.type = 'file';
     robotIconFile.accept = '.png';
     robotIconFile.classList.add('icon-button');
-    robotIconFile.addEventListener('change',ChangeIcon);
+    robotIconFile.addEventListener('change',ChangeRobotIcon);
 
     //アイコンクリックでアイコンの変更
-    robotIconDiv.addEventListener('click',(e)=>{
+    robotIconDiv.addEventListener('click',()=>{
         if(robotIconFile){
             robotIconFile.click();
         }
@@ -130,7 +174,7 @@ function robotOutput(){
     //考え中アニメ
     const robotLoadingDiv = document.createElement('div');
 
-    setTimeout(() => {
+    do{setTimeout(() => {
         li.appendChild(robotLoadingDiv);
         robotLoadingDiv.classList.add('chatbot-left');
         robotLoadingDiv.innerHTML = '<div id= "robot-loading-field"><span id= "robot-loading-circle1" class="material-icons">circle</span> <span id= "robot-loading-circle2" class="material-icons">circle</span> <span id= "robot-loading-circle3" class="material-icons">circle</span>';
@@ -138,6 +182,8 @@ function robotOutput(){
         //下までスクロール
         chatToBottom();
     }, 100);
+    }while(!loadFlag)
+
 
     setTimeout(() => {
         //考え中アニメ削除
@@ -202,6 +248,9 @@ function robotOutput(){
 
                 div.textContent = chatList[robotCount].text[num];
             }
+            //返信を可能にする
+            chatSubmitBtn.disabled = false;
+
         }
 
         //下までスクロール
@@ -215,6 +264,11 @@ function robotOutput(){
     },1000);
 
 }
+
+//jsonの読み込み
+LoadJs();
+
+chatList = window.SWEETS;
 
 //最初のボットの発言
 robotOutput();
@@ -242,8 +296,25 @@ function myOutput(){
     const iconDiv = document.createElement('div');
     iconDiv.classList.add('myIcon');
     const iconImg = document.createElement('img');
-    iconImg.setAttribute('src', '../img/botIcon2.png'); // ここにアイコンの画像ファイルのパスを指定する
+    iconImg.classList.add('myIconImg');
+    iconImg.setAttribute('src', `${myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
     iconDiv.appendChild(iconImg);
+
+    //画像変更のためのファイル選択
+    let myIconFile = document.createElement('input');
+    li.appendChild(myIconFile);
+    myIconFile.type = 'file';
+    myIconFile.accept = '.png';
+    myIconFile.classList.add('icon-button');
+    myIconFile.addEventListener('change',ChangeMyIcon);
+
+    //アイコンクリックでアイコン変更
+    iconDiv.addEventListener('click',()=>{
+        if(myIconFile){
+            myIconFile.click();
+            }
+        }
+    )
     li.appendChild(iconDiv);
 
     li.classList.add('right');
