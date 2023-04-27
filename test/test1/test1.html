@@ -12,7 +12,7 @@
         <div id="chatbot">
             <!-- チャットボットの上の部分 -->
             <div id="chatbot-header">
-                <div id="chatbot-logo">AI Chatbot</div>
+                <div id="chatbot-logo">QuizBot</div>
                 <i id= "chatbot-zoom-icon" class="material-icons waves-effect waves-light" >fullscreen</i>
             </div>
             <!-- 会話部分 -->
@@ -23,6 +23,14 @@
             <div id="chatbot-footer">
                 <input type="text" id="chatbot-text" placeholder="入力してください">
                 <input type="submit" value = "送信" id="chatbot-submit">    
+            </div>
+            <!-- スタンプ部分 -->
+            <div id="chatbot-stampField">
+                <ul id="stampField-ul">
+                    <div class="preStamp" onclick="StampOutput('../resource/img/stamp/kaeruka.png')">
+                        <img src="../resource/img/stamp/kaeruka.png">
+                    </div>
+                </ul>
             </div>
         </div>
     </body>

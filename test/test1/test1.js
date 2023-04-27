@@ -24,8 +24,8 @@
  function textSpecial(){
      chatList[3].text = `こんにちは！${userData[0]}先生`;
      chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
-     chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
-     chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
+    //  chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
+    //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
  }
  let index = 0;
  let loadFlag = false;
@@ -205,8 +205,6 @@
  //選択肢を押したときの次の選択肢
  let nextTextOption = '';
  
- 
- 
  //一番下へ
  function chatToBottom() {
      const chatField = document.getElementById('chatbot-body');
@@ -310,6 +308,53 @@
      else if (e.code === 'Enter') {
          myOutput();
      }
+ }
+
+ //スタンプ投稿
+ function StampOutput(path){
+    //ulとliを作り、右寄せのスタイルを適用し投稿する
+    const ul = document.getElementById('chatbot-ul');
+    const li = document.createElement('li');
+    //作成したdivに入力内容を挿入
+    const stampDiv = document.createElement('div');
+    ul.appendChild(li);
+    li.appendChild(stampDiv);
+    stampDiv.classList.add('stamp');
+    const stampImg = document.createElement('img');
+    stampImg.classList.add('stampImg');
+    stampImg.setAttribute('src',path);
+    stampDiv.appendChild(stampImg);
+
+    // アイコン用の要素を作成し、チャットボットのアイコンを設定する
+    const iconDiv = document.createElement('div');
+    iconDiv.classList.add('myIcon');
+    const iconImg = document.createElement('img');
+    iconImg.classList.add('myIconImg');
+    iconImg.setAttribute('src', `${myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
+    iconDiv.appendChild(iconImg);
+
+    //画像変更のためのファイル選択
+    let myIconFile = document.createElement('input');
+    li.appendChild(myIconFile);
+    myIconFile.type = 'file';
+    myIconFile.accept = '.png';
+    myIconFile.classList.add('icon-button');
+    myIconFile.addEventListener('change', ChangeMyIcon);
+
+    //アイコンクリックでアイコン変更
+    iconDiv.addEventListener('click', () => {
+        if (myIconFile) {
+            myIconFile.click();
+        }
+    }
+    )
+    li.appendChild(iconDiv);
+
+    li.classList.add('right');
+
+    //一番下までスクロール
+    chatToBottom();
+
  }
  
  //デバック連投
