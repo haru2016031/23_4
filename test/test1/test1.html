@@ -16,21 +16,21 @@
                 <i id= "chatbot-zoom-icon" class="material-icons waves-effect waves-light" >fullscreen</i>
             </div>
             <!-- 会話部分 -->
-            <div id="chatbot-body">
-                <ul id="chatbot-ul"></ul>
-            </div>
-            <!-- 入力＆送信ボタン部分 -->
-            <div id="chatbot-footer">
-                <input type="text" id="chatbot-text" placeholder="入力してください">
-                <input type="submit" value = "送信" id="chatbot-submit">    
-            </div>
-            <!-- スタンプ部分 -->
-            <div id="chatbot-stampField">
-                <ul id="stampField-ul">
-                    <div class="preStamp" onclick="StampOutput('../resource/img/stamp/kaeruka.png')">
-                        <img src="../resource/img/stamp/kaeruka.png">
-                    </div>
-                </ul>
+            <div id="chatbot-main" style="top: 0px">
+                <div id="chatbot-body">
+                    <ul id="chatbot-ul"></ul>
+                </div>
+                <!-- 入力＆送信ボタン部分 -->
+                <div id="chatbot-footer">
+                    <input type="text" id="chatbot-text" placeholder="入力してください">
+                    <img src="../resource/img/stamp.png" id="stamp-submit">
+                    <input type="submit" value = "送信" id="chatbot-submit">    
+                </div>    
+                <!-- スタンプ部分 -->
+                <div id="chatbot-stampField">
+                    <ul id="stampField-ul"></ul>
+                </div>
+
             </div>
         </div>
     </body>

@@ -1,34 +1,35 @@
 
-/*/
- const chatList = {
-     1: {text: 'ようこそ「chatbot」へ!',continue:true,option:'normal'},
-     2: {text: '会話内容は管理者へ送信されませんので、ご安心ください。',continue: true,option: 'normal'},
-     3: {text: {title:'Q1',question:'何を知りたいですか？',choices:['開発者について','参考にしたチャットボット','デモアプリ','島根県']},continue:false,option:'choices',quetionNextSupport: true},
-     4: {text: ['https://mf3px.sakura.ne.jp/', 'https://www.hubspot.jp/', 'https://gallery.flutter.dev/', 'https://www.town.shimane-misato.lg.jp/misatoto/'], continue: true, option: 'normal', link: true},
-     5: {text: 'こちらの文字をクリックしてください。', continue: true, option: 'normal'},
-     6: {text: 'あなたのお名前は何ですか？', continue: false, option: 'normal'},
-     7: {text: '', continue: true, option: 'normal'},
-     8: {text: '今日の体調はいかがですか？', continue: false, option: 'normal'},
-     9: {text: ['そうですか！', 'わかりました！', '承知致しました！'], continue: true, option: 'random'},
-     10: {text: 'ここで問題です！', continue: true, option: 'normal'},
-     11: {text: {title: 'Q2', question: 'どの山が世界一高いでしょう？', choices: ['エベレスト', 'K2', '富士山'], answer: '0'}, continue: false, option: 'choices'},
-     12: {text: {qTrue: '', qFalse:'残念！正解は「エベレスト」でした。'}, continue: true, option: 'normal'},
-     13: {text: '', continue: true, option: 'normal'},
-     14: {text: {title: '満足度調査', question: 'このAIチャットボットの満足度を5段階で教えてください（数字が大きいほど満足度が高いものとします。）。', choices: ['5', '4', '3', '2', '1']}, continue: false, option: 'choices'},
-     15: {text: 'ありがとうございます。最後に、ご感想をお聞かせください。', continue: false, option: 'normal'},
-     16: {text: '', continue: false, option: 'normal'}
- };
- /*/
  let chatList = "";
- //*/
+ 
  function textSpecial(){
      chatList[3].text = `こんにちは！${userData[0]}先生`;
      chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
     //  chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
     //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
  }
- let index = 0;
- let loadFlag = false;
+
+ function SetStampHTML(pathList){
+    let html = '';
+    for(let i=0;i<pathList.length;i++)
+    {
+        html += `<div class="preStamp" onclick="StampOutput('../resource/img/stamp/${pathList[i]}.png')"><img src="../resource/img/stamp/${pathList[i]}.png"></div>`;
+    }
+    return html;     
+ }
+
+//スタンプ部分のHTMLの内容
+const stampPath = '../resource/img/stamp/';
+function CreateStampField(){
+    const stampList =['kaeruka','hamster_sleeping','mamoru','calender_shock',
+        'ganbare','murisuruna','flash_mob','dance_man','ahiruguchi_woman',
+        'ai_dance','drone_illumination','money_shihei','motion_capture',
+        'yumekawa_tenshi','yumekawa_tenshi','yumekawa_tenshi','yumekawa_tenshi'
+    ];
+    const stampHtml = SetStampHTML(stampList);
+    return stampHtml;
+}
+
+let loadFlag = false;
  
  // ユーザの返信を入れる配列
  let userData = [];
@@ -395,6 +396,11 @@
          chatList = window.SWEETS;
          loadFlag = true;
      }
+
+     //スタンプ部分の追加
+     const html = CreateStampField();
+     const id = document.getElementById('stampField-ul');
+     id.innerHTML = html;
  
      // ここからchatListを利用する処理を記述
  
@@ -406,6 +412,18 @@
      chatSubmitBtn.addEventListener('click', myOutput);
      //エンター投稿
      userText.addEventListener('keypress', enterOutput);
+
+     const stampSubmit = document.getElementById('stamp-submit');
+    const chatbotStampField = document.getElementById('chatbot-main');
+
+    stampSubmit.addEventListener('click', () => {
+        if(chatbotStampField.style.top == '0px')
+        {
+            chatbotStampField.style.top = '-48px';
+        }else{
+            chatbotStampField.style.top = '0px';
+        }
+    });
  
  }
  

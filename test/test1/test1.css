@@ -12,7 +12,7 @@ body{
 }
 #chatbot{
     position:fixed;
-    /* overflow:hidden; */
+    overflow:hidden;
     opacity:1;
     transition: .4s;
     background: #1d1b1b;
@@ -38,6 +38,7 @@ body{
     border-bottom: 0.5px solid;
     border-color: #353d68;
     justify-content: space-around;
+    z-index: 1;
 }
 
 /* 「AI Chatbot」の部分 */
@@ -56,6 +57,10 @@ body{
     padding:0 20px;
     color: #FFF;
     cursor:pointer;
+}
+
+#chatbot-main{
+    position:relative;
 }
 
 #chatbot-body{
@@ -80,6 +85,7 @@ body{
     box-sizing: border-box;
     background: #FFF;
     border-top: 1.5px solid #EEE;
+    border-bottom: 2px solid #4242422c;
 }
 /* 文字を入力する場所 */
 #chatbot-text{
@@ -93,6 +99,13 @@ body{
     color: #777;
     border: 0;
     outline: 0;
+}
+
+/* スタンプのボタン */
+#stamp-submit{
+    height: 32px;
+    width: 32px;
+    margin: 7px 7px;
 }
 
 /* 送信ボタン */
@@ -325,15 +338,43 @@ body{
     }
 }
 
+#chatbot-stampField{
+    width: 100%;
+    height: 48px;
+    background: #FFF;
+    display: flex;
+    align-content: center;
+    align-items: center;
+
+}
+
+#stampField-ul{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.preStamp{
+    display: flex; /* flexbox コンテナにする */
+    align-items: center;
+    justify-content: center;
+    height: 48px; /* 高さを指定 */
+    width: 48px; /* 幅を指定 */
+    box-sizing: border-box; /* ボーダーとパディングを含めた幅にする */
+    border: 1px solid #ccc;
+    margin: 2px; /* 間隔を指定 */
+}
+
 .preStamp img{
     height: 32px;
     width: 32px;
 }
 
 
-
 .stamp img{
     height: 128px;
     width: 128px;
+    object-fit: contain;
+    object-position: center;
 }
 
