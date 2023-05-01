@@ -32,7 +32,7 @@ body{
 
 #chatbot-header{
     height: 60px;
-    background: #5867b2;
+    background: #5b69ae;
     position: relative;
     display:flex;
     border-bottom: 0.5px solid;
@@ -67,7 +67,7 @@ body{
     width: 100%;
     height: calc(80vh - 110px);
     padding-top: 10px;
-    background: #5867b2;
+    background: #5b69ae;
     box-sizing: border-box;
     /* 横スクロール禁止 */
     overflow-x: hidden;
@@ -96,6 +96,7 @@ body{
     box-sizing: border-box;
     padding-left: 10px;
     margin:auto 10px auto 15px;
+    background: FFF;
     color: #777;
     border: 0;
     outline: 0;
@@ -110,19 +111,22 @@ body{
 
 /* 送信ボタン */
 #chatbot-submit{
+    background:#9c9c9c;
     cursor: pointer;
     height: 35px;
-    width: 20%;
+    width: 8%;
     margin: auto;
     margin-right: 15px;
-    font-size:16px;
-    background: #335c80;
+    font-size:28px;
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
+  
     color: white;
-    display: block;
+    display: flex;
     /* デフォルトのボーダーを消す */
     border: none;
     box-sizing: border-box;
-    border-radius: 7px;
+    border-radius: 18px;
 }
 
 #chatbot-ul{
@@ -144,7 +148,6 @@ body{
     min-height: 23px;
     max-width: 70%;
     padding: 7px 13px;
-    font-size: 16px;
     line-height: 1.3em;
     position: relative;
 }
@@ -180,8 +183,25 @@ body{
     display: none;
 }
 
+/* 時間関連 */
+.time{
+    color: #575757;
+    font-size: 0.8rem;
+    margin: -7px -7px 0px -13px;
+    vertical-align: bottom;
+}
+
 /* 自分の吹き出し */
+#chatbot-ul > li > .name-right {
+    position: absolute;
+    top: -8px;
+    right: 8%;
+    font-size: 14px; 
+    z-index: 1; /* 要素を手前に表示するために追加 */
+}
+
 .chatbot-right{
+    margin-top: 20px; /* 適宜調整してください */
     margin-right: 10px;
     background: #30d649;
     text-align: left;
@@ -340,11 +360,9 @@ body{
 
 #chatbot-stampField{
     width: 100%;
-    height: 48px;
+    height: 0px;
     background: #FFF;
     display: flex;
-    align-content: center;
-    align-items: center;
 
 }
 
@@ -361,13 +379,16 @@ body{
     height: 48px; /* 高さを指定 */
     width: 48px; /* 幅を指定 */
     box-sizing: border-box; /* ボーダーとパディングを含めた幅にする */
-    border: 1px solid #ccc;
     margin: 2px; /* 間隔を指定 */
 }
 
 .preStamp img{
     height: 32px;
     width: 32px;
+}
+
+.stamp{
+    margin: 20px -7px 0px -13px
 }
 
 

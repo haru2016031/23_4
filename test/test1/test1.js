@@ -8,6 +8,19 @@
     //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
  }
 
+ //時間表示生成
+ function CreateTime(){
+    const now = new Date();
+
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0'); // 2桁に調整す;
+    const timeDiv = document.createElement('div');
+    timeDiv.classList.add('time');
+    timeDiv.textContent = `${hours}:${minutes}`;
+    return timeDiv;
+ }
+
+ //スタンププレビュー生成
  function SetStampHTML(pathList){
     let html = '';
     for(let i=0;i<pathList.length;i++)
@@ -27,6 +40,23 @@ function CreateStampField(){
     ];
     const stampHtml = SetStampHTML(stampList);
     return stampHtml;
+}
+
+//スタンプボタンについて
+function SetStampButton(){
+    const stampSubmit = document.getElementById('stamp-submit');
+    const chatbotStampField = document.getElementById('chatbot-main');
+
+    stampSubmit.addEventListener('click', () => {
+        const stampId = document.getElementById('stampField-ul');
+        if(chatbotStampField.style.top == '0px')
+        {
+            const h = stampId.scrollHeight.toString();
+            chatbotStampField.style.top = `-${h}px`;
+        }else{
+            chatbotStampField.style.top = '0px';
+        }
+    });
 }
 
 let loadFlag = false;
@@ -181,6 +211,11 @@ let loadFlag = false;
  
          robotCount++;
 
+         //時間の表示
+         const t = CreateTime();
+         t.style.bottom = '-8px';
+         li.appendChild(t);
+
          //下までスクロール
          chatToBottom();
  
@@ -252,10 +287,17 @@ let loadFlag = false;
      //ulとliを作り、右寄せのスタイルを適用し投稿する
      const ul = document.getElementById('chatbot-ul');
      const li = document.createElement('li');
-     //作成したdivに入力内容を挿入
-     const div = document.createElement('div');
+
+     //時間の表示
+    li.appendChild(CreateTime());
+
+    // 名前の表示
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('name-right');
+    nameDiv.textContent = userData[0];
+    li.appendChild(nameDiv);
  
-     // 入力内容を含む要素を作成し、アイコンを追加する
+     // 入力内容を含む要素を作成
      const contentDiv = document.createElement('div');
      contentDiv.classList.add('chatbot-right');
      contentDiv.textContent = userText.value;
@@ -316,6 +358,17 @@ let loadFlag = false;
     //ulとliを作り、右寄せのスタイルを適用し投稿する
     const ul = document.getElementById('chatbot-ul');
     const li = document.createElement('li');
+
+    // 時間の表示
+    li.appendChild(CreateTime());
+
+    // 名前の表示
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('name-right');
+    nameDiv.textContent = userData[0];
+    li.appendChild(nameDiv);
+    
+
     //作成したdivに入力内容を挿入
     const stampDiv = document.createElement('div');
     ul.appendChild(li);
@@ -401,6 +454,9 @@ let loadFlag = false;
      const html = CreateStampField();
      const id = document.getElementById('stampField-ul');
      id.innerHTML = html;
+     const stampFieldId = document.getElementById('chatbot-stampField');
+     stampFieldId.style.height = `${id.scrollHeight}px`;
+ 
  
      // ここからchatListを利用する処理を記述
  
@@ -413,17 +469,8 @@ let loadFlag = false;
      //エンター投稿
      userText.addEventListener('keypress', enterOutput);
 
-     const stampSubmit = document.getElementById('stamp-submit');
-    const chatbotStampField = document.getElementById('chatbot-main');
-
-    stampSubmit.addEventListener('click', () => {
-        if(chatbotStampField.style.top == '0px')
-        {
-            chatbotStampField.style.top = '-48px';
-        }else{
-            chatbotStampField.style.top = '0px';
-        }
-    });
+    //  スタンプ関連
+     SetStampButton();
  
  }
  
