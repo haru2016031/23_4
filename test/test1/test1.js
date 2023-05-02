@@ -3,7 +3,7 @@
  
  function textSpecial(){
      chatList[3].text = `こんにちは！${userData[0]}先生`;
-     chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
+    //  chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
     //  chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
     //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
  }
@@ -67,12 +67,13 @@ let loadFlag = false;
  function pushChoice(e) {
      const choicedId = e.getAttribute('id'); //選択した選択肢のid
      //回答内容の保存
-     userData.push(document.getElementById(choicedId).textContent);
+     const ans = document.getElementById(choicedId).textContent;
+     userData.push(ans);
      //問題文のindexを取得
      const quizNum = robotCount -1;
-     if (chatList[quizNum].text.answer) {
+     if (chatList[chatList.length-1][randomNum].answer) {
          //正解、不正解のある選択肢
-         const trueChoice = `q-${quizNum}-${chatList[quizNum].text.answer}`;
+         const trueChoice = `q-${quizNum}-${chatList[chatList.length-1][randomNum].answer}`;
          if (choicedId === trueChoice) {
              //正解
              nextTextOption = 'qTrue';
@@ -89,16 +90,21 @@ let loadFlag = false;
              }
          }
      }
-     for (let i = 0; i < chatList[quizNum].text.choices.length; i++) {
+     for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
          document.getElementById('q-' + quizNum + '-' + i).disabled = true;
          document.getElementById('q-' + quizNum + '-' + i).classList.add('choice-button-disabled');
          document.getElementById(choicedId).classList.remove('choice-button-disabled');
      }
+
+    CreateMyOutput(ans.split('.')[1])
  
      robotOutput();
  }
  
- 
+ //ランダムで選ばれた問題のID
+ let randomNum = 0;
+ let quizList = [];
+
  function robotOutput() {
      console.log('robotCount:' + robotCount);
  
@@ -140,7 +146,7 @@ let loadFlag = false;
  
          //下までスクロール
          chatToBottom();
-     }, 100);
+     }, 800);
  
      setTimeout(() => {
          //考え中アニメ削除
@@ -158,18 +164,27 @@ let loadFlag = false;
              choiceTitle.textContent = chatList[robotCount].text.title;
              choiceField.appendChild(choiceTitle);
              //質問文
+             const qList = chatList[chatList.length-1];
+             while (true) {
+                n = Math.floor(Math.random() * qList.length);
+                if (!quizList.includes(n)) {
+                  randomNum = n;
+                  quizList.push(randomNum);
+                  break; // `quizList` に含まれない数字が出たらループから抜ける
+                }
+              }
              const choiceQ = document.createElement('div');
              choiceQ.classList.add('choice-q');
-             choiceQ.textContent = chatList[robotCount].text.question;
+             choiceQ.textContent = chatList[chatList.length-1][randomNum].question;
              choiceField.appendChild(choiceQ);
              //選択肢
-             for (let i = 0; i < chatList[robotCount].text.choices.length; i++) {
+             for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
                  const choiceButton = document.createElement('button');
                  choiceButton.id = `${choiceField.id}-${i}`;//id設定
                  choiceButton.setAttribute('onclick', 'pushChoice(this)');//ボタンを押した際の合図
                  choiceButton.classList.add('choice-button');
                  choiceField.appendChild(choiceButton);
-                 choiceButton.textContent = chatList[robotCount].text.choices[i];
+                 choiceButton.textContent = chatList[chatList.length-1][randomNum].choices[i];
              }
          } else {
              // このdivにテキストを指定
@@ -185,14 +200,13 @@ let loadFlag = false;
              if (chatList[robotCount].option == 'normal') {
                  //問題の答えか
                  if (chatList[robotCount].text.qTrue) {
+                    chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
                      div.textContent = chatList[robotCount].text[nextTextOption];
                  }
                  //答えの詳細か
-                 else if (robotCount > 1 && chatList[robotCount - 1].quetionNextSupport) {
+                 else if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
                      console.log('次の回答の選択肢は' + nextTextOption);
-                     if (chatList[robotCount].link) {
-                         div.innerHTML = `<a href= "${String(chatList[robotCount].text[nextTextOption])}" onclick= "chatbotLinkClick()">${String(chatList[robotCount].text[nextTextOption])}</a>`;
-                     }
+                     div.textContent = chatList[chatList.length-1][randomNum].info;
                  } else {
                      div.textContent = chatList[robotCount].text;
                  }
@@ -224,7 +238,7 @@ let loadFlag = false;
              robotOutput();
          }
  
-     }, 1000);
+     }, 2000);
  
  }
  
@@ -276,6 +290,60 @@ let loadFlag = false;
      }
      reader.readAsDataURL(file);
  }
+
+ function CreateMyOutput(text){
+    //ulとliを作り、右寄せのスタイルを適用し投稿する
+    const ul = document.getElementById('chatbot-ul');
+    const li = document.createElement('li');
+
+    //時間の表示
+    li.appendChild(CreateTime());
+
+    // 名前の表示
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('name-right');
+    nameDiv.textContent = userData[0];
+    li.appendChild(nameDiv);
+
+    // 入力内容を含む要素を作成
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('chatbot-right');
+    contentDiv.textContent = text;
+    li.appendChild(contentDiv);
+
+
+    // アイコン用の要素を作成し、チャットボットのアイコンを設定する
+    const iconDiv = document.createElement('div');
+    iconDiv.classList.add('myIcon');
+    const iconImg = document.createElement('img');
+    iconImg.classList.add('myIconImg');
+    iconImg.setAttribute('src', `${myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
+    iconDiv.appendChild(iconImg);
+
+    //画像変更のためのファイル選択
+    let myIconFile = document.createElement('input');
+    li.appendChild(myIconFile);
+    myIconFile.type = 'file';
+    myIconFile.accept = '.png';
+    myIconFile.classList.add('icon-button');
+    myIconFile.addEventListener('change', ChangeMyIcon);
+
+    //アイコンクリックでアイコン変更
+    iconDiv.addEventListener('click', () => {
+        if (myIconFile) {
+            myIconFile.click();
+        }
+    }
+    )
+    li.appendChild(iconDiv);
+
+    li.classList.add('right');
+    ul.appendChild(li);
+
+    //一番下までスクロール
+    chatToBottom();
+    
+ }
  
  
  function myOutput() {
@@ -284,54 +352,10 @@ let loadFlag = false;
  
      //投稿内容の保存
      userData.push(userText.value);
-     //ulとliを作り、右寄せのスタイルを適用し投稿する
-     const ul = document.getElementById('chatbot-ul');
-     const li = document.createElement('li');
 
-     //時間の表示
-    li.appendChild(CreateTime());
+     //返信の作成
+     CreateMyOutput(userText.value);
 
-    // 名前の表示
-    const nameDiv = document.createElement('div');
-    nameDiv.classList.add('name-right');
-    nameDiv.textContent = userData[0];
-    li.appendChild(nameDiv);
- 
-     // 入力内容を含む要素を作成
-     const contentDiv = document.createElement('div');
-     contentDiv.classList.add('chatbot-right');
-     contentDiv.textContent = userText.value;
-     li.appendChild(contentDiv);
- 
- 
-     // アイコン用の要素を作成し、チャットボットのアイコンを設定する
-     const iconDiv = document.createElement('div');
-     iconDiv.classList.add('myIcon');
-     const iconImg = document.createElement('img');
-     iconImg.classList.add('myIconImg');
-     iconImg.setAttribute('src', `${myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
-     iconDiv.appendChild(iconImg);
- 
-     //画像変更のためのファイル選択
-     let myIconFile = document.createElement('input');
-     li.appendChild(myIconFile);
-     myIconFile.type = 'file';
-     myIconFile.accept = '.png';
-     myIconFile.classList.add('icon-button');
-     myIconFile.addEventListener('change', ChangeMyIcon);
- 
-     //アイコンクリックでアイコン変更
-     iconDiv.addEventListener('click', () => {
-         if (myIconFile) {
-             myIconFile.click();
-         }
-     }
-     )
-     li.appendChild(iconDiv);
- 
-     li.classList.add('right');
-     ul.appendChild(li);
- 
      //一番下までスクロール
      chatToBottom();
  
