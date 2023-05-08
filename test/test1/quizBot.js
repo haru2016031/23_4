@@ -36,7 +36,7 @@ function CreateStampField(){
     const stampList =['kaeruka','hamster_sleeping','mamoru','calender_shock',
         'ganbare','murisuruna','flash_mob','dance_man','ahiruguchi_woman',
         'ai_dance','drone_illumination','money_shihei','motion_capture',
-        'yumekawa_tenshi','yumekawa_tenshi','yumekawa_tenshi','yumekawa_tenshi'
+        'yumekawa_tenshi'
     ];
     const stampHtml = SetStampHTML(stampList);
     return stampHtml;
@@ -163,16 +163,20 @@ let loadFlag = false;
              choiceTitle.classList.add('choice-title');
              choiceTitle.textContent = chatList[robotCount].text.title;
              choiceField.appendChild(choiceTitle);
-             //質問文
+             
+             //問題のランダム選出
              const qList = chatList[chatList.length-1];
              while (true) {
                 n = Math.floor(Math.random() * qList.length);
+
                 if (!quizList.includes(n)) {
                   randomNum = n;
                   quizList.push(randomNum);
                   break; // `quizList` に含まれない数字が出たらループから抜ける
                 }
               }
+
+             //質問文
              const choiceQ = document.createElement('div');
              choiceQ.classList.add('choice-q');
              choiceQ.textContent = chatList[chatList.length-1][randomNum].question;
@@ -348,7 +352,7 @@ let loadFlag = false;
  
  function myOutput() {
      //空行の場合送信不可
-     if (!userText.value || !userText.value.match(/\S/g)) return false;
+     if (!userText.value || !userText.value.match(/\S/g) || chatSubmitBtn.disabled) return false;
  
      //投稿内容の保存
      userData.push(userText.value);
@@ -358,6 +362,7 @@ let loadFlag = false;
 
      //一番下までスクロール
      chatToBottom();
+
  
      if (robotCount < Object.keys(chatList).length) {
          robotOutput();
@@ -505,5 +510,6 @@ let loadFlag = false;
  script.src = '../resource/data/loadjson.js';
  script.onload = loadjsonReady;
  document.body.appendChild(script);
+
  
  
