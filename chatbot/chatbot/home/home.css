@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    box-sizing: border-box;
+    background-image: url(../../resource/img/background.png);
+    background-size: cover;
+    font-family:'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+/* ホーム画面 */
+#homescreen{
+    position:fixed;
+    background:rgb(97, 194, 161);
+    height: 82vh; 
+    width: 500px;
+    border-radius: 32px;
+    top: 50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    box-sizing: border-box;
+    border: 10px solid #4d4d4d;
+
+
+}
+
+#homescreen-ul{
+    display: flex;
+    margin-top: 10%;
+    justify-content: space-around;
+    list-style: none;
+}
+
+#homescreen-ul > li{
+    height:20%;
+    width:20%;
+
+}
+
+.app-name{
+    font-family: 'Roboto', sans-serif;
+    color: azure;
+    text-align: center;
+}
+
+/* アプリ */
+.app-icon{
+    max-height:100%;
+    max-width:100%;
+
+    border-radius: 10px;
+
+    /* アニメーション */
+    transition: transform 0.2s ease-in-out;
+    
+}
+
+/* アプリアイコンが回転するアニメーション */
+.app-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  

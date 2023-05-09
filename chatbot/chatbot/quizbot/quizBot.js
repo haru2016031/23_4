@@ -25,13 +25,13 @@
     let html = '';
     for(let i=0;i<pathList.length;i++)
     {
-        html += `<div class="preStamp" onclick="StampOutput('../resource/img/stamp/${pathList[i]}.png')"><img src="../resource/img/stamp/${pathList[i]}.png"></div>`;
+        html += `<div class="preStamp" onclick="StampOutput('../../resource/img/stamp/${pathList[i]}.png')"><img src="../../resource/img/stamp/${pathList[i]}.png"></div>`;
     }
     return html;     
  }
 
 //スタンプ部分のHTMLの内容
-const stampPath = '../resource/img/stamp/';
+const stampPath = '../../resource/img/stamp/';
 function CreateStampField(){
     const stampList =['kaeruka','hamster_sleeping','mamoru','calender_shock',
         'ganbare','murisuruna','flash_mob','dance_man','ahiruguchi_woman',
@@ -249,9 +249,9 @@ let loadFlag = false;
  // ロボットの投稿回数
  let robotCount = 0;
  //ロボットアイコンID
- let robotIconID = '../resource/img/botIcon1.png';
+ let robotIconID = '../../resource/img/botIcon1.png';
  //自分のアイコンID
- let myIconID = '../resource/img/botIcon2.png';
+ let myIconID = '../../resource/img/botIcon2.png';
  
  //選択肢の正解個数
  let qPoint = 0;
@@ -507,7 +507,7 @@ let loadFlag = false;
  // loadjson.jsファイルの読み込み
  var script = document.createElement('script');
  script.type = 'text/javascript';
- script.src = '../resource/data/loadjson.js';
+ script.src = '../../resource/data/loadjson.js';
  script.onload = loadjsonReady;
  document.body.appendChild(script);
 

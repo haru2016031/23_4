@@ -1,0 +1,38 @@
+body{
+    box-sizing: border-box;
+    background-image: url(../../resource/img/background.png);
+    background-size: cover;
+}
+
+#lockscreen{
+    position:fixed;
+    background:rgb(97, 194, 161);
+    height: 82vh; 
+    width: 500px;
+    border-radius: 32px;
+    top: 50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    box-sizing: border-box;
+    border: 10px solid #4d4d4d;
+
+}
+
+#lockscreen-time {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    font-size: 64px;
+    color: azure;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+#lockscreen-submit {
+    position: absolute;
+    font-size: 64px;
+    color: rgb(174, 238, 217);
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
