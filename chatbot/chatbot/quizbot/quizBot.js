@@ -146,7 +146,7 @@ let loadFlag = false;
  
          //下までスクロール
          chatToBottom();
-     }, 800);
+     }, 100);
  
      setTimeout(() => {
          //考え中アニメ削除
@@ -190,7 +190,35 @@ let loadFlag = false;
                  choiceField.appendChild(choiceButton);
                  choiceButton.textContent = chatList[chatList.length-1][randomNum].choices[i];
              }
-         } else {
+         } else if(chatList[robotCount].option === 'select'){
+            const choiceField = document.createElement('div');
+            choiceField.id = `q-${robotCount}`;
+            choiceField.classList.add('chatbot-left-rounded');
+            li.appendChild(choiceField);
+
+            //質問タイトル
+            const choiceTitle = document.createElement('div');
+            choiceTitle.classList.add('choice-title');
+            choiceTitle.textContent = chatList[robotCount].text.title;
+            choiceField.appendChild(choiceTitle);
+
+            //質問文
+            const choiceQ = document.createElement('div');
+            choiceQ.classList.add('choice-q');
+            choiceQ.textContent = chatList[robotCount].text.question;
+            choiceField.appendChild(choiceQ);
+            
+            //選択肢
+            for (let i = 0; i < chatList[robotCount].text.choices.length; i++) {
+                const choiceButton = document.createElement('button');
+                choiceButton.id = `${choiceField.id}-${i}`;//id設定
+                choiceButton.setAttribute('onclick', 'pushChoice(this)');//ボタンを押した際の合図
+                choiceButton.classList.add('choice-button');
+                choiceField.appendChild(choiceButton);
+                choiceButton.textContent = chatList[robotCount].text.choices[i];
+            }
+
+         }else{
              // このdivにテキストを指定
              const div = document.createElement('div');
              li.appendChild(div);
@@ -242,7 +270,7 @@ let loadFlag = false;
              robotOutput();
          }
  
-     }, 2000);
+     }, 200);
  
  }
  
