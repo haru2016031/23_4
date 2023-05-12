@@ -1,57 +1,7 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    user-select: none;
-}
-
-body{
-    box-sizing: border-box;
-    background-image: url(../../resource/img/background.png);
-    background-size: cover;
-    font-family:'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
 
 
-#chatbot{
-    position:fixed;
-    overflow:hidden;
-    opacity:1;
-    transition: .4s;
-    background: #1d1b1b;
-    
-    /* PC */
-    height: 82vh; 
-    width: 500px;
-    bottom: 0;
-    right: 0;
-    margin: 0;
-    border-radius: 32px;
-    top: 50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    box-sizing: border-box;
-    border: 10px solid #4d4d4d;
-}
 
-#chatbot-header{
-    height: 60px;
-    background: #5b69ae;
-    position: relative;
-    display:flex;
-    border-bottom: 0.5px solid;
-    border-color: #353d68;
-    justify-content: space-around;
-    z-index: 1;
-}
 
-/* 「AI Chatbot」の部分 */
-#chatbot-logo{
-    color:#FFF;
-    line-height: 60px;
-    padding:0 30px;
-    font-size: 16px;
-}
 
 /* フルスクリーンボタン */
 #chatbot-zoom-icon{
@@ -81,56 +31,6 @@ body{
 
 #chatbot-zoom-icon:active{
     background: #4d635d;
-}
-#chatbot-footer{
-    width: 100%;
-    height:50px;
-    display: flex;
-    box-sizing: border-box;
-    background: #FFF;
-    border-top: 1.5px solid #EEE;
-    border-bottom: 2px solid #4242422c;
-}
-/* 文字を入力する場所 */
-#chatbot-text{
-    height: 40px;
-    width: 72%;
-    display: block;
-    font-size: 16px;
-    box-sizing: border-box;
-    padding-left: 10px;
-    margin:auto 10px auto 15px;
-    background: FFF;
-    color: #777;
-    border: 0;
-    outline: 0;
-}
-
-/* スタンプのボタン */
-#stamp-submit{
-    height: 32px;
-    width: 32px;
-    margin: 7px 7px;
-}
-
-/* 送信ボタン */
-#chatbot-submit{
-    background:#9c9c9c;
-    cursor: pointer;
-    height: 35px;
-    width: 8%;
-    margin: auto;
-    margin-right: 15px;
-    font-size:28px;
-    justify-content: center; /* 水平方向に中央揃え */
-    align-items: center; /* 垂直方向に中央揃え */
-  
-    color: white;
-    display: flex;
-    /* デフォルトのボーダーを消す */
-    border: none;
-    box-sizing: border-box;
-    border-radius: 18px;
 }
 
 #chatbot-ul{
@@ -362,44 +262,4 @@ body{
     }
 }
 
-#chatbot-stampField{
-    width: 100%;
-    height: 0px;
-    background: #FFF;
-    display: flex;
-
-}
-
-#stampField-ul{
-    position: absolute;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.preStamp{
-    display: flex; /* flexbox コンテナにする */
-    align-items: center;
-    justify-content: center;
-    height: 48px; /* 高さを指定 */
-    width: 48px; /* 幅を指定 */
-    box-sizing: border-box; /* ボーダーとパディングを含めた幅にする */
-    margin: 2px; /* 間隔を指定 */
-}
-
-.preStamp img{
-    height: 32px;
-    width: 32px;
-}
-
-.stamp{
-    margin: 20px -7px 0px -13px
-}
-
-
-.stamp img{
-    height: 128px;
-    width: 128px;
-    object-fit: contain;
-    object-position: center;
-}
 

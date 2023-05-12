@@ -21,7 +21,8 @@ body{
 #lockscreen-time {
     font-family: 'Roboto', sans-serif;
     position: absolute;
-    font-size: 64px;
+    font-size: 48px;
+    text-align: center;
     color: azure;
     top: 20%;
     left: 50%;

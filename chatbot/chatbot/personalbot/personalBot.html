@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Googleアイコンのロード -->
+        <link href= "https://fonts.googleapis.com/icon?family=Material+Icons" rel= "stylesheet">
+        <!-- cssの紐づけ -->
+        <link href="../common/chatbot.css" rel="stylesheet">
+        <link href="personalBot.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <div id="chatbot">
+            <div id="chatbot-header">
+                <!-- チャットボットの上の部分 -->
+                <div id="chatbot-logo">心理テスト</div>
+            </div>
+            <!-- 会話部分 -->
+            <div id="chatbot-main" style="top: 0px">
+                <div id="chatbot-body">
+                    <ul id="personalbot-ul"></ul>
+                </div>
+            </div>
+            <!-- 入力＆送信ボタン部分 -->
+            <div id="chatbot-footer">
+                <input type="text" id="chatbot-text" placeholder="入力してください">
+                <img src="../../resource/img/stamp.png" id="stamp-submit">
+                <i id= "chatbot-submit" class="material-icons waves-effect waves-light" >send</i>
+
+            </div>    
+
+            <!-- スタンプ部分 -->
+            <div id="chatbot-stampField">
+                <ul id="stampField-ul"></ul>
+            </div>
+            
+        </div>
+    </body>
+    <script type="text/javascript" src="../common/chatbot.js"></script>
+    <script type="text/javascript" src="personalBot.js"></script>
+</html>
