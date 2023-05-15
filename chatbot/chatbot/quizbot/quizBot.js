@@ -2,6 +2,8 @@
  class Quizbot extends Chatbot{
     constructor(){
         super();
+        this.botType='QUIZ';
+
         //ランダムで選ばれた問題のID
         this.randomNum = 0;
         this.quizList = [];
@@ -9,6 +11,40 @@
         //選択肢の正解個数
         this.qPoint = 0;
 
+    }
+
+    CreateMyText(text,li){
+        const div = super.CreateMyText(text);
+        div.classList.add('quizbot-right');
+        li.appendChild(div);
+    }
+
+    CreateChoiceTitle(choiceField,text){
+        const div = super.CreateChoiceTitle(text);
+        div.classList.add('quiz-choice-title');
+        choiceField.appendChild(div);
+    }
+
+    CreateChoiceButton(choiceField,text,num,bot){
+        const div = super.CreateChoiceButton(choiceField,text,num,bot);
+        div.classList.add('quiz-choice-button');
+        choiceField.appendChild(div);
+    }
+
+    BotOrgNormal(chatList,robotCount,randomNum,div,bot){
+        //問題の答えか
+        if (chatList[robotCount].text.qTrue) {
+            chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
+            div.textContent = chatList[robotCount].text[bot.nextTextOption];
+        }
+        //答えの詳細か
+        else if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
+            console.log('次の回答の選択肢は' + bot.nextTextOption);
+            div.textContent = chatList[chatList.length-1][randomNum].info;
+        } else {
+            div.textContent = chatList[robotCount].text;
+        }
+        
     }
 
     pushChoice(bot,e){

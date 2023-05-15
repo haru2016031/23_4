@@ -1,5 +1,6 @@
 class Chatbot{
     constructor(){
+        this.botType='CHAT';
         this.chatList= "";
         // ユーザの返信を入れる配列
         this.userData = [];
@@ -30,6 +31,39 @@ class Chatbot{
 
     //可変する文章
     textSpecial(){};
+
+    //自分の投稿作成
+    CreateMyText(text) {
+        // 入力内容を含む要素を作成
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('chatbot-right');
+        contentDiv.textContent = text;
+        return contentDiv;
+        
+    };
+
+    //選択肢のタイトル作成
+    CreateChoiceTitle(text){
+        const choiceTitle = document.createElement('div');
+        choiceTitle.classList.add('choice-title');
+        choiceTitle.textContent = text;
+        return choiceTitle;
+    };
+
+    //選択肢のボタン作成
+    CreateChoiceButton(choiceField,text,num,bot){
+        const choiceButton = document.createElement('button');
+        choiceButton.id = `${choiceField.id}-${num}`;//id設定
+        choiceButton.addEventListener('click', function() {
+            bot.pushChoice(bot,choiceButton);
+          });            
+        choiceButton.classList.add('choice-button');
+        choiceButton.textContent = text;
+        return choiceButton;
+
+    }
+
+
     //時間表示生成
     CreateTime(){
     const now = new Date();
@@ -114,7 +148,7 @@ CreateStampField(){
         //回答内容の保存
         const ans = document.getElementById(choicedId).textContent;
         bot.userData.push(ans);
-        const num = robotCount - 1
+        const num = robotCount - 1;
         for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
             document.getElementById('q-' + num + '-' + i).disabled = true;
             document.getElementById('q-' + num + '-' + i).classList.add('choice-button-disabled');
@@ -137,10 +171,7 @@ CreateStampField(){
         li.appendChild(choiceField);
 
         //質問タイトル
-        const choiceTitle = document.createElement('div');
-        choiceTitle.classList.add('choice-title');
-        choiceTitle.textContent = chatList[robotCount].text.title;
-        choiceField.appendChild(choiceTitle);
+        bot.CreateChoiceTitle(choiceField,chatList[robotCount].text.title);
         
         //問題のランダム選出
         const qList = chatList[chatList.length-1];
@@ -161,14 +192,7 @@ CreateStampField(){
         choiceField.appendChild(choiceQ);
         //選択肢
         for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
-            const choiceButton = document.createElement('button');
-            choiceButton.id = `${choiceField.id}-${i}`;//id設定
-            choiceButton.addEventListener('click', function() {
-                bot.pushChoice(bot,choiceButton);
-              });            
-            choiceButton.classList.add('choice-button');
-            choiceField.appendChild(choiceButton);
-            choiceButton.textContent = chatList[chatList.length-1][bot.randomNum].choices[i];
+            bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot);
         }
 
     }
@@ -183,10 +207,7 @@ CreateStampField(){
         li.appendChild(choiceField);
     
         //質問タイトル
-        const choiceTitle = document.createElement('div');
-        choiceTitle.classList.add('choice-title');
-        choiceTitle.textContent = chatList[robotCount].text.title;
-        choiceField.appendChild(choiceTitle);
+        bot.CreateChoiceTitle(choiceField,chatList[robotCount].text.title)
     
         //質問文
         const choiceQ = document.createElement('div');
@@ -196,14 +217,15 @@ CreateStampField(){
         
         //選択肢
         for (let i = 0; i < chatList[robotCount].text.choices.length; i++) {
-            const choiceButton = document.createElement('button');
-            choiceButton.id = `${choiceField.id}-${i}`;//id設定
-            choiceButton.addEventListener('click', function() {
-                bot.pushSelect(bot,choiceButton);
-              });            
-            choiceButton.classList.add('choice-button');
-            choiceField.appendChild(choiceButton);
-            choiceButton.textContent = chatList[robotCount].text.choices[i];
+            bot.CreateChoiceButton(choiceField,chatList[robotCount].text.choices[i],i,bot)
+            // const choiceButton = document.createElement('button');
+            // choiceButton.id = `${choiceField.id}-${i}`;//id設定
+            // choiceButton.addEventListener('click', function() {
+            //     bot.pushSelect(bot,choiceButton);
+            //   });            
+            // choiceButton.classList.add('choice-button');
+            // choiceField.appendChild(choiceButton);
+            // choiceButton.textContent = chatList[robotCount].text.choices[i];
         }
     
      }
@@ -224,18 +246,8 @@ CreateStampField(){
         const robotCount = bot.robotCount;
         const randomNum = bot.randomNum;
         if (chatList[robotCount].option == 'normal') {
-            //問題の答えか
-            if (chatList[robotCount].text.qTrue) {
-                chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
-                div.textContent = chatList[robotCount].text[bot.nextTextOption];
-            }
-            //答えの詳細か
-            else if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
-                console.log('次の回答の選択肢は' + bot.nextTextOption);
-                div.textContent = chatList[chatList.length-1][randomNum].info;
-            } else {
-                div.textContent = chatList[robotCount].text;
-            }
+            bot.BotOrgNormal(chatList,robotCount,randomNum,div,bot);
+
         } else {
             //複数の回答からランダムで投稿
             const rand = Math.random();
@@ -248,6 +260,8 @@ CreateStampField(){
         bot.chatSubmitBtn.disabled = false;
      }
 
+     //ボットごとの特殊な投稿
+     BotOrgNormal(){};
      //ボットの投稿のメイン部分
      robotOutput() {
         console.log('robotCount:' + this.robotCount);
@@ -273,7 +287,9 @@ CreateStampField(){
         robotIconFile.type = 'file';
         robotIconFile.accept = '.png';
         robotIconFile.classList.add('icon-button');
-        robotIconFile.addEventListener('change',this.ChangeRobotIcon);
+        robotIconFile.addEventListener('change',()=>{
+            this.ChangeRobotIcon(this)
+        });
     
         //アイコンクリックでアイコンの変更
         robotIconDiv.addEventListener('click', () => {
@@ -323,14 +339,13 @@ CreateStampField(){
     }
 
     //ロボットのアイコンを変える
-    ChangeRobotIcon() {
+    ChangeRobotIcon(bot) {
         const file = window.event.target.files[0];
         const reader = new FileReader();
         reader.onload = function () {
-            robotIconID = reader.result;
-            console.log(robotIconID);
+            bot.robotIconID = reader.result;
             $('.chatbot-icon').css({
-                backgroundImage: `url(${robotIconID})`
+                backgroundImage: `url(${bot.robotIconID})`
             });
         }
         reader.readAsDataURL(file);
@@ -338,14 +353,14 @@ CreateStampField(){
     }
     
     //自分のアイコンを変える
-    ChangeMyIcon() {
+    ChangeMyIcon(bot) {
         const file = window.event.target.files[0];
         const reader = new FileReader();
         reader.onload = function () {
-            myIconID = reader.result;
+            bot.myIconID = reader.result;
             var imgs = document.querySelectorAll(".myIconImg");
             for (var i = 0; i < imgs.length; i++) {
-                imgs[i].src = myIconID;
+                imgs[i].src = bot.myIconID;
             }
         }
         reader.readAsDataURL(file);
@@ -366,13 +381,9 @@ CreateStampField(){
        nameDiv.textContent = this.userData[0];
        li.appendChild(nameDiv);
    
-       // 入力内容を含む要素を作成
-       const contentDiv = document.createElement('div');
-       contentDiv.classList.add('chatbot-right');
-       contentDiv.textContent = text;
-       li.appendChild(contentDiv);
-   
-   
+       //投稿するテキスト作成
+       this.CreateMyText(text,li);
+
        // アイコン用の要素を作成し、チャットボットのアイコンを設定する
        const iconDiv = document.createElement('div');
        iconDiv.classList.add('myIcon');
@@ -387,7 +398,9 @@ CreateStampField(){
        myIconFile.type = 'file';
        myIconFile.accept = '.png';
        myIconFile.classList.add('icon-button');
-       myIconFile.addEventListener('change', this.ChangeMyIcon);
+       myIconFile.addEventListener('change', ()=>{
+        this.ChangeMyIcon(this)
+       });
    
        //アイコンクリックでアイコン変更
        iconDiv.addEventListener('click', () => {
