@@ -38,7 +38,7 @@ body{
     color:#FFF;
     line-height: 60px;
     padding:0 30px;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .chatbot-header{
@@ -60,6 +60,10 @@ body{
     overflow-x: hidden;
     /* 縦スクロール禁止 */
     overflow-y: scroll;
+}
+
+#chatbot-main{
+    position:relative;
 }
 
 #chatbot-ul{
@@ -185,6 +189,8 @@ body{
 }
 
 .choice-button{
+    font-family: 'Mochiy Pop P One';
+
     cursor:pointer;
     color: #1d1d1d;
     border-radius: 3px;

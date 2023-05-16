@@ -40,7 +40,7 @@ body{
 }
 
 .app-name{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
     color: azure;
     text-align: center;
 }

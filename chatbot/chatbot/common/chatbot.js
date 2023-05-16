@@ -1,14 +1,17 @@
+
+// ユーザの返信を入れる配列
+let userData = [];
+//自分のアイコンID
+let myIconID = '../../resource/img/botIcon2.png';
+
+
 class Chatbot{
     constructor(){
         this.botType='CHAT';
         this.chatList= "";
-        // ユーザの返信を入れる配列
-        this.userData = [];
         this.loadFlag = false;
          //ロボットアイコンID
         this.robotIconID = '../../resource/img/botIcon1.png';
-        //自分のアイコンID
-        this.myIconID = '../../resource/img/botIcon2.png';
         //選択肢を押したときの次の選択肢
         this.nextTextOption = '';
         this.userText = document.getElementById('chatbot-text');
@@ -17,6 +20,7 @@ class Chatbot{
             'choices':this.RobotOutputChoice,
             'select':this.RobotOutputSelect,
             'normal':this.RobotOutputNormal,
+            'click':this.RobotOutputClick
         }
         this.Init()
         }
@@ -26,7 +30,7 @@ class Chatbot{
         this.randomNum = 0;
         this.nextTextOption = '';
         this.quizList = [];
-        this.userData = [];
+        userData = [];
     }
 
     //可変する文章
@@ -51,11 +55,15 @@ class Chatbot{
     };
 
     //選択肢のボタン作成
-    CreateChoiceButton(choiceField,text,num,bot){
+    CreateChoiceButton(choiceField,text,num,bot,type){
         const choiceButton = document.createElement('button');
         choiceButton.id = `${choiceField.id}-${num}`;//id設定
         choiceButton.addEventListener('click', function() {
-            bot.pushChoice(bot,choiceButton);
+            if(type==='CHOICE'){
+                bot.pushChoice(bot,choiceButton);
+            }else if(type==='SELECT'){
+                bot.pushSelect(bot,choiceButton);
+            }
           });            
         choiceButton.classList.add('choice-button');
         choiceButton.textContent = text;
@@ -63,38 +71,6 @@ class Chatbot{
 
     }
 
-
-    //時間表示生成
-    CreateTime(){
-    const now = new Date();
-
-    const hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0'); // 2桁に調整す;
-    const timeDiv = document.createElement('div');
-    timeDiv.classList.add('time');
-    timeDiv.textContent = `${hours}:${minutes}`;
-    return timeDiv;
- }
-  //スタンププレビュー生成
-    SetStampHTML(pathList){
-    let html = '';
-    for(let i=0;i<pathList.length;i++)
-    {
-        html += `<div class="preStamp" onclick="StampOutput('../../resource/img/stamp/${pathList[i]}.png')"><img src="../../resource/img/stamp/${pathList[i]}.png"></div>`;
-    }
-    return html;     
- }
-
-//スタンプ部分のHTMLの内容
-CreateStampField(){
-    const stampList =['kaeruka','hamster_sleeping','mamoru','calender_shock',
-        'ganbare','murisuruna','flash_mob','dance_man','ahiruguchi_woman',
-        'ai_dance','drone_illumination','money_shihei','motion_capture',
-        'yumekawa_tenshi'
-    ];
-    const stampHtml = this.SetStampHTML(stampList);
-    return stampHtml;
-}
 
     //スタンプボタンについて
     SetStampButton(){
@@ -118,7 +94,7 @@ CreateStampField(){
         const choicedId = e.getAttribute('id'); //選択した選択肢のid
         //回答内容の保存
         const ans = document.getElementById(choicedId).textContent;
-        bot.userData.push(ans);
+        userData.push(ans);
         const quizNum = bot.robotCount -1;
 
         for (let i = 0; i < bot.chatList[quizNum].text.choices.length; i++) {
@@ -147,7 +123,7 @@ CreateStampField(){
         const randomNum = bot.randomNum;
         //回答内容の保存
         const ans = document.getElementById(choicedId).textContent;
-        bot.userData.push(ans);
+        userData.push(ans);
         const num = robotCount - 1;
         for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
             document.getElementById('q-' + num + '-' + i).disabled = true;
@@ -192,7 +168,7 @@ CreateStampField(){
         choiceField.appendChild(choiceQ);
         //選択肢
         for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
-            bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot);
+            bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
         }
 
     }
@@ -217,18 +193,26 @@ CreateStampField(){
         
         //選択肢
         for (let i = 0; i < chatList[robotCount].text.choices.length; i++) {
-            bot.CreateChoiceButton(choiceField,chatList[robotCount].text.choices[i],i,bot)
-            // const choiceButton = document.createElement('button');
-            // choiceButton.id = `${choiceField.id}-${i}`;//id設定
-            // choiceButton.addEventListener('click', function() {
-            //     bot.pushSelect(bot,choiceButton);
-            //   });            
-            // choiceButton.classList.add('choice-button');
-            // choiceField.appendChild(choiceButton);
-            // choiceButton.textContent = chatList[robotCount].text.choices[i];
+            bot.CreateChoiceButton(choiceField,chatList[robotCount].text.choices[i],i,bot,'SELECT')
         }
     
      }
+
+    //次の問題に行くか行かないか
+    RobotOutputClick(li,bot){
+        const choiceField = document.createElement('div');
+        choiceField.classList.add('chatbot-left-rounded');
+        const button = document.createElement('button');
+        button.addEventListener('click', function() {
+            bot.robotOutput();
+        });
+        button.classList.add('choice-button');
+        button.textContent = bot.chatList[bot.robotCount].text;
+        button.style.marginBottom='0px';
+        choiceField.appendChild(button);
+        li.appendChild(choiceField);
+        return button;
+    };
     
     //通常の投稿
     RobotOutputNormal(li,bot){
@@ -247,7 +231,6 @@ CreateStampField(){
         const randomNum = bot.randomNum;
         if (chatList[robotCount].option == 'normal') {
             bot.BotOrgNormal(chatList,robotCount,randomNum,div,bot);
-
         } else {
             //複数の回答からランダムで投稿
             const rand = Math.random();
@@ -256,12 +239,11 @@ CreateStampField(){
     
             div.textContent = chatList[robotCount].text[num];
         }
-        //返信を可能にする
-        bot.chatSubmitBtn.disabled = false;
      }
 
      //ボットごとの特殊な投稿
      BotOrgNormal(){};
+
      //ボットの投稿のメイン部分
      robotOutput() {
         console.log('robotCount:' + this.robotCount);
@@ -305,7 +287,7 @@ CreateStampField(){
             robotLoadingDiv.innerHTML = '<div id= "robot-loading-field"><span id= "robot-loading-circle1" class="material-icons">circle</span> <span id= "robot-loading-circle2" class="material-icons">circle</span> <span id= "robot-loading-circle3" class="material-icons">circle</span>';
     
             //下までスクロール
-            this.chatToBottom();
+            chatToBottom();
         }, 100);
    
    
@@ -317,12 +299,12 @@ CreateStampField(){
             this.robotCount++;
    
             //時間の表示
-            const t = this.CreateTime();
+            const t = CreateTime();
             t.style.bottom = '-8px';
             li.appendChild(t);
    
             //下までスクロール
-            this.chatToBottom();
+            chatToBottom();
     
             //連続投稿
             if (this.chatList[this.robotCount].continue) {
@@ -332,11 +314,7 @@ CreateStampField(){
         }, 200);
     
     }
-    //一番下へ
-    chatToBottom() {
-        const chatField = document.getElementById('chatbot-body');
-        chatField.scroll(0, chatField.scrollHeight - chatField.clientHeight);
-    }
+
 
     //ロボットのアイコンを変える
     ChangeRobotIcon(bot) {
@@ -352,19 +330,6 @@ CreateStampField(){
     
     }
     
-    //自分のアイコンを変える
-    ChangeMyIcon(bot) {
-        const file = window.event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function () {
-            bot.myIconID = reader.result;
-            var imgs = document.querySelectorAll(".myIconImg");
-            for (var i = 0; i < imgs.length; i++) {
-                imgs[i].src = bot.myIconID;
-            }
-        }
-        reader.readAsDataURL(file);
-    }
    
     //自分の投稿生成
     CreateMyOutput(text){
@@ -373,12 +338,12 @@ CreateStampField(){
        const li = document.createElement('li');
    
        //時間の表示
-       li.appendChild(this.CreateTime());
+       li.appendChild(CreateTime());
    
        // 名前の表示
        const nameDiv = document.createElement('div');
        nameDiv.classList.add('name-right');
-       nameDiv.textContent = this.userData[0];
+       nameDiv.textContent = userData[0];
        li.appendChild(nameDiv);
    
        //投稿するテキスト作成
@@ -389,7 +354,7 @@ CreateStampField(){
        iconDiv.classList.add('myIcon');
        const iconImg = document.createElement('img');
        iconImg.classList.add('myIconImg');
-       iconImg.setAttribute('src', `${this.myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
+       iconImg.setAttribute('src', `${myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
        iconDiv.appendChild(iconImg);
    
        //画像変更のためのファイル選択
@@ -415,7 +380,7 @@ CreateStampField(){
        ul.appendChild(li);
    
        //一番下までスクロール
-       this.chatToBottom();
+       chatToBottom();
        
     }
     
@@ -425,13 +390,13 @@ CreateStampField(){
         if (!bot.userText.value || !bot.userText.value.match(/\S/g) || bot.chatSubmitBtn.disabled) return false;
     
         //投稿内容の保存
-        bot.userData.push(bot.userText.value);
+        userData.push(bot.userText.value);
    
         //返信の作成
         bot.CreateMyOutput(bot.userText.value);
    
         //一番下までスクロール
-        bot.chatToBottom();
+        chatToBottom();
    
     
         if (bot.robotCount < Object.keys(bot.chatList).length) {
@@ -453,63 +418,7 @@ CreateStampField(){
         }
     }
    
-    //スタンプ投稿
-    StampOutput(path){
-       //ulとliを作り、右寄せのスタイルを適用し投稿する
-       const ul = document.getElementById('chatbot-ul');
-       const li = document.createElement('li');
-   
-       // 時間の表示
-       li.appendChild(CreateTime());
-   
-       // 名前の表示
-       const nameDiv = document.createElement('div');
-       nameDiv.classList.add('name-right');
-       nameDiv.textContent = userData[0];
-       li.appendChild(nameDiv);
-       
-   
-       //作成したdivに入力内容を挿入
-       const stampDiv = document.createElement('div');
-       ul.appendChild(li);
-       li.appendChild(stampDiv);
-       stampDiv.classList.add('stamp');
-       const stampImg = document.createElement('img');
-       stampImg.classList.add('stampImg');
-       stampImg.setAttribute('src',path);
-       stampDiv.appendChild(stampImg);
-   
-       // アイコン用の要素を作成し、チャットボットのアイコンを設定する
-       const iconDiv = document.createElement('div');
-       iconDiv.classList.add('myIcon');
-       const iconImg = document.createElement('img');
-       iconImg.classList.add('myIconImg');
-       iconImg.setAttribute('src', `${myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
-       iconDiv.appendChild(iconImg);
-   
-       //画像変更のためのファイル選択
-       let myIconFile = document.createElement('input');
-       li.appendChild(myIconFile);
-       myIconFile.type = 'file';
-       myIconFile.accept = '.png';
-       myIconFile.classList.add('icon-button');
-       myIconFile.addEventListener('change', ChangeMyIcon);
-   
-       //アイコンクリックでアイコン変更
-       iconDiv.addEventListener('click', () => {
-           if (myIconFile) {
-               myIconFile.click();
-           }
-       }
-       )
-       li.appendChild(iconDiv);
-   
-       li.classList.add('right');
-   
-       //一番下までスクロール
-       chatToBottom();
-   
-    }
+
 
      //デバック連投
     DebugOutput() {
@@ -551,7 +460,7 @@ CreateStampField(){
         }
 
         //スタンプ部分の追加
-        const html = bot.CreateStampField();
+        const html = CreateStampField();
         const id = document.getElementById('stampField-ul');
         id.innerHTML = html;
         const stampFieldId = document.getElementById('chatbot-stampField');
@@ -577,4 +486,115 @@ CreateStampField(){
         bot.SetStampButton();
 
     }
+};
+
+//時間表示生成
+function CreateTime(){
+    const now = new Date();
+
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0'); // 2桁に調整す;
+    const timeDiv = document.createElement('div');
+    timeDiv.classList.add('time');
+    timeDiv.textContent = `${hours}:${minutes}`;
+    return timeDiv;
+    }
+
+  //スタンププレビュー生成
+function SetStampHTML(pathList){
+    let html = '';
+    for(let i=0;i<pathList.length;i++)
+    {
+        html += `<div class="preStamp" onclick="StampOutput('../../resource/img/stamp/${pathList[i]}.png')"><img src="../../resource/img/stamp/${pathList[i]}.png"></div>`;   
+    };
+    return html;     
+};
+
+//スタンプ部分のHTMLの内容
+function CreateStampField(){
+    const stampList =['kaeruka','hamster_sleeping','mamoru','calender_shock',
+        'ganbare','murisuruna','flash_mob','dance_man','ahiruguchi_woman',
+        'ai_dance','drone_illumination','money_shihei','motion_capture',
+        'yumekawa_tenshi'
+    ];
+    const stampHtml = SetStampHTML(stampList);
+    return stampHtml;
+};
+
+//スタンプ投稿
+function StampOutput(path,bot){
+    //ulとliを作り、右寄せのスタイルを適用し投稿する
+    const ul = document.getElementById('chatbot-ul');
+    const li = document.createElement('li');
+
+    // 時間の表示
+    li.appendChild(CreateTime());
+
+    // 名前の表示
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('name-right');
+    nameDiv.textContent = userData[0];
+    li.appendChild(nameDiv);
+    
+
+    //作成したdivに入力内容を挿入
+    const stampDiv = document.createElement('div');
+    ul.appendChild(li);
+    li.appendChild(stampDiv);
+    stampDiv.classList.add('stamp');
+    const stampImg = document.createElement('img');
+    stampImg.classList.add('stampImg');
+    stampImg.setAttribute('src',path);
+    stampDiv.appendChild(stampImg);
+
+    // アイコン用の要素を作成し、チャットボットのアイコンを設定する
+    const iconDiv = document.createElement('div');
+    iconDiv.classList.add('myIcon');
+    const iconImg = document.createElement('img');
+    iconImg.classList.add('myIconImg');
+    iconImg.setAttribute('src', `${myIconID}`); // ここにアイコンの画像ファイルのパスを指定する
+    iconDiv.appendChild(iconImg);
+
+    //画像変更のためのファイル選択
+    let myIconFile = document.createElement('input');
+    li.appendChild(myIconFile);
+    myIconFile.type = 'file';
+    myIconFile.accept = '.png';
+    myIconFile.classList.add('icon-button');
+    myIconFile.addEventListener('change', ChangeMyIcon);
+
+    //アイコンクリックでアイコン変更
+    iconDiv.addEventListener('click', () => {
+        if (myIconFile) {
+            myIconFile.click();
+        }
+    }
+    )
+    li.appendChild(iconDiv);
+
+    li.classList.add('right');
+
+    //一番下までスクロール
+    chatToBottom();
+
+}
+
+//自分のアイコンを変える
+function ChangeMyIcon() {
+    const file = window.event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function () {
+        myIconID = reader.result;
+        var imgs = document.querySelectorAll(".myIconImg");
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].src = myIconID;
+        }
+    }
+    reader.readAsDataURL(file);
+}
+
+//一番下へ
+function chatToBottom() {
+    const chatField = document.getElementById('chatbot-body');
+    chatField.scroll(0, chatField.scrollHeight - chatField.clientHeight);
 }
