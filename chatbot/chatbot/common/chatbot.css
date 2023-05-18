@@ -52,6 +52,7 @@ body{
 }
 
 .chatbot-body{
+    white-space: pre-line;
     width: 100%;
     height: calc(80vh - 110px);
     padding-top: 10px;
@@ -189,8 +190,6 @@ body{
 }
 
 .choice-button{
-    font-family: 'Mochiy Pop P One';
-
     cursor:pointer;
     color: #1d1d1d;
     border-radius: 3px;

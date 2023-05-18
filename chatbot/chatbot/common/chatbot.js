@@ -31,6 +31,10 @@ class Chatbot{
         this.nextTextOption = '';
         this.quizList = [];
         userData = [];
+        const ulElement = document.getElementById('chatbot-ul'); // ul要素の取得
+        while (ulElement.firstChild) {
+            ulElement.removeChild(ulElement.firstChild);
+          }
     }
 
     //可変する文章

@@ -60,7 +60,7 @@ function CreateCity(el,city){
   if (city in cityList) {
     city = cityList[city];
   }
-  cityDiv.textContent = city;
+  cityDiv.textContent = `${city}の天気`;
   el.appendChild(cityDiv);
 }
 
@@ -68,7 +68,11 @@ function CreateCity(el,city){
 function CreateWeather(el,weather){
   const weatherDiv = document.createElement('div');
   weatherDiv.id = 'weather-weather';
-  weatherDiv.textContent = weather;
+  //天気の画像の表示
+  const weatherImg = document.createElement('img');
+  weatherImg.id = 'weather-icon';
+  weatherImg.setAttribute('src',`../../resource/img/weather/${weather}.png`);
+  weatherDiv.appendChild(weatherImg);
   el.appendChild(weatherDiv);
 
 }
@@ -77,7 +81,8 @@ function CreateWeather(el,weather){
 function CreateTemperature(el,temperature){
   const temperatureDiv = document.createElement('div');
   temperatureDiv.id = 'weather-temperature';
-  temperatureDiv.textContent = temperature;
+  const roundedNumber = temperature.toFixed(1);
+  temperatureDiv.textContent = `${roundedNumber}℃`;
   el.appendChild(temperatureDiv);
 
 }
