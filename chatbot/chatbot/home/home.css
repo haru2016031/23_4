@@ -8,7 +8,7 @@ body{
     box-sizing: border-box;
     background-image: url(../../resource/img/background.png);
     background-size: cover;
-    font-family:'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Roboto';
 
 }
 
@@ -16,6 +16,8 @@ body{
 #homescreen{
     position:fixed;
     background:rgb(97, 194, 161);
+    /* background-image: url(../../resource/img/homescreen/IMG_0645.JPG); */
+    background-size: cover;
     height: 82vh; 
     width: 500px;
     border-radius: 32px;
@@ -24,6 +26,41 @@ body{
     transform:translate(-50%,-50%);
     box-sizing: border-box;
     border: 10px solid #4d4d4d;
+}
+
+#homescreen-header{
+    margin-top: 7px;
+}
+
+#homescreen-mobile{
+    color: azure;
+    position: fixed;
+    left: 25%;
+    transform: translateX(-50%);
+
+}
+
+#homescreen-back{
+    cursor:pointer;
+    font-size: 32px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: -4px;
+
+}
+
+#homescreen-time{
+    color: azure;
+    position: fixed;
+    left: 75%;
+    transform: translateX(-50%);
+
+}
+
+.background-button{
+    display: none;
+
 }
 
 #homescreen-ul{
@@ -40,7 +77,6 @@ body{
 }
 
 .app-name{
-    font-family: 'Roboto';
     color: azure;
     text-align: center;
 }

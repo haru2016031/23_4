@@ -39,15 +39,25 @@ body{
     line-height: 60px;
     padding:0 30px;
     font-size: 24px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#chatbot-back{
+    cursor:pointer;
+    color: #FFF;
+    line-height: 60px;
+    position: absolute;
+    left: 10px;
 }
 
 .chatbot-header{
     height: 60px;
     position: relative;
-    display:flex;
+    /* display:flex; */
     border-bottom: 0.5px solid;
     border-color: #353d68;
-    justify-content: space-around;
+    align-items: center;
     z-index: 1;
 }
 

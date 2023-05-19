@@ -470,6 +470,8 @@ class Chatbot{
         const stampFieldId = document.getElementById('chatbot-stampField');
         stampFieldId.style.height = `${id.scrollHeight}px`;
 
+        //戻るボタンに関数設定
+        BackScene('../home/home.html');
 
         // ここからchatListを利用する処理を記述
 
@@ -601,4 +603,19 @@ function ChangeMyIcon() {
 function chatToBottom() {
     const chatField = document.getElementById('chatbot-body');
     chatField.scroll(0, chatField.scrollHeight - chatField.clientHeight);
+}
+
+//ひとつ前のページに戻る
+function BackScene(url){
+    // chatbot-back要素を取得
+    const chatbotBack = document.getElementById('chatbot-back');
+
+    // クリックイベントリスナーを設定
+    chatbotBack.addEventListener('click', function() {
+    // 遷移先のURLを指定
+    const destinationUrl = url;
+
+    // ページの遷移
+    window.location.href = destinationUrl;
+});
 }
