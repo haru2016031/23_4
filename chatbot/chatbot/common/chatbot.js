@@ -144,7 +144,6 @@ class Chatbot{
     RobotOutputChoice(li,bot){
         const robotCount = bot.robotCount;
         const chatList = bot.chatList;
-        const qAnswer = `q-${robotCount}-${chatList[robotCount].text.answer}`;
         const choiceField = document.createElement('div');
         choiceField.id = `q-${robotCount}`;
         choiceField.classList.add('chatbot-left-rounded');
@@ -171,8 +170,12 @@ class Chatbot{
         choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
         choiceField.appendChild(choiceQ);
         //選択肢
-        for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
-            bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
+        if(chatList[chatList.length-1][bot.randomNum].choices){
+            for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
+                bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
+            }
+        }else{
+            bot.chatSubmitBtn.disabled = false;
         }
 
     }
@@ -199,7 +202,6 @@ class Chatbot{
         for (let i = 0; i < chatList[robotCount].text.choices.length; i++) {
             bot.CreateChoiceButton(choiceField,chatList[robotCount].text.choices[i],i,bot,'SELECT')
         }
-    
      }
 
     //次の問題に行くか行かないか

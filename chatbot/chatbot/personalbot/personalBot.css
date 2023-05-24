@@ -26,6 +26,20 @@ body{
     background: #FFC0CB;
 }
 
+.personal-item{
+    color: #1d1d1d;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    text-align: left;
+    padding: 7px 13px;
+    font-size: 16px;
+    line-height: 1.3em;
+    letter-spacing: .05em;
+    border: none;
+    display: block;
+    width: 100%;
+}
+
 .personal-choice-button{
     font-family: 'Mochiy Pop P One';
     background: #FFC0CB;

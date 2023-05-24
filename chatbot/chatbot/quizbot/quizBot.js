@@ -4,6 +4,7 @@
         super();
         this.botType='QUIZ';
 
+
         //ランダムで選ばれた問題のID
         this.randomNum = 0;
         this.quizList = [];
@@ -35,11 +36,35 @@
         const div = super.RobotOutputClick(li,bot)
         div.classList.add('quiz-choice-button');
 
-    }    BotOrgNormal(chatList,robotCount,randomNum,div,bot){
+    }    
+    
+    BotOrgNormal(chatList,robotCount,randomNum,div,bot){
         //問題の答えか
         if (chatList[robotCount].text.qTrue) {
-            chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
-            div.textContent = chatList[robotCount].text[bot.nextTextOption];
+            //現在の問題が自分が入力するタイプの問題かどうか
+            if(!chatList[chatList.length-1][randomNum].choices){
+                //入力された内容と答えがあっているか
+                const answerWords = chatList[chatList.length - 1][randomNum].answer;
+                const userInput = userData[userData.length - 1];
+
+                let containsWord = false;
+                for (let i = 0; i < answerWords.length; i++) {
+                    if (userInput.includes(answerWords[i])) {
+                      containsWord = true;
+                      break;
+                    }
+                  }
+                if(containsWord){
+                    div.textContent = chatList[robotCount].text['qTrue'];
+                    bot.qPoint++;
+                }else{
+                    chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
+                    div.textContent = chatList[robotCount].text['qFalse'];
+                }
+            }else{
+                chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
+                div.textContent = chatList[robotCount].text[bot.nextTextOption];
+            }
         }
         //答えの詳細か
         else if (robotCount > 1 && chatList[robotCount].questionNextSupport) {

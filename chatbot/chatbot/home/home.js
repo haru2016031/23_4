@@ -74,7 +74,7 @@ function ChangeBackGround(li,type,appImg){
     let backgroundFile = document.createElement('input');
     li.appendChild(backgroundFile);
     backgroundFile.type = 'file';
-    backgroundFile.accept = '.png .jpg';
+    backgroundFile.accept = '.png, .jpg';
     backgroundFile.classList.add('background-button');
     backgroundFile.addEventListener('change',()=>{
       SelectBackGround()
@@ -93,7 +93,7 @@ function SelectBackGround(){
   reader.onload = function () {
     backgroundID = reader.result;
     const homescreen = document.getElementById('homescreen');
-    homescreen.style.background = backgroundID;
+    homescreen.style.backgroundImage = `url(${backgroundID})`;
   }
   reader.readAsDataURL(file);
 

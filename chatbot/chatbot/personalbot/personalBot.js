@@ -2,6 +2,7 @@ class Personalbot extends Chatbot{
     constructor(){
         super();
         this.botType='PERSONAL';
+        this.robotOutputList['item'] = this.RobotOutputItem;
 
     }
 
@@ -15,7 +16,6 @@ class Personalbot extends Chatbot{
         const div = super.CreateChoiceTitle(text);
         div.classList.add('personal-choice-title');
         choiceField.appendChild(div);
-
     }
 
     CreateChoiceButton(choiceField,text,num,bot,type){
@@ -24,9 +24,62 @@ class Personalbot extends Chatbot{
         choiceField.appendChild(div);
     }
 
+    CreateItemButton(choiceField,text,num,bot){
+        const itemDiv = document.createElement('div');
+        itemDiv.id = `${choiceField.id}-${num}`;
+        itemDiv.classList.add('personal-item');
+        itemDiv.textContent = text;
+        itemDiv.classList.add('personal-choice-button');
+        choiceField.appendChild(itemDiv);
+    }
+
     RobotOutputClick(li,bot){
         const div = super.RobotOutputClick(li,bot)
         div.classList.add('personal-choice-button');
+    }
+
+    RobotOutputChoice(li,bot){
+        const robotCount = bot.robotCount;
+        const chatList = bot.chatList;
+        const choiceField = document.createElement('div');
+        choiceField.id = `q-${robotCount}`;
+        choiceField.classList.add('chatbot-left-rounded');
+        li.appendChild(choiceField);
+
+        //質問タイトル
+        bot.CreateChoiceTitle(choiceField,chatList[robotCount].text.title);
+        
+        //問題のランダム選出
+        const qList = chatList[chatList.length-1];
+        while (true) {
+            const n = Math.floor(Math.random() * qList.length);
+
+            if (!bot.quizList.includes(n)) {
+                bot.randomNum = n;
+                bot.quizList.push(bot.randomNum);
+                break; // `quizList` に含まれない数字が出たらループから抜ける
+            }
+        }
+
+        //質問文
+        const choiceQ = document.createElement('div');
+        choiceQ.classList.add('choice-q');
+        choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
+        choiceField.appendChild(choiceQ);
+        //選択肢
+        if(chatList[chatList.length-1][bot.randomNum].choices){
+            for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
+                bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
+            }
+        }else if(chatList[chatList.length-1][bot.randomNum].items){
+            for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].items.length; i++) {
+                bot.CreateItemButton(choiceField,chatList[chatList.length-1][bot.randomNum].items[i],i,bot);
+            }
+            bot.chatSubmitBtn.disabled = false;
+        }else{
+            bot.chatSubmitBtn.disabled = false;
+        }
+        
 
     }
 
