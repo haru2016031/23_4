@@ -55,23 +55,32 @@
                     }
                   }
                 if(containsWord){
-                    div.textContent = chatList[robotCount].text['qTrue'];
+                    // div.textContent = chatList[robotCount].text['qTrue'];
+                    const text = chatList[robotCount].text['qTrue'];
+                    bot.displayText(text,div,function(){})
+
                     bot.qPoint++;
                 }else{
                     chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
-                    div.textContent = chatList[robotCount].text['qFalse'];
+                    // div.textContent = chatList[robotCount].text['qFalse'];
+                    bot.displayText(chatList[robotCount].text['qFalse'],div,function(){})
                 }
             }else{
                 chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
-                div.textContent = chatList[robotCount].text[bot.nextTextOption];
+                // div.textContent = chatList[robotCount].text[bot.nextTextOption];
+                const text = chatList[robotCount].text[bot.nextTextOption];
+                bot.displayText(text,div,function(){});
             }
         }
         //答えの詳細か
         else if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
             console.log('次の回答の選択肢は' + bot.nextTextOption);
-            div.textContent = chatList[chatList.length-1][randomNum].info;
+            bot.displayText(chatList[chatList.length-1][randomNum].info,div,function(){});
+            // div.textContent = chatList[chatList.length-1][randomNum].info;
         } else {
-            div.textContent = chatList[robotCount].text;
+            bot.displayText(chatList[robotCount].text,div,function(){});
+            // div.textContent = chatList[chatList.length-1][randomNum].info;
+
         }
         bot.chatSubmitBtn.disabled = false;
 

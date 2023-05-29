@@ -64,40 +64,72 @@ class Personalbot extends Chatbot{
         //質問文
         const choiceQ = document.createElement('div');
         choiceQ.classList.add('choice-q');
-        choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
         choiceField.appendChild(choiceQ);
-        //選択肢
-        if(chatList[chatList.length-1][bot.randomNum].choices){
-            for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
-                bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
+
+        bot.displayText(chatList[chatList.length-1][bot.randomNum].question,choiceQ,function(){
+            //choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
+            //選択肢
+            if(chatList[chatList.length-1][bot.randomNum].choices){
+                    bot.displayChoicesWithDelay(chatList[chatList.length-1][bot.randomNum].choices, 0, choiceField, bot,'CHOICE');
+            }else if(chatList[chatList.length-1][bot.randomNum].items){
+                bot.displayItemWithDelay(chatList[chatList.length-1][bot.randomNum].items,0,choiceField,bot);
+                bot.chatSubmitBtn.disabled = false;
+            }else{
+                bot.chatSubmitBtn.disabled = false;
             }
-        }else if(chatList[chatList.length-1][bot.randomNum].items){
-            for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].items.length; i++) {
-                bot.CreateItemButton(choiceField,chatList[chatList.length-1][bot.randomNum].items[i],i,bot);
-            }
-            bot.chatSubmitBtn.disabled = false;
-        }else{
-            bot.chatSubmitBtn.disabled = false;
-        }
-        
+            chatToBottom();
+        });
 
     }
+
+    displayItemWithDelay(items, index, choiceField, bot) {
+        if (index < items.length) {
+          bot.CreateChoiceButton(choiceField, items[index], index, bot);
+          chatToBottom();
+          setTimeout(() => {
+            bot.displayChoicesWithDelay(items, index + 1, choiceField, bot,'CHOICE');
+          }, 1000); // 1秒ごとに次の選択肢を表示する（適宜変更可能）
+        }
+      }
+
 
     BotOrgNormal(chatList,robotCount,randomNum,div,bot){
         //問題の答えか
         if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
             console.log('次の回答の選択肢は' + bot.nextTextOption);
-            div.textContent = chatList[chatList.length-1][randomNum].info;
+            const text = chatList[chatList.length-1][randomNum].info;
+            bot.displayText(text,div,function(){
+                return;
+            });
         } 
         //質問の詳細か
         else if (bot.nextTextOption !== "") {
-            div.textContent = chatList[chatList.length-1][randomNum].answer[bot.nextTextOption];
-            bot.nextTextOption = "";
+            //選んだ選択肢に基づく答えを設定する
+            const text = chatList[chatList.length-1][randomNum].answer[bot.nextTextOption]
+            bot.displayText(text,div,function(){
+                bot.nextTextOption = "";
+            });
         }else {
-            div.textContent = chatList[robotCount].text;
-            //返信を可能にする
-            bot.chatSubmitBtn.disabled = false;
+            if(chatList[chatList.length-1][randomNum].items && 
+            0<robotCount &&
+            chatList[robotCount-1].questionNextSupport){
+                let text = '';
+                for(let i=0; i<chatList[chatList.length-1][randomNum].items.length;i++){
+                    text += chatList[chatList.length-1][randomNum].answer[i];
+                }
+                bot.displayText(text,div,function(){
+                    return;
+                })
+            }else{
+                const text = chatList[robotCount].text; // 表示するテキスト
 
+                bot.displayText(text,div,function(){
+                    // div.textContent =text;
+
+                    //返信を可能にする
+                    bot.chatSubmitBtn.disabled = false;    
+                });
+            }
         }    
     }
 
@@ -105,6 +137,7 @@ class Personalbot extends Chatbot{
         const choicedId = e.getAttribute('id');
         super.pushChoice(bot,choicedId);
         if (bot.chatList[bot.robotCount].questionNextSupport) {
+            //選んだ選択肢の添え字をnextTextOptionに保存する
             if (String(bot.robotCount).length === 1) {
                 //robotCountの桁数が一桁の時
                 bot.nextTextOption = choicedId.slice(4);

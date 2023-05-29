@@ -4,6 +4,11 @@ let userData = [];
 //自分のアイコンID
 let myIconID = '../../resource/img/botIcon2.png';
 
+//投稿ロード時間
+const defaultDelay = 800;
+let delay = defaultDelay;
+
+const textDelay = 100; // 一文字ごとの遅延時間（ミリ秒）
 
 class Chatbot{
     constructor(){
@@ -31,6 +36,7 @@ class Chatbot{
         this.nextTextOption = '';
         this.quizList = [];
         userData = [];
+        this.itemList = [];
         const ulElement = document.getElementById('chatbot-ul'); // ul要素の取得
         while (ulElement.firstChild) {
             ulElement.removeChild(ulElement.firstChild);
@@ -122,6 +128,11 @@ class Chatbot{
 
     //選択肢の処理
     pushChoice(bot,choicedId) {
+        for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
+            if(!document.getElementById('q-' + num + '-' + i)){
+                return;
+            }
+        }
         const chatList = bot.chatList;
         const robotCount = bot.robotCount;
         const randomNum = bot.randomNum;
@@ -167,16 +178,21 @@ class Chatbot{
         //質問文
         const choiceQ = document.createElement('div');
         choiceQ.classList.add('choice-q');
-        choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
         choiceField.appendChild(choiceQ);
-        //選択肢
-        if(chatList[chatList.length-1][bot.randomNum].choices){
-            for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
-                bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
+
+        bot.displayText(chatList[chatList.length-1][bot.randomNum].question,choiceQ,function(){
+            // choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
+            //選択肢
+            if(chatList[chatList.length-1][bot.randomNum].choices){
+                bot.displayChoicesWithDelay(chatList[chatList.length-1][bot.randomNum].choices,0,choiceField,bot,'CHOICE');
+                // for (let i = 0; i < chatList[chatList.length-1][bot.randomNum].choices.length; i++) {
+                //     bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
+                // }
+            }else{
+                bot.chatSubmitBtn.disabled = false;
             }
-        }else{
-            bot.chatSubmitBtn.disabled = false;
-        }
+
+        });
 
     }
 
@@ -195,14 +211,27 @@ class Chatbot{
         //質問文
         const choiceQ = document.createElement('div');
         choiceQ.classList.add('choice-q');
-        choiceQ.textContent = chatList[robotCount].text.question;
         choiceField.appendChild(choiceQ);
-        
-        //選択肢
-        for (let i = 0; i < chatList[robotCount].text.choices.length; i++) {
-            bot.CreateChoiceButton(choiceField,chatList[robotCount].text.choices[i],i,bot,'SELECT')
+        // choiceQ.textContent = chatList[robotCount].text.question;
+
+        bot.displayText(chatList[robotCount].text.question,choiceQ,function(){
+
+            //選択肢
+            bot.displayChoicesWithDelay(chatList[robotCount].text.choices,0,choiceField,bot,'SELECT');
+            // bot.CreateChoiceButton(choiceField,chatList[robotCount].text.choices[i],i,bot,'SELECT')
+            
+        })
+    }
+
+    displayChoicesWithDelay(choices, index, choiceField, bot,type) {
+        if (index < choices.length) {
+          bot.CreateChoiceButton(choiceField, choices[index], index, bot, type);
+          chatToBottom();
+          setTimeout(() => {
+            bot.displayChoicesWithDelay(choices, index + 1, choiceField, bot,type);
+          }, 1000); // 1秒ごとに次の選択肢を表示する（適宜変更可能）
         }
-     }
+      }
 
     //次の問題に行くか行かないか
     RobotOutputClick(li,bot){
@@ -211,6 +240,8 @@ class Chatbot{
         const button = document.createElement('button');
         button.addEventListener('click', function() {
             bot.robotOutput();
+            button.disabled = true;
+
         });
         button.classList.add('choice-button');
         button.textContent = bot.chatList[bot.robotCount].text;
@@ -256,6 +287,11 @@ class Chatbot{
     
         //返信を不可にする
         this.chatSubmitBtn.disabled = true;
+
+        //ひとつ前の台本がcontinue=falseなら遅延描画をなくす
+        if(this.chatList[this.robotCount].continue == false && delay > 0){
+            delay =0;
+        }
     
         // ulとliを作り、左寄せのスタイルを適用し投稿
         const ul = document.getElementById('chatbot-ul');
@@ -285,6 +321,9 @@ class Chatbot{
                 robotIconFile.click();
             }
         })
+
+        //下までスクロール
+        chatToBottom();
     
         const robotLoadingDiv = document.createElement('div');
         setTimeout(() => {
@@ -294,13 +333,13 @@ class Chatbot{
     
             //下までスクロール
             chatToBottom();
-        }, 100);
-   
-   
+        }, delay);
     
         setTimeout(() => {
             //考え中アニメ削除
             robotLoadingDiv.remove();
+
+            //内容の作成、投稿
             this.robotOutputList[this.chatList[this.robotCount].option](li,this);
             this.robotCount++;
    
@@ -317,7 +356,7 @@ class Chatbot{
                 this.robotOutput();
             }
     
-        }, 200);
+        }, delay*1.5);
     
     }
 
@@ -370,7 +409,7 @@ class Chatbot{
        myIconFile.accept = '.png';
        myIconFile.classList.add('icon-button');
        myIconFile.addEventListener('change', ()=>{
-        this.ChangeMyIcon(this)
+            ChangeMyIcon()
        });
    
        //アイコンクリックでアイコン変更
@@ -389,6 +428,25 @@ class Chatbot{
        chatToBottom();
        
     }
+
+
+    //テキスト遅延描画(完了後実行関数あり)
+    displayText(text, div, callback) {
+        let index = 0;
+        div.textContent = text;
+        delay = text.length * textDelay;
+        function display() {
+          if (index < text.length) {
+            div.textContent = text.substr(0, index + 1);
+            index++;
+            setTimeout(display, textDelay);
+          } else {
+            callback(); // displayTextが完了した後にコールバック関数を呼び出す
+          }
+        }
+      
+        display();
+      }
     
     //自分の投稿のメイン部分
     myOutput(bot) {
@@ -396,7 +454,12 @@ class Chatbot{
         if (!bot.userText.value || !bot.userText.value.match(/\S/g) || bot.chatSubmitBtn.disabled) return false;
     
         //投稿内容の保存
-        userData.push(bot.userText.value);
+        if(bot.chatList[bot.chatList.length-1][bot.randomNum].items && 
+            bot.chatList[bot.robotCount-1].option == 'choices'){
+            bot.itemList.push(bot.userText.value);
+        }else{
+            userData.push(bot.userText.value);
+        }
    
         //返信の作成
         bot.CreateMyOutput(bot.userText.value);
@@ -406,7 +469,19 @@ class Chatbot{
    
     
         if (bot.robotCount < Object.keys(bot.chatList).length) {
-            bot.robotOutput();
+            //複数回答えるタイプの問題か
+            if(bot.chatList[bot.chatList.length-1][bot.randomNum].items && 
+                bot.chatList[bot.robotCount-1].option == 'choices')
+            {
+                //itemsの分回答しているか
+                if(bot.chatList[bot.chatList.length-1][bot.randomNum].items.length <= bot.itemList.length ){
+                    userData.push(bot.itemList);
+                    bot.itemList =[];
+                    bot.robotOutput();
+                }
+            }else{
+                bot.robotOutput();
+            }
         }
     
         //入力欄を空白にする鵜
@@ -495,6 +570,21 @@ class Chatbot{
 
     }
 };
+
+
+
+document.addEventListener('keyup', function(event) {
+    if (event.key === "ArrowDown") {
+      delay = defaultDelay;
+    }
+  });
+
+// キー入力イベントを監視する要素にハンドラーを追加
+document.addEventListener('keydown', function(event){
+    if(event.key === "ArrowDown"){
+        delay = 100;
+    }
+});
 
 //時間表示生成
 function CreateTime(){
@@ -614,10 +704,13 @@ function BackScene(url){
 
     // クリックイベントリスナーを設定
     chatbotBack.addEventListener('click', function() {
-    // 遷移先のURLを指定
-    const destinationUrl = url;
+        // 遷移先のURLを指定
+        const destinationUrl = url;
 
-    // ページの遷移
-    window.location.href = destinationUrl;
-});
+        // ページの遷移
+        window.location.href = destinationUrl;
+    });
 }
+
+
+
