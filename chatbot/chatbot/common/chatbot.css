@@ -115,6 +115,10 @@ body{
     color: #161616;
 }
 
+.chatbot-left-rounded-size{
+    width: 70%;
+}
+
 .chatbot-icon{
     margin-left: 10px;
     height: 32px;
@@ -137,10 +141,13 @@ body{
     font-size: 0.8rem;
     margin: -7px -7px 0px -7px;
     vertical-align: bottom;
+    text-shadow: 0.2px 0.2px 0px #929292, -0.2px -0.2px 0px #929292, 0.2px -0.2px 0px #929292, -0.2px 0.2px 0px #929292;
+
 }
 
 /* 自分の吹き出し */
 #chatbot-ul > li > .name-right {
+    text-shadow: 0.6px 0.6px 0px #929292, -0.6px -0.6px 0px #929292, 0.6px -0.6px 0px #929292, -0.6px 0.6px 0px #929292;
     position: absolute;
     top: -8px;
     right: 8%;

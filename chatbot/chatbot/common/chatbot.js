@@ -5,10 +5,11 @@ let userData = [];
 let myIconID = '../../resource/img/botIcon2.png';
 
 //投稿ロード時間
-const defaultDelay = 800;
-let delay = defaultDelay;
+const defaultDelay = 100;
+let delay = 800;
 
-const textDelay = 100; // 一文字ごとの遅延時間（ミリ秒）
+let textDelay = 100; // 一文字ごとの遅延時間（ミリ秒）
+let textFlag = false;
 
 class Chatbot{
     constructor(){
@@ -128,18 +129,20 @@ class Chatbot{
 
     //選択肢の処理
     pushChoice(bot,choicedId) {
+        const chatList = bot.chatList;
+        const robotCount = bot.robotCount;
+        const randomNum = bot.randomNum;
+        const num = robotCount - 1;
+
         for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
             if(!document.getElementById('q-' + num + '-' + i)){
                 return;
             }
         }
-        const chatList = bot.chatList;
-        const robotCount = bot.robotCount;
-        const randomNum = bot.randomNum;
+
         //回答内容の保存
         const ans = document.getElementById(choicedId).textContent;
         userData.push(ans);
-        const num = robotCount - 1;
         for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
             document.getElementById('q-' + num + '-' + i).disabled = true;
             document.getElementById('q-' + num + '-' + i).classList.add('choice-button-disabled');
@@ -157,7 +160,7 @@ class Chatbot{
         const chatList = bot.chatList;
         const choiceField = document.createElement('div');
         choiceField.id = `q-${robotCount}`;
-        choiceField.classList.add('chatbot-left-rounded');
+        choiceField.classList.add('chatbot-left-rounded','chatbot-left-rounded-size');
         li.appendChild(choiceField);
 
         //質問タイトル
@@ -180,7 +183,7 @@ class Chatbot{
         choiceQ.classList.add('choice-q');
         choiceField.appendChild(choiceQ);
 
-        bot.displayText(chatList[chatList.length-1][bot.randomNum].question,choiceQ,function(){
+        bot.displayText(chatList[chatList.length-1][bot.randomNum].question,choiceQ,bot,function(){
             // choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
             //選択肢
             if(chatList[chatList.length-1][bot.randomNum].choices){
@@ -191,9 +194,8 @@ class Chatbot{
             }else{
                 bot.chatSubmitBtn.disabled = false;
             }
-
+            return true;
         });
-
     }
 
     //終了する？の生成
@@ -214,11 +216,12 @@ class Chatbot{
         choiceField.appendChild(choiceQ);
         // choiceQ.textContent = chatList[robotCount].text.question;
 
-        bot.displayText(chatList[robotCount].text.question,choiceQ,function(){
+        bot.displayText(chatList[robotCount].text.question,choiceQ,bot,function(){
 
             //選択肢
             bot.displayChoicesWithDelay(chatList[robotCount].text.choices,0,choiceField,bot,'SELECT');
             // bot.CreateChoiceButton(choiceField,chatList[robotCount].text.choices[i],i,bot,'SELECT')
+            return true;
             
         })
     }
@@ -267,7 +270,7 @@ class Chatbot{
         const robotCount = bot.robotCount;
         const randomNum = bot.randomNum;
         if (chatList[robotCount].option == 'normal') {
-            bot.BotOrgNormal(chatList,robotCount,randomNum,div,bot);
+            return bot.BotOrgNormal(chatList,robotCount,randomNum,div,bot);
         } else {
             //複数の回答からランダムで投稿
             const rand = Math.random();
@@ -340,7 +343,7 @@ class Chatbot{
             robotLoadingDiv.remove();
 
             //内容の作成、投稿
-            this.robotOutputList[this.chatList[this.robotCount].option](li,this);
+            textFlag = this.robotOutputList[this.chatList[this.robotCount].option](li,this);
             this.robotCount++;
    
             //時間の表示
@@ -351,10 +354,6 @@ class Chatbot{
             //下までスクロール
             chatToBottom();
     
-            //連続投稿
-            if (this.chatList[this.robotCount].continue) {
-                this.robotOutput();
-            }
     
         }, delay*1.5);
     
@@ -431,21 +430,31 @@ class Chatbot{
 
 
     //テキスト遅延描画(完了後実行関数あり)
-    displayText(text, div, callback) {
+    displayText(text, div,bot, callback) {
         let index = 0;
         div.textContent = text;
-        delay = text.length * textDelay;
         function display() {
           if (index < text.length) {
-            div.textContent = text.substr(0, index + 1);
+            let nextText = text.substr(0, index + 1);
+            if (nextText.includes('\n') ) {
+                chatToBottom(); // 改行が含まれていて、かつ前回のテキストと異なる場合にchattoButtom関数を呼び出す
+            }
+            div.textContent = nextText;            
             index++;
             setTimeout(display, textDelay);
           } else {
             callback(); // displayTextが完了した後にコールバック関数を呼び出す
+            //連続投稿
+            if (bot.chatList[bot.robotCount].continue) {
+                bot.robotOutput();
+                
+            }
           }
         }
       
         display();
+        chatToBottom(); // 改行が含まれていて、かつ前回のテキストと異なる場合にchattoButtom関数を呼び出す
+
       }
     
     //自分の投稿のメイン部分
@@ -574,15 +583,15 @@ class Chatbot{
 
 
 document.addEventListener('keyup', function(event) {
-    if (event.key === "ArrowDown") {
-      delay = defaultDelay;
+    if (event.key === "ArrowRight") {
+      textDelay = defaultDelay;
     }
   });
 
 // キー入力イベントを監視する要素にハンドラーを追加
 document.addEventListener('keydown', function(event){
-    if(event.key === "ArrowDown"){
-        delay = 100;
+    if(event.key === "ArrowRight"){
+        textDelay = 10;
     }
 });
 

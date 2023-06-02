@@ -40,6 +40,7 @@
     
     BotOrgNormal(chatList,robotCount,randomNum,div,bot){
         //問題の答えか
+        let text = '';
         if (chatList[robotCount].text.qTrue) {
             //現在の問題が自分が入力するタイプの問題かどうか
             if(!chatList[chatList.length-1][randomNum].choices){
@@ -56,32 +57,32 @@
                   }
                 if(containsWord){
                     // div.textContent = chatList[robotCount].text['qTrue'];
-                    const text = chatList[robotCount].text['qTrue'];
-                    bot.displayText(text,div,function(){})
-
+                    text = chatList[robotCount].text['qTrue'];
                     bot.qPoint++;
                 }else{
                     chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
                     // div.textContent = chatList[robotCount].text['qFalse'];
-                    bot.displayText(chatList[robotCount].text['qFalse'],div,function(){})
+                    text = chatList[robotCount].text['qFalse'];
                 }
             }else{
                 chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
                 // div.textContent = chatList[robotCount].text[bot.nextTextOption];
-                const text = chatList[robotCount].text[bot.nextTextOption];
-                bot.displayText(text,div,function(){});
+                text = chatList[robotCount].text[bot.nextTextOption];
             }
         }
         //答えの詳細か
         else if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
             console.log('次の回答の選択肢は' + bot.nextTextOption);
-            bot.displayText(chatList[chatList.length-1][randomNum].info,div,function(){});
+            text = chatList[chatList.length-1][randomNum].info;
             // div.textContent = chatList[chatList.length-1][randomNum].info;
         } else {
-            bot.displayText(chatList[robotCount].text,div,function(){});
+            text = chatList[robotCount].text;
             // div.textContent = chatList[chatList.length-1][randomNum].info;
 
         }
+        bot.displayText(text,div,bot,function(){
+            return true;
+        });
         bot.chatSubmitBtn.disabled = false;
 
     }

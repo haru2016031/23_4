@@ -1,8 +1,9 @@
-const createAppList=['quiz','personal','background'];
+const createAppList=['quiz','personal','psycho','background'];
 
 const appList={
   'quiz':{'name':'Quiz','func':CreateAppFunc},
   'personal':{'name':'心理テスト','func':CreateAppFunc},
+  'psycho':{'name':'サイコパス診断','func':CreateAppFunc},
   'background':{'name':'背景変更','func':ChangeBackGround},
 };
 

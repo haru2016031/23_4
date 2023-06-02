@@ -7,7 +7,7 @@ body{
     box-sizing: border-box;
     background-image: url(../../resource/img/background.png);
     background-size: cover;
-    font-family: 'Mochiy Pop P One';
+    font-family: 'Kiwi Maru';
 }
 
 .personalbot-header{
@@ -41,6 +41,6 @@ body{
 }
 
 .personal-choice-button{
-    font-family: 'Mochiy Pop P One';
+    font-family:'Kiwi Maru';
     background: #FFC0CB;
 }
