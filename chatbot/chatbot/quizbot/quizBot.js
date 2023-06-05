@@ -4,7 +4,7 @@
         super();
         this.botType='QUIZ';
 
-
+        this.qNum = 6;
         //ランダムで選ばれた問題のID
         this.randomNum = 0;
         this.quizList = [];
@@ -125,7 +125,7 @@
     textSpecial(){
      
         this.chatList[3].text = `こんにちは！${userData[0]}先生`;
-        this.chatList[this.chatList.length-4].text = `問題は以上です！${this.chatList[this.chatList.length-1].length}問中${this.qPoint}問正解でした！`;
+        this.chatList[this.chatList.length-4].text = `問題は以上です！${this.qNum}問中${this.qPoint}問正解でした！`;
         //  chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
         //  chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
         //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;

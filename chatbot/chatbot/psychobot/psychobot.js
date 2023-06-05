@@ -5,10 +5,14 @@ class Psychobot extends Chatbot{
         this.qNum = 5;
         this.psyPt=0;
         this.psyAnsList=[
-            '1~25pt',
-            '26~50pt',
-            '51~75pt',
-            '76~100pt']
+            'サイコパス度は20%、ほとんどサイコパスの素質はありません。\n非常に共感力が高く、優しい心の持ち主といえるでしょう。\nサイコパスとは真逆の性格なので、身の回りにサイコパスと思われる人がいる場合は、自分とは違う感覚の人間であることを理解しておきましょう。',
+            'サイコパス度は50%、少しサイコパスの素質を持っています。\n普通の人と同じレベルの共感力を持っていますが、嘘をついたり利己的な行動を取ったりすると、トラブルを引き起こす危険性があります。\nサイコパス性のある人がやりがちな行動をしないように十分注意しましょう。',
+            'サイコパス度は70%、サイコパスの可能性が高いです。\n基本的に共感力が低く、利己的で他人に配慮がありません。\nしかし、感情をコントロールするのがうまく、決断が速いという特徴もあります。',
+            'サイコパス度は100%、間違いなくサイコパスです。\nサイコパスの人は、無計画で衝動的な行動を取ってしまう傾向にあります。\n人生が破綻するような犯罪を引き起こしてしまう可能性もあるので、十分注意してください。\nまた、サイコパスは良心と共感が欠如しているので、人が離れていき、孤独に悩むケースが多いようです。\n他人に接することができるといいでしょう。']
+    }
+    Init(){
+        super.Init();
+        this.psyPt = 0;
     }
 
     CreateMyText(text,li){
@@ -82,7 +86,7 @@ class Psychobot extends Chatbot{
         if (robotCount > 1 && chatList[robotCount].questionNextSupport){
             if(chatList[chatList.length-1][randomNum].answer) {
                 text = chatList[chatList.length-1][randomNum].answer[bot.nextTextOption];
-                const pt = 100/this.qNum*(1/chatList[chatList.length-1][randomNum].point[bot.nextTextOption]);
+                const pt = Math.floor(100/this.qNum*(1/chatList[chatList.length-1][randomNum].point[bot.nextTextOption]));
                 bot.psyPt += pt;
                 text += `\nサイコパスポイント+${pt}!!`;
                 bot.displayText(text,div,bot,function(){
@@ -99,7 +103,9 @@ class Psychobot extends Chatbot{
         }else{
             if(robotCount == chatList.length-4){
                 //0~24(0),25~49(1),50~74(2),75~99(3)でランク分けする
-                text = bot.psyAnsList[((bot.psyPt-1)%25)];
+                const num = Math.floor((bot.psyPt-1)/25);
+                text +=`あなたのサイコパスポイントは${bot.psyPt }ポイントでした！！！\n\n`
+                text += bot.psyAnsList[num];
             }else{
                 text = chatList[robotCount].text; // 表示するテキスト
             }

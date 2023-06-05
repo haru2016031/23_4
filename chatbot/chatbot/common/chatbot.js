@@ -192,6 +192,7 @@ class Chatbot{
                 //     bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
                 // }
             }else{
+                bot.chatToBottom();
                 bot.chatSubmitBtn.disabled = false;
             }
             return true;

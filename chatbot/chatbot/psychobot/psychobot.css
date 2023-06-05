@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    box-sizing: border-box;
+    background-image: url(../../resource/img/background.png);
+    background-size: cover;
+    font-family: 'Kiwi Maru';
+}
+
+.psychobot-header{
+    background: rgb(0, 0, 102)
+}
+
+.psychobot-right{
+    background: rgb(255, 255, 153);
+}
+
+.psychobot-body{
+    background: rgb(0, 0, 102)
+}
+
+.psycho-choice-title{
+    background: rgb(255, 255, 153);
+}
+
+.psycho-choice-button{
+    font-family:'Kiwi Maru';
+    background: rgb(255, 255, 153);;
+}
