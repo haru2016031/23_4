@@ -7,6 +7,7 @@
         this.qNum = 6;
         //ランダムで選ばれた問題のID
         this.randomNum = 0;
+        this.allQuizList = [];
         this.quizList = [];
 
         //選択肢の正解個数

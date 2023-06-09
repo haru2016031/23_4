@@ -71,7 +71,7 @@ function CreateWeather(el,weather){
   //天気の画像の表示
   const weatherImg = document.createElement('img');
   weatherImg.id = 'weather-icon';
-  weatherImg.setAttribute('src',`../../resource/img/weather/${weather}.png`);
+  weatherImg.setAttribute('src', `../../resource/img/weather/${weather}.png`);
   weatherDiv.appendChild(weatherImg);
   el.appendChild(weatherDiv);
 

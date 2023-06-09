@@ -25,9 +25,13 @@ const stampList =['kaeruka','hamster_sleeping','mamoru','calender_shock',
 
 class Chatbot{
     constructor(){
+        this.Init()
         this.botType='CHAT';
         this.chatList= "";
+        this.allQuizList = [];
         this.loadFlag = false;
+        this.robotCount = 0;
+        userData = [];        
         //選択肢を押したときの次の選択肢
         this.nextTextOption = '';
         this.userText = document.getElementById('chatbot-text');
@@ -38,15 +42,14 @@ class Chatbot{
             'normal':this.RobotOutputNormal,
             'click':this.RobotOutputClick
         }
-        this.Init()
         }
     Init(){
-        this.robotCount = 0;
+        this.robotCount = 4;
         this.qPoint = 0;
+        this.quizList = [];
         this.randomNum = 0;
         this.nextTextOption = '';
-        this.quizList = [];
-        userData = [];
+        userData.splice(1, userData.length - 1);        
         this.itemList = [];
         const ulElement = document.getElementById('chatbot-ul'); // ul要素の取得
         while (ulElement.firstChild) {
@@ -178,12 +181,19 @@ class Chatbot{
         
         //問題のランダム選出
         const qList = chatList[chatList.length-1];
+        if(bot.allQuizList.length >= qList.length){
+            //問題がすべて出題されたたら、出題状況をリセットする
+            bot.allQuizList.length = 0;
+        }
+
+        //すでに出題された問題と被らないよう調整
         while (true) {
             const n = Math.floor(Math.random() * qList.length);
 
-            if (!bot.quizList.includes(n)) {
+            if (!bot.quizList.includes(n) && !bot.allQuizList.includes(n)) {
                 bot.randomNum = n;
                 bot.quizList.push(bot.randomNum);
+                bot.allQuizList.push(bot.randomNum);
                 break; // `quizList` に含まれない数字が出たらループから抜ける
             }
         }
@@ -202,7 +212,7 @@ class Chatbot{
                 //     bot.CreateChoiceButton(choiceField,chatList[chatList.length-1][bot.randomNum].choices[i],i,bot,'CHOICE');
                 // }
             }else{
-                bot.chatToBottom();
+                chatToBottom();
                 bot.chatSubmitBtn.disabled = false;
             }
             return true;
@@ -380,10 +390,7 @@ class Chatbot{
        li.appendChild(CreateTime());
    
        // 名前の表示
-       const nameDiv = document.createElement('div');
-       nameDiv.classList.add('name-right');
-       nameDiv.textContent = userData[0];
-       li.appendChild(nameDiv);
+       CreateName(li);
    
        //投稿するテキスト作成
        this.CreateMyText(text,li);
@@ -502,10 +509,8 @@ class Chatbot{
             bot.myOutput(bot);
         }
     }
-   
 
-
-     //デバック連投
+    //デバック連投
     DebugOutput() {
         //空行の場合送信不可
         if (!userText.value || !userText.value.match(/\S/g)) return false;
@@ -555,6 +560,7 @@ class Chatbot{
         BackScene('../home/home.html');
 
         // ここからchatListを利用する処理を記述
+        QuizReset(bot);
 
         //最初のボットの発言
         bot.robotOutput();
@@ -574,8 +580,6 @@ class Chatbot{
 
     }
 };
-
-
 
 document.addEventListener('keyup', function(event) {
     if (event.key === "ArrowRight") {
@@ -601,6 +605,30 @@ function CreateTime(){
     timeDiv.textContent = `${hours}:${minutes}`;
     return timeDiv;
     }
+
+function CreateName(li){
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('name-right');
+    nameDiv.textContent = userData[0];
+    nameDiv.addEventListener('click', () => {
+        var nameRights = document.querySelectorAll('.name-right');
+        var nameText = nameRights[0].textContent;
+        var inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.value = nameText;
+        inputField.addEventListener('blur', function() {
+            nameRights.forEach(function(element) {
+                element.textContent = this.value;
+            })
+        });
+        nameRights.innerHTML = '';
+        nameRights.appendChild(inputField);
+        inputField.focus();
+    })
+
+    li.appendChild(nameDiv);
+
+}
 
   //スタンププレビュー生成
 function SetStampHTML(pathList){
@@ -628,11 +656,7 @@ function StampOutput(path){
     li.appendChild(CreateTime());
 
     // 名前の表示
-    const nameDiv = document.createElement('div');
-    nameDiv.classList.add('name-right');
-    nameDiv.textContent = userData[0];
-    li.appendChild(nameDiv);
-    
+    CreateName(li);
 
     //作成したdivにスタンプ画像を挿入
     const stampDiv = document.createElement('div');
@@ -734,7 +758,11 @@ function BotStampOutput(path){
         stampDiv.classList.add('stamp');
         const stampImg = document.createElement('img');
         stampImg.classList.add('stampImg');
-        stampImg.setAttribute('src',path);
+        //スタンプをランダムで選ぶ
+        const n = Math.floor(Math.random() * stampList.length);
+        const filename = path.split("/").pop().split(".")[0];
+        const replacedPath = path.replace(filename, stampList[n]);
+        stampImg.setAttribute('src',replacedPath);
         stampDiv.appendChild(stampImg);
 
         //時間の表示
@@ -798,5 +826,16 @@ function BackScene(url){
     });
 }
 
+//問題のリセット
+function QuizReset(bot){
+    // chatbot-reset要素を取得
+    const chatbotReset = document.getElementById('chatbot-reset');
+
+    // クリックイベントリスナーを設定
+    chatbotReset.addEventListener('click', function() {
+        bot.allQuizList=[];
+        window.alert('†††💛問題がリセットされました💛†††');
+    }); 
+} 
 
 

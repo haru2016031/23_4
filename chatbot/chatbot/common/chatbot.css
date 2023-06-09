@@ -51,6 +51,16 @@ body{
     left: 10px;
 }
 
+#chatbot-reset{
+    cursor:pointer;
+    color: #FFF;
+    font-size: 32px;
+    line-height: 60px;
+    position: absolute;
+    right: 30px;
+
+}
+
 .chatbot-header{
     height: 60px;
     position: relative;

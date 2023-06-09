@@ -52,12 +52,18 @@ class Personalbot extends Chatbot{
         
         //問題のランダム選出
         const qList = chatList[chatList.length-1];
+        if(bot.allQuizList.length >= qList.length){
+            //問題がすべて出題されたたら、出題状況をリセットする
+            bot.allQuizList.length = 0;
+        }
+
         while (true) {
             const n = Math.floor(Math.random() * qList.length);
 
-            if (!bot.quizList.includes(n)) {
+            if (!bot.quizList.includes(n) && !bot.allQuizList.includes(n)) {
                 bot.randomNum = n;
                 bot.quizList.push(bot.randomNum);
+                bot.allQuizList.push(bot.randomNum);
                 break; // `quizList` に含まれない数字が出たらループから抜ける
             }
         }
