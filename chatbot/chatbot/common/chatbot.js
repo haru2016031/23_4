@@ -415,9 +415,19 @@ class Chatbot{
    
        //アイコンクリックでアイコン変更
        iconDiv.addEventListener('click', () => {
-           if (myIconFile) {
-               myIconFile.click();
-           }
+        var bodyElement = document.getElementById("chatbot-body");
+        var footerElement = document.getElementById("chatbot-footer");
+      
+        var bodyHeight = bodyElement.clientHeight;
+        var footerHeight = footerElement.clientHeight;
+      
+        var combinedHeight = bodyHeight + footerHeight;
+        bodyElement.style.height = combinedHeight + "px";
+        const setDiv = createElement('div');
+        //設定画面を出すところから
+        //    if (myIconFile) {
+        //        myIconFile.click();
+        //    }
        }
        )
        li.appendChild(iconDiv);
@@ -611,19 +621,41 @@ function CreateName(li){
     nameDiv.classList.add('name-right');
     nameDiv.textContent = userData[0];
     nameDiv.addEventListener('click', () => {
-        var nameRights = document.querySelectorAll('.name-right');
-        var nameText = nameRights[0].textContent;
+        // 各要素にイベントリスナーを追加してクリック時に編集可能な入力フィールドに変換
+        var nameText = nameDiv.textContent;
         var inputField = document.createElement('input');
         inputField.type = 'text';
         inputField.value = nameText;
-        inputField.addEventListener('blur', function() {
-            nameRights.forEach(function(element) {
-                element.textContent = this.value;
-            })
+        inputField.style.backgroundColor = getComputedStyle(nameDiv).backgroundColor; // 背景色を設定する
+        inputField.style.width = getComputedStyle(nameDiv).width;
+        // inputField.style.height = getComputedStyle(nameDiv).height;
+        inputField.classList.add('nameInputField');
+
+        //フォーカスが外れたとき
+        // inputField.addEventListener('blur', function() {
+        //     userData[0] = inputField.value;
+        //     updateNameElements(userData[0])
+        // });
+        
+        //エンター押したとき
+        inputField.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                userData[0] = inputField.value;
+                updateNameElements(userData[0]);
+            }
         });
-        nameRights.innerHTML = '';
-        nameRights.appendChild(inputField);
+
+        //名前の変更
+        function updateNameElements(value) {
+            var nameRightElements = document.querySelectorAll('.name-right');
+            nameRightElements.forEach(function(element){
+                element.textContent = value;
+            });
+        }
+        nameDiv.innerHTML = '';
+        nameDiv.appendChild(inputField);
         inputField.focus();
+        
     })
 
     li.appendChild(nameDiv);
