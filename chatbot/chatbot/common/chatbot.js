@@ -9,9 +9,13 @@ let robotIconID = '../../resource/img/botIcon1.png';
 //投稿ロード時間
 const defaultDelay = 100;
 let delay = 800;
+const stampDelay = 800;
 
 let textDelay = 100; // 一文字ごとの遅延時間（ミリ秒）
 let textFlag = false;
+
+//遅延関数のID
+let timeID = null;
 
 //スタンプ返答path
 let botStampPath = '';
@@ -265,10 +269,12 @@ class Chatbot{
         button.addEventListener('click', function() {
             bot.robotOutput();
             button.disabled = true;
-
         });
         button.classList.add('choice-button');
-        button.textContent = bot.chatList[bot.robotCount].text;
+        const text = bot.chatList[bot.robotCount].text;
+        bot.displayText(text,button,bot,function(){
+            return true;
+        })
         button.style.marginBottom='0px';
         choiceField.appendChild(button);
         li.appendChild(choiceField);
@@ -324,10 +330,10 @@ class Chatbot{
         ul.appendChild(li);
     
         //botアイコン表示
-        const robotIconDiv = document.createElement('div');
+        const robotIconDiv = document.createElement('img');
         li.appendChild(robotIconDiv);
         robotIconDiv.classList.add('chatbot-icon');
-        robotIconDiv.style.backgroundImage = `url(${robotIconID})`;
+        robotIconDiv.setAttribute('src',`${robotIconID}`);
     
         //画像変更のためのファイル選択
         let robotIconFile = document.createElement('input');
@@ -339,13 +345,6 @@ class Chatbot{
             ChangeRobotIcon()
         });
     
-        //アイコンクリックでアイコンの変更
-        robotIconDiv.addEventListener('click', () => {
-            if (robotIconFile) {
-                robotIconFile.click();
-            }
-        })
-
         //下までスクロール
         chatToBottom();
     
@@ -364,7 +363,7 @@ class Chatbot{
             robotLoadingDiv.remove();
 
             //内容の作成、投稿
-            textFlag = this.robotOutputList[this.chatList[this.robotCount].option](li,this);
+            this.robotOutputList[this.chatList[this.robotCount].option](li,this);
             this.robotCount++;
    
             //時間の表示
@@ -413,23 +412,6 @@ class Chatbot{
             ChangeMyIcon()
        });
    
-       //アイコンクリックでアイコン変更
-       iconDiv.addEventListener('click', () => {
-        var bodyElement = document.getElementById("chatbot-body");
-        var footerElement = document.getElementById("chatbot-footer");
-      
-        var bodyHeight = bodyElement.clientHeight;
-        var footerHeight = footerElement.clientHeight;
-      
-        var combinedHeight = bodyHeight + footerHeight;
-        bodyElement.style.height = combinedHeight + "px";
-        const setDiv = createElement('div');
-        //設定画面を出すところから
-        //    if (myIconFile) {
-        //        myIconFile.click();
-        //    }
-       }
-       )
        li.appendChild(iconDiv);
    
        li.classList.add('right');
@@ -439,7 +421,6 @@ class Chatbot{
        chatToBottom();
        
     }
-
 
     //テキスト遅延描画(完了後実行関数あり)
     displayText(text, div,bot, callback) {
@@ -457,17 +438,87 @@ class Chatbot{
           } else {
             callback(); // displayTextが完了した後にコールバック関数を呼び出す
             //連続投稿
-            if (bot.chatList[bot.robotCount].continue) {
-                bot.robotOutput();
-                
-            }
+              if (bot.chatList[bot.robotCount].continue) {
+                bot.robotOutput(); 
+                if(timeID != null){
+                    clearTimeout(timeID);
+                    // clearInterval(timeID);
+                    timeID = null;
+                }
+              } else if (timeID == null) {
+
+                timeID = setTimeout(function() {
+                // timeID = setInterval(function() {
+                    bot.waitOutput(bot);
+                }, 10000); // 10秒待機
+              }
           }
         }
       
         display();
         chatToBottom(); // 改行が含まれていて、かつ前回のテキストと異なる場合にchattoButtom関数を呼び出す
-
       }
+
+    //一定時間後に何か返信
+    waitOutput(bot){
+        const wordList = ['おきてますかぁ？','無言って気まずいよね。','1分経過、、、']
+        // ulとliを作り、左寄せのスタイルを適用し投稿
+        const ul = document.getElementById('chatbot-ul');
+        const li = document.createElement('li');
+        li.classList.add('left');
+        ul.appendChild(li);
+    
+        //botアイコン表示
+        const robotIconDiv = document.createElement('img');
+        li.appendChild(robotIconDiv);
+        robotIconDiv.classList.add('chatbot-icon');
+        robotIconDiv.setAttribute('src',`${robotIconID}`);
+    
+        //画像変更のためのファイル選択
+        let robotIconFile = document.createElement('input');
+        li.appendChild(robotIconFile);
+        robotIconFile.type = 'file';
+        robotIconFile.accept = '.png';
+        robotIconFile.classList.add('icon-button');
+        robotIconFile.addEventListener('change',()=>{
+            ChangeRobotIcon()
+        });
+    
+        //下までスクロール
+        chatToBottom();
+
+        const robotLoadingDiv = document.createElement('div');
+        setTimeout(() => {
+            li.appendChild(robotLoadingDiv);
+            robotLoadingDiv.classList.add('chatbot-left');
+            robotLoadingDiv.innerHTML = '<div id= "robot-loading-field"><span id= "robot-loading-circle1" class="material-icons">circle</span> <span id= "robot-loading-circle2" class="material-icons">circle</span> <span id= "robot-loading-circle3" class="material-icons">circle</span>';
+    
+            //下までスクロール
+            chatToBottom();
+        }, delay);
+
+        setTimeout(() => {
+            //考え中アニメ削除
+            robotLoadingDiv.remove();
+
+            //内容の作成、投稿
+            const div = document.createElement('div');
+            li.appendChild(div);
+            div.classList.add('chatbot-left');
+            const n = Math.floor(Math.random() * wordList.length);
+            bot.displayText(wordList[n],div,bot,function(){
+                return true;
+            });
+       
+            //時間の表示
+            const t = CreateTime();
+            t.style.bottom = '-8px';
+            li.appendChild(t);
+   
+            //下までスクロール
+            chatToBottom();
+        }, delay*1.5);
+    }
     
     //自分の投稿のメイン部分
     myOutput(bot) {
@@ -566,11 +617,23 @@ class Chatbot{
         const stampFieldId = document.getElementById('chatbot-stampField');
         stampFieldId.style.height = `${id.scrollHeight}px`;
 
+        const logo = document.getElementById("chatbot-logo");
+        const text = logo.textContent;
+
+        logo.innerHTML = "";
+
+        for (let i = 0; i < text.length; i++) {
+        const span = document.createElement("span");
+        span.textContent = text[i];
+        span.classList.add("rotate-animation");
+        logo.appendChild(span);
+        }
+
         //戻るボタンに関数設定
         BackScene('../home/home.html');
 
         // ここからchatListを利用する処理を記述
-        QuizReset(bot);
+        settingInit(bot);
 
         //最初のボットの発言
         bot.robotOutput();
@@ -620,46 +683,8 @@ function CreateName(li){
     const nameDiv = document.createElement('div');
     nameDiv.classList.add('name-right');
     nameDiv.textContent = userData[0];
-    nameDiv.addEventListener('click', () => {
-        // 各要素にイベントリスナーを追加してクリック時に編集可能な入力フィールドに変換
-        var nameText = nameDiv.textContent;
-        var inputField = document.createElement('input');
-        inputField.type = 'text';
-        inputField.value = nameText;
-        inputField.style.backgroundColor = getComputedStyle(nameDiv).backgroundColor; // 背景色を設定する
-        inputField.style.width = getComputedStyle(nameDiv).width;
-        // inputField.style.height = getComputedStyle(nameDiv).height;
-        inputField.classList.add('nameInputField');
-
-        //フォーカスが外れたとき
-        // inputField.addEventListener('blur', function() {
-        //     userData[0] = inputField.value;
-        //     updateNameElements(userData[0])
-        // });
-        
-        //エンター押したとき
-        inputField.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                userData[0] = inputField.value;
-                updateNameElements(userData[0]);
-            }
-        });
-
-        //名前の変更
-        function updateNameElements(value) {
-            var nameRightElements = document.querySelectorAll('.name-right');
-            nameRightElements.forEach(function(element){
-                element.textContent = value;
-            });
-        }
-        nameDiv.innerHTML = '';
-        nameDiv.appendChild(inputField);
-        inputField.focus();
-        
-    })
 
     li.appendChild(nameDiv);
-
 }
 
   //スタンププレビュー生成
@@ -745,10 +770,12 @@ function BotStampOutput(path){
     ul.appendChild(li);
 
     //botアイコン表示
-    const robotIconDiv = document.createElement('div');
+    const robotIconDiv = document.createElement('img');
     li.appendChild(robotIconDiv);
     robotIconDiv.classList.add('chatbot-icon');
-    robotIconDiv.style.backgroundImage = `url(${robotIconID})`;
+    robotIconDiv.setAttribute('src', `${robotIconID}`); // ここにアイコンの画像ファイルのパスを指定する
+
+    //robotIconDiv.style.backgroundImage = `url(${robotIconID})`;
 
     //画像変更のためのファイル選択
     let robotIconFile = document.createElement('input');
@@ -777,7 +804,7 @@ function BotStampOutput(path){
 
         //下までスクロール
         chatToBottom();
-    }, delay/2);
+    }, stampDelay/2);
 
     setTimeout(() => {
         //考え中アニメ削除
@@ -804,7 +831,7 @@ function BotStampOutput(path){
 
         //下までスクロール
         chatToBottom();
-    }, delay);
+    }, stampDelay);
 
 }
 
@@ -814,9 +841,10 @@ function ChangeRobotIcon() {
     const reader = new FileReader();
     reader.onload = function () {
         robotIconID = reader.result;
-        $('.chatbot-icon').css({
-            backgroundImage: `url(${robotIconID})`
-        });
+        var imgs = document.querySelectorAll(".chatbot-icon");
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].src = robotIconID;
+        }
     }
     reader.readAsDataURL(file);
 
@@ -859,15 +887,118 @@ function BackScene(url){
 }
 
 //問題のリセット
-function QuizReset(bot){
-    // chatbot-reset要素を取得
-    const chatbotReset = document.getElementById('chatbot-reset');
+function settingInit(bot){
+    //設定の項目リスト
+    const settingList = {'icon':'アイコンの変更','botIcon':'ボットのアイコン変更','name':'名前の変更','reset':'問題のリセット'};
+    //設定内容を生成
+    const settingUl = document.getElementById('setting-ul');
+    for (const setting in settingList) {
+        //既に項目が生成済みか
+        if(document.getElementById(`setting-${setting}`) == null){
+            const settingDiv = document.createElement('div');
+            settingDiv.id = `setting-${setting}`;
+            settingDiv.classList.add('setting-item');
+            settingDiv.textContent = settingList[setting];
+            const i = document.createElement('i');
+            i.classList.add('material-icons','setting-right');
+            i.textContent = 'chevron_right';
+            settingDiv.appendChild(i);
+            settingUl.appendChild(settingDiv);
+        }
+    }
 
-    // クリックイベントリスナーを設定
-    chatbotReset.addEventListener('click', function() {
-        bot.allQuizList=[];
+    // chatbot-reset要素を取得
+    const chatbotSetBtn = document.getElementById('chatbot-setButton');
+    chatbotSetBtn.addEventListener('click',function(){
+        //設定画面を表示する
+        const div = document.getElementById('chatbot-setting');
+            div.style.display = 'block';
+
+        //名前の更新
+        const name = document.getElementById("setting-namePre");
+        name.textContent = userData[0];
+         })
+    const backDiv = document.getElementById('setting-back');
+    //戻るボタンで戻る処理
+    backDiv.addEventListener('click',() => {
+        const div = document.getElementById('chatbot-setting');
+        div.style.display = 'none';
+    })
+
+    //アイコン変更のプレビュー生成
+    if(document.getElementById("setting-iconImg") == null){
+        const iconDiv = document.getElementById('setting-icon');
+        //クリックでアイコン変更
+        iconDiv.addEventListener('click',() => {
+            const iconButtons = document.querySelectorAll(".right .icon-button");
+            if (iconButtons.length > 0) {
+                const myIconFile = iconButtons[0]; 
+                myIconFile.click();
+            }
+        })
+        const imgDiv = document.createElement('img');
+        imgDiv.src = myIconID;
+        imgDiv.id = 'setting-iconImg';
+        imgDiv.classList.add('myIconImg')
+        iconDiv.appendChild(imgDiv);
+    }
+
+    //ボットのアイコン変更のプレビュー生成
+    if(document.getElementById("setting-botIconImg") == null){
+        const iconDiv = document.getElementById('setting-botIcon');
+        //クリックでアイコン変更
+        iconDiv.addEventListener('click',() => {
+            const iconButton = document.querySelector(".left .icon-button");
+            iconButton.click();
+        })
+        const imgDiv = document.createElement('img');
+        imgDiv.src = robotIconID;
+        imgDiv.id = 'setting-iconImg';
+        imgDiv.classList.add('chatbot-icon')
+        iconDiv.appendChild(imgDiv);
+    }
+    //自分の名前プレビュー
+    var settingName = document.getElementById("setting-name");
+    if (document.getElementById("setting-namePre") == null) {
+        const nameDiv = document.createElement('div');
+        settingName.appendChild(nameDiv);
+        nameDiv.textContent = userData[0];
+        nameDiv.id = 'setting-namePre';
+        nameDiv.classList.add('name-right');
+
+        //名前の変更処理
+        // setting-name要素がクリックされた時の処理
+        settingName.addEventListener("click", function() {
+        // 名前を入力するウィンドウを表示し、入力内容を取得
+        var newName = prompt("新しい名前を入力してください (8文字以内)");
+        if (newName.length > 8) {
+            newName = newName.slice(0, 8); // 入力された文字列を最初の8文字までに制限
+        }
+
+        // 入力内容をuserData[0]に格納
+        if (newName !== null) {
+        userData[0] = newName;
+        var nameRightElements = $(".name-right");
+        nameRightElements.each(function() {
+            this.textContent = userData[0];        
+        })
+        }
+    });
+
+    }
+
+    //問題リセット
+    function resetFunction() {
+        bot.allQuizList = [];
         window.alert('†††💛問題がリセットされました💛†††');
-    }); 
+        }
+    const settingReset = document.getElementById('setting-reset');
+    settingReset.addEventListener('click', resetFunction);
+
+
 } 
+
+
+
 
 

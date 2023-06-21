@@ -52,6 +52,22 @@ body{
 
 }
 
+#homescreen-back:hover {
+    animation: chatbot-back-animation 1s infinite ease-in-out; /* アニメーションの設定 */
+}
+
+@keyframes chatbot-back-animation {
+    0% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(5px);
+    }
+    100% {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
 #homescreen-time{
     color: azure;
     position: fixed;
