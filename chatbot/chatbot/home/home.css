@@ -34,14 +34,15 @@ body{
 }
 
 #homescreen-mobile{
+    user-select: none;
     color: azure;
     position: fixed;
     left: 25%;
     transform: translateX(-50%);
-
 }
 
 #homescreen-back{
+    user-select: none;
     cursor:pointer;
     font-size: 32px;
     position: fixed;
@@ -69,6 +70,7 @@ body{
   }
 
 #homescreen-time{
+    user-select: none;
     color: azure;
     position: fixed;
     left: 75%;
@@ -82,7 +84,8 @@ body{
 #homescreen-ul {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 10%;
+    margin-top: 20%;
+    height: 80%;
     justify-content: flex-start;
     list-style: none;
   }
@@ -93,6 +96,7 @@ body{
   }
 
 .app-name{
+    user-select: none;
     color: azure;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -100,6 +104,7 @@ body{
 
 /* アプリ */
 .app-icon{
+    user-select: none;
     display: block;
     margin: 0 auto 5px auto;
     max-height:100%;
@@ -116,9 +121,74 @@ body{
     transform: scale(1.1);
   }
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.shakeX {
+  animation: shakeX 0.5s 1;
+}
+
+@keyframes shakeX {
+  0% {
+    transform: translateX(0);
   }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shakeY {
+  animation: shakeY 0.5s 1;
+}
+
+@keyframes shakeY {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+#ball {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: deeppink;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 10px;
+  left: 100px;
+}
+
+#bar {
+  width: 40px;
+  height: 10px;
+  background: linear-gradient(45deg, #fff, #ccc);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 90%;
+  left: 50%;
+}
   
   

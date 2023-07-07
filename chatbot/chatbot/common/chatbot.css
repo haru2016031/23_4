@@ -221,6 +221,21 @@ body{
     transform: translate(-30px, -50%);
 }
 
+#setting-slider{
+    position: absolute;
+    cursor:pointer;
+    top: 50%;
+    transform: translate(37%, -50%);
+    /* スライダーレールの色 */
+    --slider-rail-color: #d62f2f;
+    /* スライダーハンドルの色 */
+    --slider-thumb-color: #c03c3c;
+}
+
+#bgm-button{
+    display: none;
+}
+
 #chatbot-ul{
     /* ulのデフォルトの隙間を消す */
     padding: 0;
@@ -255,13 +270,14 @@ body{
 
 }
 
-
-
 .chatbot-left-rounded{
+    display: flex;
     margin-left: 10px;
     background: #E6F0F7;
     border-radius: 9px;
     color: #161616;
+    justify-content: center;
+    align-items: center;
 }
 
 .chatbot-left-rounded-size{
@@ -278,7 +294,25 @@ body{
     border-radius: 50%;
     overflow: hidden;
     vertical-align: top;
+    transition: transform 0.2s ease-out; 
 }
+
+li > .chatbot-icon:hover {
+    animation: bounce 1.2s infinite;
+  }
+
+@keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50%{
+        transform: translateY(0);
+    }
+    75% {
+      transform: translateY(-10px);
+    }
+  }
 
 .icon-button{
     display: none;
@@ -330,8 +364,12 @@ body{
     width: 32px;
     height: 32px;
     border-radius: 50%;
-
+    transition: transform 0.2s ease-out; 
   }
+
+  li > div > .myIconImg:hover {
+animation: bounce 1.2s infinite;
+}
 
 .myIcon-button{
     display: none;
@@ -386,6 +424,15 @@ body{
 
 .choice-button-disabled{
     background: #B8D1E6;
+}
+
+.q-Img{
+    width: 80%;
+    height:30%;
+    margin-left: 10%;
+    margin-bottom: 5px;
+    border: 2px solid #484848; /* 縁のスタイルを指定 */
+    border-radius: 5px; /* 縁の角の丸みを指定 */
 }
 
 #chatbot-footer{

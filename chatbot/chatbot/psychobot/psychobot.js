@@ -9,6 +9,17 @@ class Psychobot extends Chatbot{
             'サイコパス度は50%、少しサイコパスの素質を持っています。\n普通の人と同じレベルの共感力を持っていますが、嘘をついたり利己的な行動を取ったりすると、トラブルを引き起こす危険性があります。\nサイコパス性のある人がやりがちな行動をしないように十分注意しましょう。',
             'サイコパス度は70%、サイコパスの可能性が高いです。\n基本的に共感力が低く、利己的で他人に配慮がありません。\nしかし、感情をコントロールするのがうまく、決断が速いという特徴もあります。',
             'サイコパス度は100%、間違いなくサイコパスです。\nサイコパスの人は、無計画で衝動的な行動を取ってしまう傾向にあります。\n人生が破綻するような犯罪を引き起こしてしまう可能性もあるので、十分注意してください。\nまた、サイコパスは良心と共感が欠如しているので、人が離れていき、孤独に悩むケースが多いようです。\n他人に接することができるといいでしょう。']
+
+        //サウンドマネージャー
+        const soundNameList = {'psychoBot':'bgm'}
+        this.soundMng = new SoundManager();
+        for (const key in soundNameList) {
+            if (soundNameList.hasOwnProperty(key)) {
+                const path = soundNameList[key];
+                this.soundMng.LoadSound(key,key,path);
+            }
+        }
+        
     }
     Init(){
         super.Init();
@@ -68,12 +79,24 @@ class Psychobot extends Chatbot{
             }
         }
 
+  
+
         //質問文
         const choiceQ = document.createElement('div');
         choiceQ.classList.add('choice-q');
         choiceField.appendChild(choiceQ);
+        
+      //画像付きの質問の場合
+      const qData = chatList[chatList.length-1][bot.randomNum];
+      if(qData.img){
+          const qImg = document.createElement('img');
+          qImg.src = qData.img;
+          qImg.classList.add('q-Img');
+          choiceField.appendChild(qImg);
+          chatToBottom();
 
-        bot.displayText(chatList[chatList.length-1][bot.randomNum].question,choiceQ,bot,function(){
+      }
+        bot.displayText(qData.question,choiceQ,bot,function(){
             //choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
             //選択肢
             if(chatList[chatList.length-1][bot.randomNum].choices){
@@ -86,7 +109,7 @@ class Psychobot extends Chatbot{
         });
     }
 
-    BotOrgNormal(chatList,robotCount,randomNum,div,bot){
+    BotOrgNormal(chatList,robotCount,div,bot,randomNum){
         let text='';
         if (robotCount > 1 && chatList[robotCount].questionNextSupport){
             if(chatList[chatList.length-1][randomNum].answer) {
@@ -204,5 +227,6 @@ class Psychobot extends Chatbot{
  script.src = '../../resource/data/psychoData.js';
  script.onload = function(){
     psychobot.loadjsonReady(psychobot);
+    soundMng.PlaySound('psychoBot','true','true');
  }
  document.body.appendChild(script);

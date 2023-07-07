@@ -13,6 +13,15 @@
         //選択肢の正解個数
         this.qPoint = 0;
 
+        //サウンドマネージャー
+        const soundNameList = {'correct':'se','incorrect':'se','quizBot':'bgm','LAMIA':'bgm','ADĀM':'bgm','oreo':'bgm'}
+        this.soundMng = new SoundManager();
+        for (const key in soundNameList) {
+            if (soundNameList.hasOwnProperty(key)) {
+              const path = soundNameList[key];
+              this.soundMng.LoadSound(key,key,path);
+            }
+        }
     }
 
     CreateMyText(text,li){
@@ -34,12 +43,11 @@
     }
 
     RobotOutputClick(li,bot){
-        const div = super.RobotOutputClick(li,bot)
+        const div = super.RobotOutputClick(li,bot);
         div.classList.add('quiz-choice-button');
-
     }    
     
-    BotOrgNormal(chatList,robotCount,randomNum,div,bot){
+    BotOrgNormal(chatList,robotCount,div,bot,randomNum){
         //問題の答えか
         let text = '';
         if (chatList[robotCount].text.qTrue) {
@@ -60,15 +68,22 @@
                     // div.textContent = chatList[robotCount].text['qTrue'];
                     text = chatList[robotCount].text['qTrue'];
                     bot.qPoint++;
+                    this.soundMng.PlaySound('correct');    
                 }else{
                     chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
                     // div.textContent = chatList[robotCount].text['qFalse'];
                     text = chatList[robotCount].text['qFalse'];
+                    this.soundMng.PlaySound('incorrect');    
                 }
             }else{
                 chatList[robotCount].text['qFalse'] = chatList[chatList.length-1][randomNum].qFalse;
                 // div.textContent = chatList[robotCount].text[bot.nextTextOption];
                 text = chatList[robotCount].text[bot.nextTextOption];
+                if(bot.nextTextOption =='qTrue'){
+                    this.soundMng.PlaySound('correct');    
+                }else{
+                    this.soundMng.PlaySound('incorrect');    
+                }
             }
         }
         //答えの詳細か
@@ -103,9 +118,13 @@
                 //正解
                 bot.nextTextOption = 'qTrue';
                 bot.qPoint++;
-            } else {
+                // SEを再生
+                // this.soundMng.PlaySound('correct');    
+        } else {
                 //不正解
                 bot.nextTextOption = 'qFalse';
+                // this.soundMng.PlaySound('incorrect');    
+
             }
         } else {
             if (chatList[robotCount -1].quetionNextSupport) {
@@ -140,6 +159,7 @@
  script.src = '../../resource/data/quizData.js';
  script.onload = function(){
     quizbot.loadjsonReady(quizbot);
+    soundMng.PlaySound('quizBot','true','true');
  }
  document.body.appendChild(script);
 

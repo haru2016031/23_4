@@ -27,6 +27,20 @@ const stampList =['kaeruka','hamster_sleeping','mamoru','calender_shock',
 'yumekawa_tenshi'
 ];
 
+//waitOutputの間隔
+const waitTime = 60000;
+
+//サウンドマネージャー
+const soundNameList = {'output':'se','stamp':'se','select':'se'}
+const soundMng = new SoundManager();
+for (const key in soundNameList) {
+    if (soundNameList.hasOwnProperty(key)) {
+        const path = soundNameList[key];
+        soundMng.LoadSound(key,key,path);
+    }
+}
+
+
 class Chatbot{
     constructor(){
         this.Init()
@@ -44,7 +58,8 @@ class Chatbot{
             'choices':this.RobotOutputChoice,
             'select':this.RobotOutputSelect,
             'normal':this.RobotOutputNormal,
-            'click':this.RobotOutputClick
+            'click':this.RobotOutputClick,
+            'news':this.RobotOutputNews
         }
         }
     Init(){
@@ -249,6 +264,7 @@ class Chatbot{
             return true;
             
         })
+        soundMng.PlaySound('select');
     }
 
     displayChoicesWithDelay(choices, index, choiceField, bot,type) {
@@ -268,6 +284,7 @@ class Chatbot{
         const button = document.createElement('button');
         button.addEventListener('click', function() {
             bot.robotOutput();
+            soundMng.PlaySound('select');
             button.disabled = true;
         });
         button.classList.add('choice-button');
@@ -297,12 +314,12 @@ class Chatbot{
         const robotCount = bot.robotCount;
         const randomNum = bot.randomNum;
         if (chatList[robotCount].option == 'normal') {
-            return bot.BotOrgNormal(chatList,robotCount,randomNum,div,bot);
+            return bot.BotOrgNormal(chatList,robotCount,div,bot,randomNum);
         } else {
             //複数の回答からランダムで投稿
             const rand = Math.random();
             const randNum = rand * chatList[robotCount].text.length;
-            const num = Math.floor(randNum)
+            const num = Math.floor(randNum);
     
             div.textContent = chatList[robotCount].text[num];
         }
@@ -310,6 +327,9 @@ class Chatbot{
 
      //ボットごとの特殊な投稿
      BotOrgNormal(){};
+
+     //ニュース専用の投稿
+     RobotOutputNews(){};
 
      //ボットの投稿のメイン部分
      robotOutput() {
@@ -429,9 +449,7 @@ class Chatbot{
         function display() {
           if (index < text.length) {
             let nextText = text.substr(0, index + 1);
-            if (nextText.includes('\n') ) {
-                chatToBottom(); // 改行が含まれていて、かつ前回のテキストと異なる場合にchattoButtom関数を呼び出す
-            }
+            chatToBottom(); 
             div.textContent = nextText;            
             index++;
             setTimeout(display, textDelay);
@@ -445,12 +463,11 @@ class Chatbot{
                     // clearInterval(timeID);
                     timeID = null;
                 }
-              } else if (timeID == null) {
-
+              } else if (timeID == null){
                 timeID = setTimeout(function() {
                 // timeID = setInterval(function() {
                     bot.waitOutput(bot);
-                }, 10000); // 10秒待機
+                }, waitTime); // 10秒待機
               }
           }
         }
@@ -526,15 +543,27 @@ class Chatbot{
         if (!bot.userText.value || !bot.userText.value.match(/\S/g) || bot.chatSubmitBtn.disabled) return false;
     
         //投稿内容の保存
-        if(bot.chatList[bot.chatList.length-1][bot.randomNum].items && 
+        
+        if(bot.chatList[bot.chatList.length-1][bot.randomNum] &&
+            bot.chatList[bot.chatList.length-1][bot.randomNum].items && 
             bot.chatList[bot.robotCount-1].option == 'choices'){
             bot.itemList.push(bot.userText.value);
         }else{
-            userData.push(bot.userText.value);
+            if(bot.botType == 'NEWS' && 
+            bot.chatList[bot.robotCount].query){
+                userData[1] = bot.userText.value;
+                bot.query = userData[1];
+                bot.GetNews(bot);
+            }else{
+                userData.push(bot.userText.value);
+            }
         }
    
         //返信の作成
         bot.CreateMyOutput(bot.userText.value);
+
+        //SE
+        soundMng.PlaySound('output');
    
         //一番下までスクロール
         chatToBottom();
@@ -542,7 +571,8 @@ class Chatbot{
     
         if (bot.robotCount < Object.keys(bot.chatList).length) {
             //複数回答えるタイプの問題か
-            if(bot.chatList[bot.chatList.length-1][bot.randomNum].items && 
+            if(bot.chatList[bot.chatList.length-1][bot.randomNum] &&
+                bot.chatList[bot.chatList.length-1][bot.randomNum].items && 
                 bot.chatList[bot.robotCount-1].option == 'choices')
             {
                 //itemsの分回答しているか
@@ -752,6 +782,9 @@ function StampOutput(path){
 
     li.classList.add('right');
 
+    //SE
+    soundMng.PlaySound('stamp');
+
     //一番下までスクロール
     chatToBottom();
 
@@ -881,15 +914,27 @@ function BackScene(url){
         // 遷移先のURLを指定
         const destinationUrl = url;
 
-        // ページの遷移
-        window.location.href = destinationUrl;
+        //音声をフェードアウト
+        const f = soundMng.AllSoundFadeOut();
+        f.then(() => {
+            // すべての音声のフェードアウトが完了し、Promiseが解決された後に実行される処理
+            // ページの遷移
+            window.location.href = destinationUrl;
+          });
     });
 }
 
 //問題のリセット
 function settingInit(bot){
     //設定の項目リスト
-    const settingList = {'icon':'アイコンの変更','botIcon':'ボットのアイコン変更','name':'名前の変更','reset':'問題のリセット'};
+    const settingList = {'icon':'アイコンの変更',
+        'botIcon':'ボットのアイコン変更',
+        'name':'名前の変更',
+        'reset':'問題のリセット',
+        'sound':'音量の調整',
+        'bgm':'BGMの変更',
+        'default':'初期の設定に戻す'};
+
     //設定内容を生成
     const settingUl = document.getElementById('setting-ul');
     for (const setting in settingList) {
@@ -919,6 +964,7 @@ function settingInit(bot){
         name.textContent = userData[0];
          })
     const backDiv = document.getElementById('setting-back');
+
     //戻るボタンで戻る処理
     backDiv.addEventListener('click',() => {
         const div = document.getElementById('chatbot-setting');
@@ -977,11 +1023,11 @@ function settingInit(bot){
 
         // 入力内容をuserData[0]に格納
         if (newName !== null) {
-        userData[0] = newName;
-        var nameRightElements = $(".name-right");
-        nameRightElements.each(function() {
-            this.textContent = userData[0];        
-        })
+            userData[0] = newName;
+            var nameRightElements = $(".name-right");
+            nameRightElements.each(function() {
+                this.textContent = userData[0];        
+            })
         }
     });
 
@@ -995,7 +1041,92 @@ function settingInit(bot){
     const settingReset = document.getElementById('setting-reset');
     settingReset.addEventListener('click', resetFunction);
 
+    //音量の調整
+    const volumeSlider = document.createElement("input");
+    volumeSlider.type = "range";
+    volumeSlider.id = "setting-slider";
+    volumeSlider.min = "0";
+    volumeSlider.max = "1";
+    volumeSlider.step = "0.1";
+    volumeSlider.value = `${soundMng.GetVolume()/soundMng.maxVolume}`;
 
+    // スライダーの値が変更されたときのイベントハンドラ
+    volumeSlider.addEventListener("input", function() {
+        const volume = parseFloat(volumeSlider.value);
+        soundMng.SetVolume(volume);
+    });
+
+    // スライダー要素を設定項目要素に追加
+    const settingSound = document.getElementById("setting-sound");
+    settingSound.appendChild(volumeSlider);
+
+    //BGMの変更
+    //ファイルダイヤログを開く
+    const bgmSetting = document.getElementById('setting-bgm');
+    let bgmFile = document.createElement('input');
+    bgmSetting.appendChild(bgmFile);
+    bgmFile.type = 'file';
+    bgmFile.accept = '.mp3, .m4a';
+    bgmFile.id = 'bgm-button';
+    bgmFile.addEventListener('change',()=>{
+        ChangeBGM()
+    });
+
+    bgmSetting.addEventListener('click', () => {
+        if (bgmFile) {
+            bgmFile.click();
+        }
+    });
+
+    //取得したファイルパスの音声を読み込む
+    function ChangeBGM(){
+        const file = window.event.target.files[0];
+        const reader = new FileReader();
+        const fullFileName = file.name;
+        reader.onload = function () {
+            const filepath = reader.result;
+            const fileName = fullFileName.split('.').shift();
+            const audio = new Audio(filepath);;
+            //今鳴っているBGMを止める
+            soundMng.StopSound();
+            soundMng.AddSound('bgm',fileName,audio)
+            window.alert('BGMが変更されました');
+
+        }
+        reader.readAsDataURL(file);
+    };
+
+    //初期設定に戻す
+    const defaultSetting = document.getElementById('setting-default');
+    defaultSetting.addEventListener('click',()=>{
+        //自分のアイコンを戻す
+        myIconID = '../../resource/img/botIcon2.png'
+        var imgs = document.querySelectorAll(".myIconImg");
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].src = myIconID;
+        }
+        //ボットのアイコンを戻す
+        robotIconID = '../../resource/img/botIcon1.png'
+        var imgs = document.querySelectorAll(".chatbot-icon");
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].src = robotIconID;
+        }
+
+        // 入力内容をuserData[0]に格納
+        userData[0] = '';
+        var nameRightElements = $(".name-right");
+        nameRightElements.each(function() {
+            this.textContent = userData[0];        
+        })
+
+        //デフォルトの音量に戻す
+        const slider = document.getElementById('setting-slider');
+        slider.value = soundMng.defaultVolume;
+        soundMng.SetVolume(soundMng.defaultVolume);
+
+        window.alert('設定が初期化されました')
+
+    })
 } 
 
 

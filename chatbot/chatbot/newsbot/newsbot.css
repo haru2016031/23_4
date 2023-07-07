@@ -1,0 +1,63 @@
+
+body{
+    box-sizing: border-box;
+    background-image: url(../../resource/img/background.png);
+    background-size: cover;
+    font-family:'Kiwi Maru';
+}
+
+.newsbot-header{
+    background: #FFF8E7;
+}
+
+.newsbot-body{
+    background: #FFF8E7;
+}
+
+.newsbot-left-rounded{
+    display: flex;
+    margin-left: 10px;
+    background: #E6F0F7;
+    border-radius: 9px;
+    color: #161616;
+    justify-content: center;
+    align-items: center;
+}
+
+.newsbot-title{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold; /* テキストの太さを設定 */
+    font-size: 18px;
+}
+
+.newsbot-img{
+    width: 90%;
+    height:40%;
+    margin: 5px 5%;
+    background: #E6F0F7;
+}
+
+.newsbot-right{
+    background: #76d476;
+}
+
+#chatbot-back{
+    color:#202020;
+}
+
+#chatbot-logo{
+    color:#202020;
+}
+
+#chatbot-setButton{
+    color:#202020;
+}
+
+
+
+
+
+
+
+

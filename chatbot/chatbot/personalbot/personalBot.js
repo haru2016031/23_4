@@ -3,6 +3,15 @@ class Personalbot extends Chatbot{
         super();
         this.botType='PERSONAL';
         this.robotOutputList['item'] = this.RobotOutputItem;
+        //サウンドマネージャー
+        const soundNameList = {'personalBot':'bgm'}
+        this.soundMng = new SoundManager();
+        for (const key in soundNameList) {
+            if (soundNameList.hasOwnProperty(key)) {
+              const path = soundNameList[key];
+              this.soundMng.LoadSound(key,key,path);
+            }
+          }
 
     }
 
@@ -101,7 +110,7 @@ class Personalbot extends Chatbot{
       }
 
 
-    BotOrgNormal(chatList,robotCount,randomNum,div,bot){
+    BotOrgNormal(chatList,robotCount,div,bot,randomNum){
         //問題の答えか
         if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
             console.log('次の回答の選択肢は' + bot.nextTextOption);
@@ -172,5 +181,6 @@ class Personalbot extends Chatbot{
  script.src = '../../resource/data/personalData.js';
  script.onload = function(){
     personalbot.loadjsonReady(personalbot);
+    soundMng.PlaySound('personalBot','true','true');
  }
  document.body.appendChild(script);
