@@ -1,0 +1,940 @@
+r940 [git-198cc78] lwlibav: More reliable VFR->CFR conversion.
+r939 [git-7befb61] libavsmash: More reliable VFR->CFR conversion.
+r938 [git-1a8cd2d] video: Fix extremely slow backward seek in CFR->VFR conversion.
+r937 [git-2115ef8] lwlibav: Improve VFR->CFR Conversion.
+r936 [git-bbc15d2] libavsmash: Improve VFR->CFR Conversion.
+r935 [git-3edd194] AviUtl: Correct odd-width bitmap stride.
+r934 [git-0eccfd5] AviUtl/lwmuxer: Fix mismatch of character code.
+r933 [git-29ccf96] .gitignore: more untracked file types.
+r932 [git-cd1daf0] AviSynth: Rename CODEC_CAP_DR1 to AV_CODEC_CAP_DR1.
+r931 [git-4c10d79] VapourSynth: Rename CODEC_CAP_DR1 to AV_CODEC_CAP_DR1.
+r930 [git-fde7a68] common: Rename FF_INPUT_BUFFER_PADDING_SIZE to AV_INPUT_BUFFER_PADDING_SIZE.
+r929 [git-fba174b] audio_output: Increment frame number even when decoder error occurs.
+r928 [git-58d78f4] audio_output: Fix audio frame number increment due to EAGAIN returned by avcodec_send_packet().
+r927 [git-c53abb9] lwlibav_audio: Fix flush of the last audio frame when requested length is smaller than its length.
+r926 [git-4a76fa2] libavsmash_audio: Fix flush of the last audio frame when requested length is smaller than its length
+r925 [git-5ed378b] libavsmash_audio: Fix frame length when variable length audio CODEC.
+r924 [git-e563389] libavsmash: Better handling for output sampling rate != media timescale when seeking.
+r923 [git-8c8030a] Change data type of variables taking result of strlen: int -> size_t.
+r922 [git-712607a] lwindex: HACK: Avoid AVCodecContext.sample_rate doubling when decoding ADTS HE-AAC.
+r921 [git-2f9d499] lwindex: Consider draining mode for actual audio decoding.
+r920 [git-4d0f7af] vslsmas: Don't set color format properties when converting YUV into RGB.
+r919 [git-1ec40ab] vslsmas: Factor out common property setter.
+r918 [git-a1a280b] AviUtl/avs_input: Fix RGB input.
+r917 [git-71525d5] vslsmas: Remove unnecessary error check for non-optional parameters.
+r916 [git-248f1b5] lwlibav_video: Use AVFrame.pts instead of deprecated AVFrame.pkt_pts.
+r915 [git-78d59f3] lwlibav_video: Define avcodec_find_best_pix_fmt_of_list as avcodec_find_best_pix_fmt2 for Libav.
+r914 [git-ee5351f] libavsmash: Include libavutil/channel_layout.h.
+r913 [git-80352e8] AviUtl/audio_output: Define _USE_MATH_DEFINES to use M_SQRT1_2.
+r912 [git-c79971b] vslsmas: Fix memory leak.
+r911 [git-8a89bd9] lwindex: Support unicode filename.
+r910 [git-48db704] AviUtl/lwinput: Skip unnecessary analysis when using script reader.
+r909 [git-51f0d13] AviUtl/avs_input: Fix high bit-depth input.
+r908 [git-9962b2d] lwindex: Initialize AVPacket for potential crashes in bsf.
+r907 [git-720fd27] lwlibav_video: Fix crash due to mismatch of pix_fmt between decoder and index file.
+r906 [git-b4eb0bc] lwlibav_dec: Fix null dereference when updating video configuration.
+r905 [git-f3518a8] lwindex: Remove data from extradata which precedes data actually needed for decoding.
+r904 [git-ee572ba] lwindex: Don't use the same AVPacket pointer for both sending and receiving of bsf.
+r903 [git-4c00e52] lwindex: Workaround for broken GOP of MPEG-2 Video.
+r902 [git-e1f2758] lwindex: Add lwindex version.
+r901 [git-1a18d27] decode: Replace old audio decode API with new decode API.
+r900 [git-fc9fd44] decode: Replace old video decode API with new decode API.
+r899 [git-39cc64a] decode: Reduce deprecated decoder API warnings by wrapping.
+r898 [git-5e9fbd2] lwindex: Fix building of the Avisynth Plugin.
+r897 [git-725587a] lwlibav_dec: Remove unused lw_copy_av_packet().
+r896 [git-7d728e6] lwindex: Use new bistream filter API (AVBSFContext).
+r895 [git-fc06803] lwindex: Fix no sending null packets to decoder.
+r894 [git-cb6748d] qsv: Use AVPacket reference counting properly.
+r893 [git-e5ac85a] qsv: Fix a memory leak. AVBSFContext.par_in is allocated by av_bsf_alloc().
+r892 [git-cffa7ce] libavsmash: Forgot to avcodec_parameters_free() when updating config.
+r891 [git-7c30ae8] qsv: Use new bistream filter API (AVBSFContext).
+r890 [git-76e31f7] lwlibav: Keep refcounted_frames settings when updating and flushing.
+r889 [git-312cdd5] lwlibav: Use avcodec_free_context() instead of avcodec_close().
+r888 [git-9586326] libavsmash: Use avcodec_free_context() instead of avcodec_close().
+r887 [git-fde0445] avisynth_c.h: Fix "warning: enumerator value for X is not an integer constant expression".
+r886 [git-0764eaf] colorspace: Fix "warning: initializer element is not a constant expression".
+r885 [git-8c7b66f] libavsmash: Stop using deprecated AVStream.AVCodecContext.
+r884 [git-963d9b0] common/decode: Move find and open decoder functions to common place.
+r883 [git-ac679ea] lwlibav: Stop using deprecated AVStream.AVCodecContext.
+r882 [git-e7b2da2] AviUtl/libavsmash_input: Quiet down log until getting track.
+r881 [git-2d2c2db] lwlibav: Fix seeking at RAPs from the end to the number of delay pictures.
+r880 [git-dfea507] AviSynth: Assume use of dynamic link for L-SMASH library.
+r879 [git-a0193cc] vslsmas: Fix and simplify VapourSynth frame properties
+r878 [git-fd72a09] AviUtl: Update VSHelper.h
+r877 [git-9828349] common/lwlibav_video: Fix scaler config when enabling repeat control.
+r876 [git-1cae284] Avoid C++11 user-defined-string-literal for printf formatters.
+r875 [git-14b040e] lwindex: Simplify conditions of bsf buffer allocation.
+r874 [git-2017b99] lwindex: Add workaround for MPEG-4 Video packed bitstream.
+r873 [git-c5cab48] lwindex: Add comments about unavailability of packed bitstream on the PTS generator.
+r872 [git-f23f8d4] lwindex: PTS generation by picture types for MPEG-4 Video Part2.
+r871 [git-2bef295] VapourSynth: Update to r30 header, use nfMakeLinear
+r870 [git-3ffbcfa] vslsmas: Fix VapourSynth error handling
+r869 [git-ab43cb8] video_output: 'enabled' of scaler handler is now useless.
+r868 [git-9d8ccb3] lwiput: For avs and vpy reader, update_scaler_configuration_if_needed() is required.
+r867 [git-52180f0] vslsmas: Enough to check its handelr when direct rendering.
+r866 [git-711a625] vslsmas: Use AVFrame property as much as possible.
+r865 [git-248cc8e] video_output: Don't set deprecated CODEC_FLAG_EMU_EDGE explicitly.
+r864 [git-142abfd] video_output: Encapsulate scaler update.
+r863 [git-e4e8354] video_output: Drop output_linesize and output_frame_size.
+r862 [git-304793a] AviUtl/vpy_input: Fix crash caused by variable format input.
+r861 [git-ebbb1db] video_output: Move common direct rendering settings into common place.
+r860 [git-a3145ae] video_output: Move common scaler update into common place.
+r859 [git-58dd7bc] vslsmas: Fix direct rendering activation within custom get_buffer().
+r858 [git-485102a] lsmashsource: Fix direct rendering activation within custom get_buffer().
+r857 [git-0838e17] video_output: Remove func_get_buffer_t definition.
+r856 [git-148c241] lsmashsource: Make as_setup_video_rendering() return nothing.
+r855 [git-a8a37e5] vslsmas: Make setup_video_rendering() return integer.
+r854 [git-b72df1f] video_output: Remove redundant 2nd arg from *_video_set_get_buffer_func().
+r853 [git-3d62629] lwinput: Make au_setup_video_rendering() return integer.
+r852 [git-40a73a4] AviUtl/vpy_input: Support variable format input but constant output.
+r851 [git-004f5eb] AviUlt/vpy_input: Get rid of AVCodecContext.
+r850 [git-c732fe9] AviUlt/avs_input: Get rid of AVCodecContext.
+r849 [git-e9a6736] vslsmash: The same goto error handling on new_output_video_frame().
+r848 [git-f930355] video_output: Don't pass AVCodecContext to scaler initialization.
+r847 [git-4b28573] lsmashsource: Use color-related props of AVFrame when make_frame().
+r846 [git-8e5fdf0] lwinput: Use color-related props of AVFrame when convert_colorspace().
+r845 [git-c306d93] vslsmas: Use color-related props of AVFrame when make_frame().
+r844 [git-2d7245f] log: Simplify handling of logger.
+r843 [git-46bfe30] libavsmash: Set up some parameters when getting track.
+r842 [git-b46336a] libavsmash: Encapsulate video and audio track getter more.
+r841 [git-f4e6168] libavsmash: Move common decoder initialization into common place.
+r840 [git-ff6d28c] libavsmash: Move timeline construction into common place.
+r839 [git-91aa4f0] libavsmash: Add a common function libavsmash_get_track_by_media_type().
+r838 [git-51578f4] libavsmash: timestamp info setup now returns output average framerate.
+r837 [git-4fe4b5b] lsmashsource: Move setup timing some parameters within the LSMASHSource.
+r836 [git-c1bf0ff] vslsmas: Move setup timing some parameters within the LibavSMASHSource.
+r835 [git-7cab4b5] lwinput: Encapsulate decode preparation into the track getters.
+r834 [git-51771ab] lsmashsource: PlatformToolset v140 for MSVC 2015.
+r833 [git-873b637] lsmashsource: No more Windows XP support.
+r832 [git-f538fb2] lsmashsource: Assume Visual Studio 2013 Update 4 or later.
+r831 [git-b43e3bf] lwlibav_audio: Make the handler opaque.
+r830 [git-fa99247] lwlibav_video: Make the handler opaque.
+r829 [git-d9028bd] libavsmash_audio: Make the handler opaque.
+r828 [git-2b2b8ab] libavsmash_video: Make the handler opaque.
+r827 [git-e9f37df] lwinput: Add explanations of 'Preferred decoders' option to README.
+r826 [git-4917ba2] vslsmas: Add explanations of 'decoder' options to README.
+r825 [git-722ec8c] lsmashsource: Add explanations of 'decoder' options to README.
+r824 [git-66ae333] lsmashsource: Forgot to add 'decoder' option to audio source filter.
+r823 [git-3d62d5f] lwlibav_video: Better output picture identification.
+r822 [git-3492099] lwinput: Forgot to set empty string on preferred decoders when unspecified.
+r821 [git-595edf4] lwinput: Fix save of multiple preferred decoders.
+r820 [git-569cdc0] AviUtl:fix configure in commit e4e3f517efd968b67bea7d234625571d4be993e4
+r819 [git-8ba6210] lwinput: Remove extra '+' of channel layout.
+r818 [git-9eb0bb0] lwinput: Cosmetics around dialog box procedures.
+r817 [git-f4ee7ca] lwinput: Add preferred decoders settings.
+r816 [git-5bbf6ee] lwlibav_video: Fix a crash when suppoted pixel formats are unknown.
+r815 [git-7c6903a] Handle discontinuity of video outputs from decoder at seek.
+r814 [git-e4e3f51] qsv: Add workarounds for random access at non-IDR RAP of H.264/AVC.
+r813 [git-6aa491d] vslsmas: Add 'decoder' option to specify preferred decoder.
+r812 [git-25c49ba] lwlibav: Workaround for Intel QuickSync Video Decoder.
+r811 [git-03ffb1e] Refine preferred decoder I/F.
+r810 [git-ca59e96] libavsmash: Workaround for Intel QuickSync Video Decoder.
+r809 [git-71859e2] lsmashsource: Expect linking of ffmpeg/libav libraries as shared.
+r808 [git-42bb09c] lsmashsource: Add 'decoder' option to specify preferred decoder.
+r807 [git-4cd0242] Add preferred decoder I/F.
+r806 [git-2722eed] Stop using deprecated AVPicture.
+r805 [git-c6d5d0e] Use av_packet_unref instead of deprecated av_free_packet.
+r804 [git-03117ec] AviUtl/vpy_input: Use the new and saner color information coding.
+r803 [git-6d80aa0] vslsmas: Use the new and saner color information coding.
+r802 [git-835e6e7] AviUtl/vpy_input: Set interlaced info to frames if present.
+r801 [git-7c488f1] VapourSynth/configure: Use -std=c99 and -pedantic.
+r800 [git-8c44f1d] vslsmas: Remove extra semicolon at the end of function.
+r799 [git-a04fac1] VapourSynth/configure: Add -D__USE_MINGW_ANSI_STDIO=1.
+r798 [git-a8e9b8b] AviUtl/configure: Use -std=c99 and -pedantic.
+r797 [git-6708fcd] lwindex: Fix signedness of format arguments.
+r796 [git-998b7b5] common: Remove extra semicolon at the end of functions.
+r795 [git-cc41c84] AviUtl/configure: Add -D__USE_MINGW_ANSI_STDIO=1.
+r794 [git-fb29f93] lwsimd: Use __asm instead of asm.
+r793 [git-aa12725] lwlibav_video: Shorten the distance to the goal if we got a frame earlier than expected.
+r792 [git-67321fa] utils: Fix signedness of passing arguments of a reduce_fraction().
+r791 [git-10bab27] Apply reduce_fraction() on the result of lw_try_rational_framerate().
+r790 [git-98478eb] vslsmas: Correctly set up _FieldBased property based on field dominance.
+r789 [git-8dac1c8] lwindex: More correctly handle VP8/9 invisible frames.
+r788 [git-39db8dc] lwindex: Add VP8/9 invisible frame checker.
+r787 [git-fb83fd1] Update VapourSynth.h and VSHelper.h to synchronize with R27.
+r786 [git-ad4bc47] libavsmash: Stop including deprecated libavutil/audioconvert.h .
+r785 [git-2a6cadf] lwsimd: Use 4 spaces instead of a tab for identation.
+r784 [git-4a652e6] lwinput: Correct the caption of the progress dialog.
+r783 [git-49b0813] libavsmash: Support Apple ProRes 4444 XQ 'ap4x' in QTFF.
+r782 [git-a0fd27d] libavsmash: Trust QuickTime LPCM Format Specific Flags returned by L-SMASH.
+r781 [git-56a8d03] Fix use $(DESTDIR) for packagemanagers
+r780 [git-25a3f4e] VapourSynth/configure: Add -fPIC for compilation on Linux.
+r779 [git-1c724df] Add lib prefix onto library name when building for OSX or Linux.
+r778 [git-97e32b5] configure: Fix some warnings on OSX
+r777 [git-4dc2600] Clean up the Git-based version info generation a bit.
+r776 [git-9e5285f] Add install and uninstall recipes to VapourSynth plugin makefile
+r775 [git-6b08551] lwlibav_audio: Remove workaround for weird ADTS AAC decoding.
+r774 [git-35ddb0e] lwlibav_audio: Improve decoder configuration updater for ADTS AAC.
+r773 [git-2683889] lsmashsource: Remove Visual C++ 2008 project file.
+r772 [git-1853be3] Update VapourSynth.h and VSHelper.h to synchronize with R25.
+r771 [git-5e99e51] libavsmash: Support Ut Video Pro 4:2:2 10bit 'UQY2' in QTFF.
+r770 [git-417744c] Happy New Year!!
+r769 [git-23e5228] lwindex: Replace index entries from demuxer with ones from index file.
+r768 [git-fd6528f] lwindex: Fix writing of the index entries for ASF demuxer.
+r767 [git-f1b1035] lwindex: Don't write Repeat=0 for frame coded pictures.
+r766 [git-efa44f1] lwindex: Don't write AV_NOPTS_VALUE in the index entries for ASF demuxer.
+r765 [git-d102b56] lwindex: Fix memory leak at indexing of ADTS AAC.
+r764 [git-0090daf] lwlibav_dec: Avoid using av_copy_packet_side_data() when libav's libavutil is linked.
+r763 [git-de25347] lwlibav_dec: Add lw_copy_av_packet() and use it instead of av_copy_packet().
+r762 [git-112e309] lwlibav_audio: Try to get extradata, channels and sampling rate of AAC by actual decoding at the indexing.
+r761 [git-0ec4171] lwlibav_audio: Free allocated data if copy of filtered data is failed.
+r760 [git-49becb1] lwlibav_audio: Clean up the bitstream filter whenever seeking.
+r759 [git-c38d358] lwlibav_audio: Fix packet handling for the bitstream filter.
+r758 [git-80a7620] lwlibav_audio: Workaround for preventing some weird ADTS AAC decoding.
+r757 [git-b803ef0] VapourSynth/README: Add missing arguments: variable, format.
+r756 [git-78a4001] vslsmas: Support VFR->CFR conversion.
+r755 [git-99fa81a] lwindex: Write stream durations only for video or audio streams.
+r754 [git-abf2244] lwindex: Make up the indexes without Simple Index Object.
+r753 [git-9097449] lwindex: Pretty hackish workaround for the ASF demuxer.
+r752 [git-f3ff72d] lwindex: Stream duration computation requires no AV_NOPTS_VALUE.
+r751 [git-6ae021f] AviSynth/README: Better words for VFR->CFR conversion.
+r750 [git-e660483] AviUtl/README: Add explanations of VFR->CFR conversion.
+r749 [git-b08e2bf] lwindex: Use computed stream duration preferentially.
+r748 [git-0d523c1] lsmashsource: Support VFR->CFR conversion.
+r747 [git-ad50d87] lwinput: Fix seek on VFR->CFR conversion when A/V sync is disabled for Libav+L-SMASH reader.
+r746 [git-d440014] lwlibav_source: Intialize VFR->CFR conversion stuff.
+r745 [git-df3d806] lwlibav_video: VFR->CFR conversion for invisible frames.
+r744 [git-2b999c9] lwinput: Set proper last_frame_number at the initial setting for LW-Libav reader.
+r743 [git-32365bd] lwindex: Try to compute video stream duration if not obtained yet.
+r742 [git-c44a3a7] lwinput: Don't skip writing frame data into AviUtl's frame buffer at the first frame.
+r741 [git-d56bce0] lwinput: VFR->CFR conversion for LW-Libav reader.
+r740 [git-09e3c5f] libavsmash_input: Fix wrong check of return value of au_setup_video_rendering().
+r739 [git-23961ec] libavsmash_video: Fix data type of min_cts.
+r738 [git-4a7b030] lwmuxer: Forbid exporting when VFR->CFR conversion is enabled.
+r737 [git-7395696] lwinput: VFR->CFR conversion for Libav+L-SMASH reader.
+r736 [git-bbd3188] lwlibv_video: Fix handling of the last frame when counterpart of a pair of field coded pictures is missing.
+r735 [git-0b3da1a] all: Remove LSMASH_DEMUXER_ENABLED.
+r734 [git-18a62dc] lwindex: Exclude an incomplete pair of field coded picture from the repeat control.
+r733 [git-da6a831] lwlibav_video: Fix DTS-based avg. fps calculation introduced at the previous commit.
+r732 [git-0256aef] lwlibav_video: Handle VP8 and VP9 invisible frame.
+r731 [git-a0ee8d8] utils: Improve NTSC timebase detection.
+r730 [git-12a9164] libavsmash: Trust formatSpecificFlags for 'lpcm'.
+r729 [git-d66ea25] AviUtl/vpy_input: Try to get color property only when it's present.
+r728 [git-34b1526] lsmashsource: Add 'Y8' and 'RGB32' into 'format'.
+r727 [git-47ad4b9] vslsmas: Remove dummy definition of avresample_free().
+r726 [git-7a8d8a7] lwmuxer: Stop using deprecated movie parameters.
+r725 [git-92d69d8] Bump copyright years to 2014.
+r724 [git-7c1dddb] lwlibav_audio: Fix memory leak of audio frame list.
+r723 [git-e4ca061] lwindex: Fix handling of file path.
+r722 [git-5d5add8] libavsmash: Fix compilation error on debug build.
+r721 [git-c9c67e6] lwindex: Override stream with AV_DISPOSITION_ATTACHED_PIC
+r720 [git-3548f58] lwmuxer: Use new I/O APIs.
+r719 [git-8e176da] lwdumper: Use new I/O APIs.
+r718 [git-d0e0961] libavsmash: Use new I/O APIs.
+r717 [git-0c4d9df] lwindex: Don't treat as field coded picture if picture seems corrupted.
+r716 [git-2242b10] libavsmash: More QuickTime Audio support.
+r715 [git-4ada105] lsmashsource: Fix stack mode when AVX2 instructions are available.
+r714 [git-f8890ff] utils: Limit framerate numerator strictly up to INT32_MAX.
+r713 [git-dd17b77] video: Fix 10L introduced in 2aa7ba260d .
+r712 [git-1612126] video: Improve average framerate calculation more.
+r711 [git-4f027a7] Use av_frame_free() instead of deprecated avcodec_free_frame().
+r710 [git-7ed15b3] Remove avcodec_get_frame_defaults().
+r709 [git-2aa7ba2] video: Improve average framerate calculation.
+r708 [git-c7cc104] lwlibav_video: Retry seek when corrected frame_number greater than rap_number.
+r707 [git-32c1ff2] lwlibav_audio: Fix possible infinite loop.
+r706 [git-0b66edf] common/audio: Remove unused variable audio_frame_count.
+r705 [git-dc8bd80] libavsmash: Fix free() -> lsmash_free() to prevent crash on different C runtime.
+r704 [git-8eb5a8f] lwindex: Generate or interpolate DTS if any invalid DTS for WMV/VC-1.
+r703 [git-ed370d7] Use av_frame_alloc() instead of deprecated avcodec_alloc_frame().
+r702 [git-f9b2b46] lsmashsource: Add x64 configuration to VC10/11/12 solution.
+r701 [git-a3d6d20] lsmashsource: Fix compilation on x64.
+r700 [git-acc739a] lwinput: Remove redundant cleanup operations at closing file.
+r699 [git-2ea3cae] lwmuxer: Fix the dialog box title.
+r698 [git-409bb24] lwdumper: Fix the dialog box title.
+r697 [git-b0fea24] AviUtl/progress_dlg: Cosmetics.
+r696 [git-a198bea] lwinput: Fix the dialog box title.
+r695 [git-1e84230] lsmashsource: Add VC12 support.
+r694 [git-0eb40a4] lwindex: The maximum max_num_reorder_pics is equal to 15 for HEVC ver.1.
+r693 [git-2c9602f] libavsmash: Try to get codec_id from summaries when getting track if unknown.
+r692 [git-a193e98] lwindex: Generate PTSs from POCs for HEVC stream if incomplete.
+r691 [git-0c7b2f4] libavsmash: Support High Efficiency Video Coding.
+r690 [git-490544b] lwindex: Construct frame from pair of field coded picture automatically if any.
+r689 [git-26686fe] Update VapourSynth.h to synchronize with R21.
+r688 [git-8574051] lwindex: Fix a C++ compilation.
+r687 [git-3bff613] lwindex: Fix PTS generation when starting from non-IDR with negative POC.
+r686 [git-8027e98] lwindex: Check leading pictures when PTS generation from POCs.
+r685 [git-e8dd3c3] lwindex: Fix timestamp sortings for PTS generation from POCs.
+r684 [git-ad2df50] lwindex: Generate PTSs from POCs for H.264 stream if incomplete.
+r683 [git-4c24a4d] lwinput: Fix NV12/NV21->YUV420P for unwritable buffer.
+r682 [git-4e51ecd] vslsmas: Reduce memory copies to output the buffer when the scaler is used.
+r681 [git-ab8a66f] vslsmas: More RGB format support.
+r680 [git-d914f64] common/resample: Cosmetics.
+r679 [git-ada6e36] lsmashsource: Make {sse2|avx2}_available constant value.
+r678 [git-a22af7d] lsmashsource: Add untested AVX(2) intrinsics for stacked format.
+r677 [git-67c6149] lsmashsource: Make VC10 project file compatible with VC11.
+r676 [git-32be31e] lsmashsource: Add Visual C++ 2010 project file.
+r675 [git-a5304c7] lsmashsource: Add Visual C++ 2010 solution file.
+r674 [git-50aafdc] lsmashsource: Change saturation protector handling.
+r673 [git-7060431] lsmashsource: More speed gain with SSE2 for stacked format.
+r672 [git-9e8b76d] lsmashsource: Copy data by rowsize not linesize for stacked format.
+r671 [git-ce3e59d] lsmashsource: Check if SSE2 is available.
+r670 [git-96edf54] lwsimd: Add 'lw_' prefix to SIMD checker functions.
+r669 [git-9a0d76c] Move lwsimd.c/h into common directory.
+r668 [git-a96f694] lsmashsource: Use SSE2 intrinsics for stacked planar YUV formats.
+r667 [git-d0c4f33] lwinput: Distinguish linesize and rowsize.
+r666 [git-75828ba] lwinput: Allocate YUV444P16 buffer for YC48/LW48 output in advance.
+r665 [git-ce4d9b1] vslsmas: Return the last frame when VS requests frame beyond the end.
+r664 [git-dc7817d] lwinput: Avoid persistently repeated allocation for NV12/NV21->YUY2.
+r663 [git-810604a] lwcolor: Replace tab with 4 spaces.
+r662 [git-60b8b13] avs_input: Forgot to support RGB48 input.
+r661 [git-8f1f366] avs_input: Don't load avs_bit_blt().
+r660 [git-29e6236] avs_input: Treat as 8-bit depth if odd width is reported by AviSynth.
+r659 [git-351542e]  AviUtl/README: Add description of AVS bit-depth.
+r658 [git-2f67538] AviUtl/README: Add description of VSScript check box.
+r657 [git-c982bb4] avs_input: non-mod2 width of interleaved fake high bit-depth format is not allowed.
+r656 [git-92cdc51] avs_input: Support interleaved high bit-depth hack.
+r655 [git-86028aa] avs_input: Fix YUV plane assignment.
+r654 [git-17f219a] avs_input: More pixel format and color space supports.
+r653 [git-90cf7e5] vpy_input: Remove redundant macro expansion.
+r652 [git-64ebe0c] vpy_input: Fix the returned value when vsscript.dll is not found.
+r651 [git-b7cbe02] vpy_input: More cosmetics.
+r650 [git-194ad53] vpy_input: Cosmetics.
+r649 [git-9e8e003] lwinput: Remove dependency of vsscript.dll installation.
+r648 [git-6d94bd7] vslsmas: Update the header file for VapourSynth R19.
+r647 [git-75ea13e] lwinput: Add option to enable VSScript.
+r646 [git-64d7ce3] lsmashsource: YUV range is supposed to be detected properly now.
+r645 [git-77c5830] vslsmas: YUV range is supposed to be detected properly now.
+r644 [git-1c58c04] common/video_output: YUV range is supposed to be detected properly at init.
+r643 [git-f25afac] vpy_input: Get color range and space per frame.
+r642 [git-11ad09b] lwinput: YUV range is supposed to be detected properly now.
+r641 [git-e911eed] AviUtl/colorspace: Generalize function arguments more.
+r640 [git-ef427f5] vpy_input: Update for VapourSynth R19.
+r639 [git-63afc79] vpy_input: Change license: MIT -> ISC.
+r638 [git-8d779e8] lwinput: Move file extension checker into common directory.
+r637 [git-2e05400] lwinput: More pixel format and color space supports for VPY reader.
+r636 [git-0ed8e70] vslsmas: Update VapourSynth.h.
+r635 [git-ae6f7c3] lwinput: Fix vertical flip of VapourSynth RGB24 input.
+r634 [git-fe1f9da] AviUtl/configure: Move vsscript into LIBS from DEPLIBS.
+r633 [git-139a9b7] lwinput: Add VapourSynth Script Reader.
+r632 [git-6b6b298] libavsmash: Always try to set bits_per_coded_sample from summary for video stream.
+r631 [git-fec964f] AviSynth/README: Fix function formats.
+r630 [git-50d0f98] lwcolor: Make LW48->YUY2 and LW48->RGB conversion multi-threaded.
+r629 [git-b36c56a] AviUtl: Document LW48 in further detail.
+r628 [git-ac81a92] lwinput: Create black background for LW48.
+r627 [git-e802655] lwcolor: Add 'void' to the definition of func_init().
+r626 [git-1e7d9ba] lwcolor: Remove the duplicated definition of CLIP_BYTE.
+r625 [git-023e3bb] lwcolor: Add SSE4.1 version of LW48->YUY2 conversion.
+r624 [git-d5d6353] lwcolor: Add SSE4.1 version of LW48->RGB24 conversion.
+r623 [git-d77667c] lwinput: Split some simd related codes into files.
+r622 [git-b715006] lwcolor: Switch to integer version of LW48->RGB24 conversion using full bits.
+r621 [git-bd73d9c] lwcolor: Fix non mod4 width LW48->RGB24 conversion.
+r620 [git-fdaff9c] lwcolor: Add a simple LW48->YUY2 conversion.
+r619 [git-0978292] lwinput: Remove the redundant function call to determin color space conversion.
+r618 [git-6b07697] lwcolor: Simplify the codes more.
+r617 [git-bd962af] lwcolor: Add a simple LW48->RGB conversion.
+r616 [git-6a0abd7] AviUtl: Fix file name in file headers.
+r615 [git-d96f44c] AviUtl/README: Add descriptions of LW48 output and lwcolor.auc.
+r614 [git-4d7f805] lwinput: Add LW48 output option.
+r613 [git-f13cc88] Add L-SMASH Works Color Space Converter plugin (lwcolor.auc).
+r612 [git-d888c8a] libavsmash: Avoid NULL dereference by sample description index.
+r611 [git-fe48aba] libavsmash: Set up the maximum presentation size even if no update of decoder configuration.
+r610 [git-c6bfb82] libavsmash: Support ULH0 and ULH2 formats.
+r609 [git-c3f5dfd] lsmashsource: Deallocate a string or binary iTunes metadata decently.
+r608 [git-47b3d7f] lsmashsource: Support output of some little endianness 12 and 14 bit YUV formats.
+r607 [git-5633d0d] lsmashsource: Fix typo in LSMASH*Source.
+r606 [git-a137479] lsmashsource: Add "YUY2" to the list of "format".
+r605 [git-75fda4b] lsmashsource: Map BGR24/RGB24 (input) to BGR24 (output).
+r604 [git-0d72d9a] lsmashsource: Add 'format' option to force output pixel format.
+r603 [git-7bd408f] lsmashsource: Add 'stacked' option to output as stacked format for high bit-depth.
+r602 [git-0228d6e] common/video_output: Set SWS_BITEXACT for more accurate YUV->RGB conversion.
+r601 [git-74d757a] lsmashsource: Support 8bit gray-scale (planar YUV 4:0:0).
+r600 [git-9dc910c] lsmashsource: Support planar YUV 4:1:0 and 4:1:1.
+r599 [git-56879ac] lsmashsource: Support planar YUV4:4:4 high bit-depth (9,10,16) by MSB/LSB interleaved fake.
+r598 [git-c795cdb] lsmashsource: Support planar YUV 4:4:4 (YV24).
+r597 [git-dbd4e83] lsmashsource: Support planar YUV4:2:2 high bit-depth (9,10,16) by MSB/LSB interleaved fake.
+r596 [git-aba1342] lsmashsource: Add more colorformats to the header.
+r595 [git-53b07c5] lsmashsource: Support direct rendering for planar YUV4:2:0 high bit-depth (9,10,16).
+r594 [git-aeef874] lsmashsource: Support planar YUV4:2:0 high bit-depth (9,10,16) by MSB/LSB interleaved fake.
+r593 [git-2dfd13a] lsmashsource: LWLibavVideoSource() supports getting the parity of each frame.
+r592 [git-b9106d6] README: Update for the previous commit.
+r591 [git-92684de] lwlibav: Determine field dominance by flags in source file.
+r590 [git-f22760e] README: Fix descriptions of seek threshold.
+r589 [git-a39b327] lwlibav: Define flags for video frames instead of 'keyframe' and 'is_leading' field.
+r588 [git-fefb80b] lsmashsource: Use AVCodecContext.{width|height} instead of AVFrame.{width|height} for output.
+r587 [git-087c3f2] vslsmas: Use AVCodecContext.{width|height} instead of AVFrame.{width|height} for output.
+r586 [git-0bebab6] lwlibav: Don't exceed the maximum presentation size specified for each sequence.
+r585 [git-b376363] libavsmash: Don't exceed the maximum presentation size specified for each sequence.
+r584 [git-930704c] lwinput: Use AVCodecContext.{width, height} instead of AVFrame.{width|height} for output.
+r583 [git-3276c24] lwlibav: Generate pseudo-DTS if a raw demuxer doesn't return DTS for each frame.
+r582 [git-202cfde] lwlibav: Fix a condition which decides seek correction by file offset.
+r581 [git-8a4a8f0] lwlibav: Use DTS for the average framerate calculation if the format contains AVFMT_TS_DISCONT.
+r580 [git-df9a576] lwindex: Fix that any execution of getting audio frame length by the parser was not carried out.
+r579 [git-ac1b42e] lwindex: Use file offset for the progress indicator if available.
+r578 [git-535cf56] lwlibav: Absence of AVIndexEntry doesn't always make file offset based seek.
+r577 [git-8295099] lwlibav: Use file offset based seek if a raw demuxer is used.
+r576 [git-4fe6450] lwlibav: Use file offset based seek if AVIndexEntry is absent.
+r575 [git-2f88e65] lwlibav: Avoid decoding video frames until the seek correction caused by too backward is done.
+r574 [git-172abb5] lwlibav: Consider second field decoding for forward seek threshold.
+r573 [git-8d1b0c0] VapourSynth/configure: Fix DLL entry point on WIN32.
+r572 [git-096abce] lwlibav: Improve handling of PAFF field coded pictures.
+r571 [git-c7c519a] vslsmas: Support a compilation under Linux and OSX.
+r570 [git-bdf7306] README: Correct the documentation of channel layout.
+r569 [git-2e50bf8] README: Fix about demuxer of LW-Libav.
+r568 [git-78f5e13] VapourSynth: Add a README.
+r567 [git-7a8703f] AviSynth: Add a README.
+r566 [git-4d848d3] AviUtl/README: Tinker the documentation of Forward threshold slightly.
+r565 [git-290ab31] AviUtl/README: Move explanations around repeat flag into LW-Libav specific.
+r564 [git-a440210] AviUtl: Add a README for Japanese.
+r563 [git-4c0def1] AviUtl: Add a README file.
+r562 [git-7447bf2] AviUtl/configure: Add -lgdi32 to LIBS.
+r561 [git-8c594ba] lwinput: Display libav/ffmpeg library version and license.
+r560 [git-23edebf] lwlibav: Fix finding the first valid video frame when it will be output by feeding null packets.
+r559 [git-2fa9b5a] lwinput: Rename lsmashinput.h into lwinput.h.
+r558 [git-7dd0a7f] lwmuxer: Fix progress dialog.
+r557 [git-26caa77] lsmashinput: Rename lsmashinput.aui into lwinput.aui.
+r556 [git-a47b989] lsmashdumper: Rename lsmashdumper.auf into lwdumper.auf.
+r555 [git-85e2b16] lsmashmuxer: Rename lsmashmuxer.auf into lwmuxer.auf.
+r554 [git-69a5c77] lwlibav: Avoid copying field data from the same frame buffer twice.
+r553 [git-bf79003] lsmashsource: Add 'dominance' option to specify field dominance.
+r552 [git-b6ad22a] vslsmas: Add 'dominance' option to specify field dominance.
+r551 [git-0ec3ffd] lsmashmuxer: Forgot to change the information of filter plugin.
+r550 [git-49df53a] lsmashdumper: Forgot to change the information of filter plugin.
+r549 [git-3626266] lwlibav: Support repeat flags.
+r548 [git-709f7d0] lwlibav: Always treat repeat_pict as field level.
+r547 [git-9c709a9] lsmashinput: Fix chroma linesize for SSSE3 version of func convert_yv12i_to_yuy2.
+r546 [git-04d5782] lwlibav: Don't split extradata from pkt->data of H.264 stream without start codes.
+r545 [git-c7a3ed6] lwlibav: More robust check if converting 14496-15 format into H.264 byte stream format is needed.
+r544 [git-82c6d1f] lwlibav: Fix listing extradata of H.264 stream in some file formats.
+r543 [git-abe7d35] lwlibav: Fix seeking around last frames.
+r542 [git-9304d9a] lwlibav: Fix parsing H.264 stream in some file formats.
+r541 [git-458cb1a] lwlibav: Handle PAFF field coded pictures.
+r540 [git-46edc1a] lwlibav: Remove unnecessary code to get extradata in a side data.
+r539 [git-c536077] lwlibav: Always set up the parser externally.
+r538 [git-6bee487] vslsmas: Forgot to free background frame.
+r537 [git-99d3367] lsmashsource: Fix freeing the private output handler.
+r536 [git-48a1d51] common: Move the first video frame buffer to the video decode handlers.
+r535 [git-36550ad] common: Use refcounted_frames for the first valid video frame.
+r534 [git-c421923] lwlibav: Fix current video frame number correction.
+r533 [git-4d679e6] utils: Include cpp_compat.h.
+r532 [git-4629ff4] common: Integrate the codes of cleaning up audio output handler.
+r531 [git-7db667e] libavsmash: Integrate the codes of cleaning up audio decode handler.
+r530 [git-71bafd2] libavsmash: Integrate the codes of cleaning up video decode handler.
+r529 [git-993596c] lwlibav: Don't return negative value when getting picture type unless failing memory allocation.
+r528 [git-2987465] lwlibav: Don't write fixed frame properties through format specifiers.
+r527 [git-5d8e09e] vslsmas: Also set properties on the first valid frame.
+r526 [git-66345ef] common: Integrate the codes of cleaning up video output handler.
+r525 [git-2104e3c] lwlibav: Move the codes of importing AVIndexEntrys as common.
+r524 [git-56ff0cd] libavsmash: typedef libavsmash_video_{output, scaler}_handler_t in the common header.
+r523 [git-d45c934] lwlibav: typedef lwlibav_video_{output, scaler}_handler_t in the common header.
+r522 [git-7125a31] lwlibav: Fix parsing WMV3 in ASF.
+r521 [git-077abd3] lwlibav: Improve VC-1/WMV3 in ASF handling.
+r520 [git-79917ce] libavsmash: Fix resampling the number of PCM audio samples when no start offset.
+r519 [git-5942968] configure: Fix permissions.
+r518 [git-5ce1b6f] lwlibav: Fix average displayed framerate caluclation when PTSs are generated.
+r517 [git-afb654b] libavsmash: Fix the calculation of the number of decoded PCM audio samples which shall be skipped.
+r516 [git-a4f0c6f] lsmashinput: Add 'sampling rate' settings.
+r515 [git-db27687] lsmashdumper: Change the name of this plugin.
+r514 [git-8bcb86c] lsmashmuxer: Change the name of this plugin.
+r513 [git-0677a0c] lsmashinput: Change INPUT_PLUGIN_TABLE slightly.
+r512 [git-b5ab955] lsmashinput: Change the layout of the settings dialog.
+r511 [git-127ab42] lwlibav: Do pre-rolling if audio frame has lossy property.
+r510 [git-6904e78] exlibs: Move libmingwex.a from MSVC project to.
+r509 [git-5682605] lsmashsource: Add 'rate' option to specify output audio sample rate.
+r508 [git-7dd9cd1] libavsmash: Set 0 to the end of the additional FF_INPUT_BUFFER_PADDING_SIZE bytes.
+r507 [git-98fb210] resample: Remove unused field.
+r506 [git-00d9d12] lwlibav: Add file offset correction for video seek which is available if no invalid file offset.
+r505 [git-266e7da] lwlibav: Don't assume frames which has PTS == DTS as B-picture during PTS generation.
+r504 [git-4248d4c] libavsmash: Integrate common finder of the first valid frame.
+r503 [git-1901b25] lwlibav: Integrate common finder of the first valid frame.
+r502 [git-e340fef] vslsmas: Rename 'cache_index' into 'cache'.
+r501 [git-c882783] lsmashinput: Initialize get_buffer() of the decoder configuration handler by defalut get_buffer().
+r500 [git-8c45fee] common: Fix presentation resolution when disabling direct rendering.
+r499 [git-a4d5e8d] common: Add the log handler.
+r498 [git-6163e08] libavsmash: Initialize defalut get_buffer() of the decoder configuration hanlder.
+r497 [git-df0ab6d] lwlibav: Fix a crash when the index helper opened own parsar.
+r496 [git-ff37405] common: Fix a crash of direct rendering when changing decoder configuration.
+r495 [git-1ebff96] vslsmas: Use get_buffer2() instead of deprecated get_buffer().
+r494 [git-44bad72] lsmashsource: Use get_buffer2() instead of deprecated get_buffer().
+r493 [git-e96f7d9] lsmashsource: Fix a compilation with the latest ffmpeg.
+r492 [git-813c8e5] common: Set AV_CODEC_ID_NONE to AVCodecContext.codec_id before avcodec_open2().
+r491 [git-d08ad46] lwlibav: Fix a C++ compilation with ffmpeg.
+r490 [git-021af18] lwlibav: Mark only I-picture as a keyframe in VC-1/WMV3 stream.
+r489 [git-f5a6ac6] lwlibav: Fix PTS based seek when PTSs are generated.
+r488 [git-479c854] lwlibav: Fix MPEG-1/2 Video picture type by actual decoding.
+r487 [git-9fc026d] lwlibav: Fix pict_type when there is decoder delay.
+r486 [git-f23bb43] lwlibav: Use index helper to get audio frame length.
+r485 [git-7db9baa] lwlibav: Retry seek when the first decoding after seek failed.
+r484 [git-c0a1aba] lwlibav: Shift the current audio frame number in order to match file offset/PTS/DTS.
+r483 [git-540f76f] lwlibav: Generate PTS only when there is any invalid PTS and all DTS are valid.
+r482 [git-6b3610d] lwlibav: Add NULL dereference check for the index helpers.
+r481 [git-fa99465] lwlibav: Shift the current frame number in order to match DTS.
+r480 [git-054b2f8] lwlibav: Decode to get picture type when indexing ASF.
+r479 [git-dd99d4a] lwlibav: Forgot to write pict_type from the own parser into lwi file.
+r478 [git-2da96ba] lwlibav: Make an effort to get picture type.
+r477 [git-b5b33fd] lwlibav: Also add VC-1/WMV3 PTS generator.
+r476 [git-877f3e6] lwlibav: Add PTS generator for MPEG-1/2 Video.
+r475 [git-bf49a58] lwlibav: Update decoder configuration out-of-bandly.
+r474 [git-0fa169f] lwlibav: Fix compilation with the latest libavcodec LIBAVFORMAT_VERSION_MAJOR=55.
+r473 [git-3b559d9] lsmashsource: Integrate common audio rendering preparation.
+r472 [git-4dc9dbc] lsmashsource: Integrate common video rendering preparation.
+r471 [git-b631f64] AviUtl: Encode filter.h as UTF-8.
+r470 [git-f141835] lsmashinput: Don't dislay any dialog when failed to open file by libavformat.
+r469 [git-12310e2] lsmashinput: Fix a compilation with the latest libav.
+r468 [git-24335b1] lwlibav: Fix a comment in 5a8c5b374c .
+r467 [git-fa01ebb] lsmashinput: Fix typo, the crasher.
+r466 [git-5a8c5b3] lwlibav: Don't treat IDR-frame as a keyframe if not immediately preceded by corresponding SPS and PPS.
+r465 [git-0f5c81c] lsmashinput: Integrate common video rendering preparation.
+r464 [git-5451891] lsmashsource: Don't show any libav/ffmpeg's logs in Release builds.
+r463 [git-100301d] lsmashinput: Integrate common audio rendering preparation.
+r462 [git-f51bb7b] resample: Remove redundant codes to flush buffers.
+r461 [git-d67d637] lsmashinput: Add center/surround/LFE mix level settings.
+r460 [git-ce820bc] vslsmas: Add 'dr' option to LibavSMASHSource().
+r459 [git-d3eeedb] lsmashsource: Add 'dr' option to LSMASHVideoSource().
+r458 [git-9037811] lsmashsource: Fix BGRA direct rendering.
+r457 [git-2389fa8] lsmashmuxer: Forgot to close settings file.
+r456 [git-2e1ff03] lsmashinput: Add channel layout settings.
+r455 [git-a04d462] lsmashinput: Remove redundant private variables for video output.
+r454 [git-a0660c0] lsmashsource: Add 'layout' option.
+r453 [git-518552b] Set the {YUV to RGB} coefficients if specified in stream.
+r452 [git-8911ac1] vslsmas: Add NULL dereference checks for direct rendering.
+r451 [git-9cf3488] lsmashinput: A bit cosmetics around colorspace conversion.
+r450 [git-164f8ba] lwlibav: Remove redundant variable caused by the previous commit.
+r449 [git-d417431] lwlibav: Fix regressions in b79372b9d6 .
+r448 [git-5649f93] lsmashinput: add faster sse4.1 yuv444 to yc48 conversion.
+r447 [git-c5fb642] lsmashinput: add faster sse4.1 interlaced yuv420 to yuv444 conversion for yc48 input.
+r446 [git-1e3052d] lsmashinput: add interlaced yuv420 to yuv444 conversion for yc48 input.
+r445 [git-485bb16] lsmashinput: Point AviUtl buffer to destination of sws_scale() for RGB(A) and non-YV12i to YUY2.
+r444 [git-3ee52cf] lsmashsource: Fix comment about convert_av_pixel_format().
+r443 [git-2a11f86] lsmashsource: More robust check for availability of direct rendering.
+r442 [git-090558a] lsmashsource: Add 'dr' option to LWLibavVideoSource().
+r441 [git-0f573a8] vslsmas: Avoid copyFrame() even if direct rendering.
+r440 [git-15851a9] vslsmas: Add 'dr' option to LWLibavSource().
+r439 [git-afb5cc6] vslsmas: Cosmetics around making frame.
+r438 [git-b4de0bd] lwlibav: Simplify frame reading slightly.
+r437 [git-d30de7a] lwlibav: Fix a regression in b79372b9d6 .
+r436 [git-1e56b9c] vslsmas: Use cloneFrameRef() instead of copyFrame() for returning the first valid frame.
+r435 [git-16b851c] lsmashsource: Set true to 'cache' as default value.
+r434 [git-13412a3] vslsmas: Set -1 (auto) to 'stream_index' default value.
+r433 [git-b79372b] lwlibav: Remove packet input buffer.
+r432 [git-a367071] lsmashinput: Change MAX_AUTO_NUM_THREADS. Now, defined as 16.
+r431 [git-53ba4cf] Add apropriate prefix to some data types.
+r430 [git-92f8192] lsmashsource: Don't write black background when input resolution equals output resolution.
+r429 [git-2df1e89] lsmashsource: Fix 10L in b3cf6e9969 .
+r428 [git-d2a0abc] lsmashsource: Fix include file for linking with ffmpeg.
+r427 [git-08002bf] lsmashsource: Use sws_scale() instead of env->BitBlt even if there is no pixel format conversion.
+r426 [git-b3cf6e9] lsmashsource: Stop using temporary buffer for scaling.
+r425 [git-30c8e9f] lsmashsource: Avoid calling scaler if not needed.
+r424 [git-50b82af] lsmashsource: Add 'av_sync' option to LWLibavAudioSource().
+r423 [git-f1d2f46] Integrate audio output handler partially.
+r422 [git-2e698d9] Integrate video output handler.
+r421 [git-133ed8c] lwlibav: Fix 10L in 3bde4e905d .
+r420 [git-7165bfb] lsmashsource: Fix .lwi file generation option.
+r419 [git-3bde4e9] lsmashsource: Fix some memory leaks in LW-Libav reader.
+r418 [git-1eecd64] vslsmas: Add LWLibavSource().
+r417 [git-2410e61] lsmashsource: For LWLibavSource, rename 'track' into 'stream_index'.
+r416 [git-bb9eabc] lsmashsource: Add LWLibavVideoSource() and LWLibavAudioSource().
+r415 [git-f940514] Move common basic functions into common/utils.c/h.
+r414 [git-879c7d1] lsmashinput: Split some codes of Libav reader into files.
+r413 [git-26c1bde] lsmashsource: Split some codes into files.
+r412 [git-40b640b] lsmashinput: Cosmetics around Libav indexer.
+r411 [git-b1c7433] lsmashinput: Cosmetics about Libav audio handler.
+r410 [git-91e0040] lsmashinput: Cosmetics about Libav video handler.
+r409 [git-7234ba3] libavsmash: Fix implicit declaration of function 'av_realloc' for libav.
+r408 [git-878629f] libavsmash: Support '2vuy' and 'yuv2'.
+r407 [git-6f15f74] vslsmas: Component reorder.
+r406 [git-77356f3] vslsmas: More cosmetics.
+r405 [git-920c0f7] vslsmas: Cosmetics about video scaler handler.
+r404 [git-ff0cf1c] vslsmas: Avoid calling scaler if not needed.
+r403 [git-3b9de7c] vslsmas: Simplify background black generation.
+r402 [git-db2ba51] Integrate Libav-SMASH video decode handler and moved into common directory.
+r401 [git-22fafe6] Integrate Libav-SMASH audio decode/output handler and moved into common directory.
+r400 [git-1f479bb] Integrate resampler functions and moved into common directory.
+r399 [git-7c3c03a] lsmashsource: Cosmetics about audio handler.
+r398 [git-cdf1790] lsmashinput: Cosmetics about Libav-SMASH audio handler.
+r397 [git-fac55a0] lsmashinput: Cosmetics about Libav-SMASH video handler.
+r396 [git-1d8fee0] Move libavsmash.c/h into common directory.
+r395 [git-94a573c] lsmashmuxer: Change the order of tab stop.
+r394 [git-7345120] lsmashsource: Add null pointer check on extended_data.
+r393 [git-70d1afc] lsmashinput: Add null pointer check on extended_data.
+r392 [git-6eceb16] vslsmas: Remove nonsense error messages.
+r391 [git-7513669] vslsmash: Use av_image_alloc to simplify the codes of frame maker.
+r390 [git-a0abfd7] lsmashsource: Use av_image_alloc to simplify the codes of frame maker.
+r389 [git-8c80ada] lsmashinput: Use av_image_alloc to simplify the codes of colorspace conversions.
+r388 [git-88369b5] vslsmas: Simplify packed BGR48 -> planar RGB48 conversion a bit.
+r387 [git-f71f65a] vslsmas: Support RGB48 planar format for output.
+r386 [git-6cc0a13] vslsmas: Support RGB24 planar format for output.
+r385 [git-7466df8] vslsmas: Add YUV410P8, YUV411P8 and YUV440P8 output format.
+r384 [git-d4f9bca] vslsmas: Add _FieldBased property for each video frame.
+r383 [git-94a1c58] vslsmas: Add 'format' option.
+r382 [git-1dfdd5e] vslsmas: Fix background black maker.
+r381 [git-6dd1d60] vslsmas: Support more YUV420/YUV422/YUV444 planar formats for output.
+r380 [git-e04f0b3] lsmashmuxer: Fix memory leak when getting output summary.
+r379 [git-dab5d1c] lsmashmuxer: Shift audio timeline to avoid any negative PTS.
+r378 [git-1e88964] vslsmas: Avoid access violation of getting composition duration by exceeding the number of samples.
+r377 [git-5672a1c] vslsmas: Add 'variable' option.
+r376 [git-7edbf7c] .gitignore: more untracked file types.
+r375 [git-cf5830f] lsmashsource: Rename directory name: Avisynth -> AviSynth.
+r374 [git-f3d45a4] vslsmas: Rename directory name: vapoursynth -> VapourSynth.
+r373 [git-2a90028] Add missing LICENSE files.
+r372 [git-995990e] Bump copyright years to 2013.
+r371 [git-64e6f30] Add LSMASHSource for VapourSynth.
+r370 [git-023fdf5] lsmashsource: Fix typo of data type.
+r369 [git-3e443bd] lsmashsource: Remove inappropriate comments about licenses.
+r368 [git-8812f40] lsmashsource: Support change of video resolution.
+r367 [git-b3139bd] lsmashmuxer: Fix the end of an audio presentation if any samples after that presentation.
+r366 [git-fad0ccf] lsmashinput: Change the index file extension '.index' for Libav reader into '.lwi'.
+r365 [git-ddbe843] lsmashsource: Update for the latest L-SMASH.
+r364 [git-3dc1877] lsmashinput: Update for the latest L-SMASH.
+r363 [git-8114c8f] lsmashinput: Remove unnecessary code.
+r362 [git-260c351] Refer to the AVPixFmtDescriptor table using the av_pix_fmt_desc_get()
+r361 [git-e647763] Replace PIX_FMT_* -> AV_PIX_FMT_*, PixelFormat -> AVPixelFormat
+r360 [git-98a2558] lsmashsource: Update for the latest L-SMASH.
+r359 [git-e3aebf5] lsmashinput: Update for the latest L-SMASH.
+r358 [git-d224fbb] lsmashsource: Improve Open-GOP seek handling.
+r357 [git-57397e1] lsmashinput: Improve Open-GOP seek handling.
+r356 [git-87620bb] lsmashinput: Update simd colorspace conversion for variable resolution support.
+r355 [git-8e93e57] lsmashinput: Fix a memoryleak of back ground frame.
+r354 [git-408525a] libavsmash: Avoid setting AV_SAMPLE_FMT_NONE to sample format as much as possible.
+r353 [git-4a134c7] lsmashinput: Fix 100L; regression in 1035e96c22.
+r352 [git-65a1e2a] lsmashinput: Fix unsigned 8bit silence.
+r351 [git-cc60944] lsmashsource: Remove decode status handling.
+r350 [git-8c505f9] lsmashsource: Check change of audio basic properties more strictly.
+r349 [git-c314752] lsmashinput: Check change of audio basic properties more strictly.
+r348 [git-63bfb2e] lsmashinput: Remove decode status handling.
+r347 [git-7f47c82] lsmashinput: Support change of video resolution.
+r346 [git-6ab37d2] libavsmash: Avoid duplicated investigation of the decoder configuration at the first sample.
+r345 [git-2c60773] lsmashinput: Remove #define KSDATAFORMAT_SUBTYPE_PCM.
+r344 [git-f4a3339] lsmashsource: Improve audio output format selection.
+r343 [git-1035e96] lsmashinput: Improve audio output format selection.
+r342 [git-8ec363a] lsmashinput: Fix data type of channel_layout that is a member of audio_sample_t.
+r341 [git-da45754] lsmashsource: Support change of channel_layout, sample rate and format.
+r340 [git-a6dba5f] lsmashsource: Fix typo in the previous commit.
+r339 [git-29db83d] lsmashsource: AVFrame shall be initialized by avcodec_alloc_frame().
+r338 [git-c02d6a8] lsmashinput: AVFrame shall be initialized by avcodec_alloc_frame().
+r337 [git-35730ca] lsmashinput: Change the type of the data buffers cast to uint8_t ** for avresamle_convert().
+r336 [git-0237151] lsmashsource: Initialize AVPacket and AVFrame by 0 when their declarations.
+r335 [git-47bb9cc] lsmashsource: Include header files properly derived from libav.
+r334 [git-3e92895] lsmashinput: Include header files properly derived from libav.
+r333 [git-6a00775] lsmashinput: Initialize AVPacket and AVFrame by 0 when their declarations.
+r332 [git-a80bfb6] lsmashinput: Avoid (0 - 1) / unsigned to convert sample_rate.
+r331 [git-1098a0e] lsmashinput: Fix seek offset when sample_rate conversion is active for Libav reader.
+r330 [git-e9d22db] lsmashinput: Support change of channel_layout, sample rate and format for Libav+L-SMASH reader.
+r329 [git-54e7d31] lsmashinput: Fix seeking variable length audio.
+r328 [git-f75cf82] lsmashinput: Support change of channel_layout, sample_rate and sample_format for Libav reader.
+r327 [git-11421e9] lsmashsource: Support multiple sample descrptions.
+r326 [git-d14aec7] lsmashinput: Support multiple sample descrptions.
+r325 [git-74504b6] lsmashinput: Fix 10L of bc0261aee5.
+r324 [git-7cef0f0] lsmashsource: Improve output linesize calculation.
+r323 [git-9313aad] lsmashinput: Improve output linesize calculation.
+r322 [git-bc0261a] lsmashinput: Fix possibility of division by zero in dummy reader.
+r321 [git-581c6f8] lsmashinput: Fix regression of the previous commit.
+r320 [git-f262cda] lsmashinput: A bit cosmetics around resampling audio.
+r319 [git-558bfe8] lsmashinput: Set dwChannelMask for (L-SMASH+)Libav reader when WAVEFORMATEXTENSIBLE is used.
+r318 [git-adfda2c] lsmashinput: Support signed 24bit integer audio output.
+r317 [git-31ee06d] lsmashsource: Fix pre-roll distance estimation.
+r316 [git-638fc21] lsmashinput: Use ConvertAudioTo16bit if the input sample format is floating point.
+r315 [git-a2964d1] lsmashinput: Use libavresample for resampling decoded audio data.
+r314 [git-58220ff] lsmashsource: Fix HE-AAC seeking.
+r313 [git-80ca871] lsmashinput: Fix HE-AAC seeking for Libav+L-SMASH reader.
+r312 [git-9ae1cf0] lsmashsource: Add 'const' qualifier to AVCodec belonging to AVCodecContext.
+r311 [git-b4dd117] lsmashinput: Forgot to change CodecID into AVCodecID.
+r310 [git-a5db582] lsmashinput: Use AV_CODEC_ID_* instead of deprecated CODEC_ID_*.
+r309 [git-c9ff8cd] lsmashinput: Add 'const' qualifier to AVCodec belonging to AVCodecContext.
+r308 [git-1b5e0b4] lsmashmuxer: Update for the latest L-SMASH.
+r307 [git-8d99025] lsmashinput: Avoid stack overflow.
+r306 [git-a6737e1] lsmashsource: Use lsmash_get_media_duration_from_media_timeline to support movie fragments.
+r305 [git-81aa707] lsmashinput: Use lsmash_get_media_duration_from_media_timeline to support movie fragments.
+r304 [git-d27ca9a] lsmashinput: Only consider horizontal proportion of components.
+r303 [git-5f47a91] lsmashinput: Consider proportion of color components each pixel has.
+r302 [git-829d4fb] lsmashsource: Is malloc delicious?
+r301 [git-0689269] lsmashsource: Add null terminator when iTunSMPB returned as a binary format.
+r300 [git-254cd01] lsmashsource: Treat value of iTunSMPB as string or binary.
+r299 [git-7acfc0f] lsmashsource: Add an error check for length of iTunSMPB value.
+r298 [git-2c86279] lsmashsource: Fix implicit pre-roll distance estimation for upsampling.
+r297 [git-e43e733] lsmashsource: Support detecting priming samples and actual duration from iTunSMPB.
+r296 [git-e53211c] lsmashsource: Fix typo of format specifier.
+r295 [git-f18dfb7] lsmashsource: Add an option to select track to both source filters.
+r294 [git-7f5b9a6] lsmashsource: Rename 'no_priming' into 'skip_priming'.
+r293 [git-7e43008] lsmashinput: Fix setting up wBitsPerSample for AVS reader.
+r292 [git-b024d2e] lsmashinput: Use sizeof to calculate WAVEFORMATEX's cbSize.
+r291 [git-628300e] lsmashinput: Use inline instead of macro for getting decoder delay.
+r290 [git-badd8fd] lsmashsource: Add LSMASHAudioSource to read audio samples.
+r289 [git-063f63f] lsmashsource: Support RGB 24bpp and RGBA 32bpp.
+r288 [git-1e71b88] lsmashsource: Support YUV 4:2:2 16bpp.
+r287 [git-827dfab] Add an Avisynth's file source plugin: LSMASHSource.
+r286 [git-0ebf332] lsmashinput: Don't add to (void *) variables.
+r285 [git-2cc011b] lsmashmuxer: A/V sync correction is enabled by settings file (lsmash.ini).
+r284 [git-0cf9952] lsmashmuxer: presentation_start/end_time is not the time of the start/end sample of a sequence.
+r283 [git-a9bb9fa] lsmashinput: More secure remainder audio handling.
+r282 [git-fcea897] lsmashinput: Fix a crash of the previous commit.
+r281 [git-4327d3d] lsmashinput: Simplify handling of remainder audio samples.
+r280 [git-ac7325a] lsmashinput: Support planar sample format audio decoding.
+r279 [git-ba9c097] lsmashinput: Forgot to consider composition to decode timeline shift.
+r278 [git-ee761e3] lsmashinput: A/V sync correction for L-SMASH+Libav reader.
+r277 [git-3fde29d] lsmashinput: Actually fix beginning of audio stream when audio delay is positive.
+r276 [git-95089d3] lsmashinput: Fix beginning of audio stream when audio delay is positive.
+r275 [git-14ce87d] lsmashinput: Return silent audio even if audio samples of the beginning are absent.
+r274 [git-f492d7d] lsmashinput: Add A/V sync correction option.
+r273 [git-a8c55e6] lsmashinput: Use the same seek method decision.
+r272 [git-039347b] lsmashinput: Don't confuse EAGAIN with EOF when reading frame.
+r271 [git-18b4c01] lsmashmuxer: Consider pre-roll to export selected range.
+r270 [git-50e3658] lsmashmuxer: Hide option dialog before muxing.
+r269 [git-447d8ce] lsmashmuxer: Add option optimizing for progressive download.
+r268 [git-54853d3] lsmashmuxer: Move option dialog to export section.
+r267 [git-3e96fcb] lsmashmuxer: Create a dialog box for options.
+r266 [git-a4103f1] dialog: Fix cross compiling on Linux.
+r265 [git-44bf9bc] lsmashmuxer: More secure the previous commit.
+r264 [git-6f30671] lsmashmuxer: typedef option_t to extend options in the future.
+r263 [git-496348e] LICENSE: Fix copyright year.
+r262 [git-3a31d86] lsmashmuxer: Remove a redundant line.
+r261 [git-71f09b6] lsmashmuxer: Separate abortable and unabortable progress dialog.
+r260 [git-b23610c] lsmashmuxer: Create progress dialog standalonely.
+r259 [git-f12c3a2] lsamshmuxer: Don't optimize for progressive download when muxing is aborted.
+r258 [git-ccdf27d] lsmashmuxer: Use the total number of samples of both A/V track for showing progress.
+r257 [git-f66f316] lsmashmuxer: Show progress bar during finalizing.
+r256 [git-1c4ec08] lsmashmuxer: Try to finish movie even if muxing is aborted.
+r255 [git-059cc6e] lsmashmuxer: Show progress bar during muxing.
+r254 [git-80f85f8] lsmashmuxer: Fix presentation start time of a dummy video sequence.
+r253 [git-84d69e2] lsmashinput: Set up default values in settings without the settings file.
+r252 [git-805cd51] lsmashinput: Improve A/V gap calculation.
+r251 [git-ab7b4d5] lsmashinput: Cosmetics for audio seeking codes of Libav reader.
+r250 [git-d951bad] lsmashinput: Fix memory leaks for Libav reader.
+r249 [git-ceff58d] lsmashinput: Improve constructing keyframe list.
+r248 [git-3c41ba0] lsmashinput: Fix 100L in the previous commit.
+r247 [git-ba11dc1] lsmashinput: Add the option of whether to create index file or not.
+r246 [git-f7f4577] lsmashinput: Fix 10L in the previous commit.
+r245 [git-d838615] lsmashinput: Distinguish DV in AVI Type-1 and Type-2.
+r244 [git-37ebd49] lsmashinput: Forgot to malloc when both specifying no video and parsing index file of DV in AVI.
+r243 [git-9ed72d4] lsmashinput: Fix seeking DV audio in AVI.
+r242 [git-edba720] lsmashinput: Fix initialization when replacing lower resolution stream with higher.
+r241 [git-874464b] lsmashinput: Decide default active stream indexes during creating index.
+r240 [git-6b2017e] lsmashinput: Decode all audio stream for creating index file.
+r239 [git-51bcb7a] lsmashinput: Get frame_length from parser set by libavformat if possible.
+r238 [git-4fbee76] Revert "lsmashinput: Parse packets if needed."
+r237 [git-0153702] Revert "lsmashinput: Flush data in parsers."
+r236 [git-153bcfb] lsmashinput: Change the Windows API to use.
+r235 [git-32f3064] .gitignore: add compiled resource script.
+r234 [git-1badffa] lsmashinput: Flush data in parsers.
+r233 [git-199009d] lsmashinput: Fix incorrect av_gap immediately after creating index file.
+r232 [git-77298d6] lsmashinput: Parse packets if needed.
+r231 [git-c8925f7] lsmashinput: Don't set AVDISCARD_NONREF to skip_frame.
+r230 [git-69d39e9] lsmashinput: Add static to some functions.
+r229 [git-1213b02] lsmashinput: Initialize some timestamp variables by AV_NOPTS_VALUE for Libav reader.
+r228 [git-0c20df4] lsmashinput: Show progress bar during index file creation.
+r227 [git-4a569cf] lsmashinput: Add faster interlaced yv12 to yuy2 using SSSE3.
+r226 [git-d851b70] lsmashmuxer: Improve concatenation.
+r225 [git-9767c5f] lsmashinput: Update the active stream indexes in the index file when specifying one of difference.
+r224 [git-23a11e5] lsmashinput: Write AVIndexEntry of all video and audio.
+r223 [git-7e53dab] lsmashinput: Fix a crash when specifying -1 (disabled) as libav audio index.
+r222 [git-9d770c0] lsmashinput: Add missing braces.
+r221 [git-ac57dcf] lsmashinput: Add libav stream index settings.
+r220 [git-9cde6c8] lsmashinput: Fix opening decoders for libav reader.
+r219 [git-54d86dc] lsmashinput: Change the structure of Libav reader index file.
+r218 [git-31e3ad0] lsmashinput: Load the index file automatically.
+r217 [git-809f22a] lsmashinput: Libav reader creates own index file.
+r216 [git-b327ba3] lsmashinput: Support RGBA input for (L-SMASH +) libav reader.
+r215 [git-927b722] lsmashinput: Fix stream duration calculation for libav reader.
+r214 [git-8e52ca4] lsmashinput: Remove redundant flush_buffers.
+r213 [git-f4aeb67] lsmashinput: Calculate pixel format conversion multiplier.
+r212 [git-888dd59] lsmashinput: Fix audio seeking correction for libav reader.
+r211 [git-cac9bf9] lsmashinput: Remove the exception any frame with unique value is a keyframe.
+r210 [git-45968a4] lsmashinput: Forgot to apply 7386daf481 change to dummy reader.
+r209 [git-c5c1222] lsmashinput: Fix converting fullscale interlaced planar YUV 4:2:0 into YUY2.
+r208 [git-7386daf] lsmashinput: Make AviUtl's pitch properly.
+r207 [git-89fdf6e] lsmashinput: Do avs_bit_blt more properly.
+r206 [git-393dbf1] lsmashinput: Remove forcing framerate option.
+r205 [git-a1344d9] lsmashinput: Fix converting odd width source into YUY2.
+r204 [git-3b61020] lsmashinput: Check packet size and reallocate memory if short.
+r203 [git-fd1cf1d] lsmashinput: Force to get the next sample when audio decoding failed.
+r202 [git-311986f] lsmashinput: Fix converting fullscale yuv 8bits format into YC48.
+r201 [git-e2b7723] lsmashinput: Fix detecting the first valid video frame.
+r200 [git-3fb1123] lsmashinput: Break loop when feeding null packet and not output.
+r199 [git-e32def6] lsmashinput: No need to seek one frame video stream.
+r198 [git-1771dff] lsmashinput: Make destination line size positive.
+r197 [git-f70d257] lsmashinput: Fix possible double free for L-SMASH+Libav reader.
+r196 [git-41f4112] lsmashinput: Use input buffers to decode frames for libav reader.
+r195 [git-07e9872] lsmashinput: Remove unused variables.
+r194 [git-697fb87] lsmashinput: Add forcing framerate option.
+r193 [git-58b1b20] lsmashinput: Revert 5ef1c0de3c.
+r192 [git-83c875b] lsmashinput: Make flush_buffers more secure.
+r191 [git-ade856b] lsmashinput: Fix random accessing frames at the end of video stream within forward threshold.
+r190 [git-dac624e] lsmashinput: Fix getting picture when delay exceeds the number of frames.
+r189 [git-c876449] lsmashinput: Check file extension for Avisynth reader.
+r188 [git-2791c11] lsmashinput: Separate delaying audio from reading audio.
+r187 [git-a702bf2] lsmashinput: Add Avisynth reader.
+r186 [git-db53f02] lsmashinput: Cosmetics for YV12i->YUY2 conversion.
+r185 [git-b938e60] AviUtl: Remove the invalid option in configure help.
+r184 [git-259f5d4] lsmashinput: Fix heap overflow.
+r183 [git-05e837b] lsmashinput: Fix a memory leak of libav audio reader.
+r182 [git-e6068c0] lsmashinput: Fix uninitialization.
+r181 [git-a9e223b] lsmashinput: Count audio frame delay more sincerely.
+r180 [git-4d737c1] lsmashinput: Fix double free and memory leak of libav audio reader.
+r179 [git-90dc970] lsmashinput: Fix 10L.
+r178 [git-dd5bc99] lsmashiput: Parse and/or decode all of audio packet.
+r177 [git-d76968d] lsmashinput: Fix check_frame_reordering.
+r176 [git-403e646] lsmashinput: Fix the conditions for realloc frame info.
+r175 [git-d1f175a] lsmashinput: Fix a memory leak of libav audio reader.
+r174 [git-ec98cb2] lsmashinput: Fix accessing address that negative index (-1) points.
+r173 [git-5eeef76] lsmashinput: Revert previous commit, and add winmm to the dependencies.
+r172 [git-4772ad1] Always define KSDATAFORMAT_SUBTYPE_PCM.
+r171 [git-0707814] lsmashinput: Use (3, 7, 5, 1) interpolation for interlaced YV12 materials.
+r170 [git-489b241] lsmashinput: Add video scaler settings.
+r169 [git-2eefe1d] lsmashinput: Add dummy video colorspace settings.
+r168 [git-d4e5da9] lsmashinput: Fix NULL pointer dereference.
+r167 [git-7c141c2] lsmashinput: Generate a dummy video frame beforehand.
+r166 [git-7f89d91] lsmashinput: Add audio delay settings.
+r165 [git-5ef1c0d] lsmashinput: Remove the exception any frame with unique value is a keyframe.
+r164 [git-34fc1c5] lsmashinput: Remove FFMS reader.
+r163 [git-bb3e48d] lsmashinput: Seek to the first RAP to find the first valid video frame correctly.
+r162 [git-b554807] lsmashinput: Use DTS instead of PTS to calculate average framerate if PTS is unreliable.
+r161 [git-e6a7f43] lsmashinput: Pick video stream with largest resolution.
+r160 [git-2535689] lsmashinput: Add missing av_parser_close.
+r159 [git-5ae25e6] lsmashinput: Forgot to set sample number to audio frame list.
+r158 [git-c080730] lsmashinput: Fix possible infinite loop for Libav+L-SMASH reader.
+r157 [git-2b14ba3] lsmashinput: Treat video frames with unique value as a keyframe.
+r156 [git-9d90b06] lsmashinput: Correct extreme backward seeking.
+r155 [git-337e65a] lsmashinput: A bit more appropriate av_gap calculation.
+r154 [git-8014c30] lsmashinput: Treat audio frames with unique value as a keyframe.
+r153 [git-080bd2d] lsmashinput: Decoding to presentation order converter for libav reader.
+r152 [git-e77532a] lsmashinput: Retry av_frame_seek with AVSEEK_FLAG_ANY if failed without it.
+r151 [git-c14846b] lsmashinput: Also reconstruct index_entries for video stream.
+r150 [git-71e77c7] lsmashinput: Improve forward seeking.
+r149 [git-3c6d4ea] lsmashinput: Add forward seek threshold settings.
+r148 [git-7371801] lsmashinput: Use avcodec_decode_audio4 instead of deprecated avcodec_decode_audio3.
+r147 [git-3d7bb99] lsmashinput: Fix memory leak in the previous commit.
+r146 [git-c2d2b19] lsmashinput: Replace the first invalid frames with the first valid frame.
+r145 [git-b9688c9] lsmashinput: Cosmetics around colorspace conversion.
+r144 [git-fcf1c21] lsmashinput: Decide frame_length by output data size when frame_length == 0.
+r143 [git-c99d640] lsmashinput: Add libav reader.
+r142 [git-6ace581] lsmashmuxer: Fix concatenating sequence over different source file.
+r141 [git-82ecb30] lsmashinput: Generate more suitable number of dummy video frames.
+r140 [git-8bcadf0] lsmashinput: Add dummy video resolution and framerate settings.
+r139 [git-c7a4fad] lsmashmuxer: Fix writing reference chapter track if video stream is not present.
+r138 [git-1fed50d] lsmashmuxer: Support exporting only audio stream if the input file doesn't have video stream.
+r137 [git-6379dcb] lsmashinput: Add dummy video reader.
+r136 [git-df365e8] Update copyright information.
+r135 [git-d0c0ba5] lsmashmuxer: Fix composition timeline concatenation.
+r134 [git-621db3e] lsmashmuxer: Avoid generating non-increasing DTS.
+r133 [git-c313d2e] lsmashmuxer: Make smooth media timestamp concatenation.
+r132 [git-306683b] lsmashinput: Number of priming samples shall be greater or equal to pre-roll distance.
+r131 [git-c46e0cd] lsmashinput: Support removing priming samples if pre-roll is signaled.
+r130 [git-3b03b01] lsmashinput: Ignore errors of decoding during random access recovery.
+r129 [git-802028e] lsmashinput: Fix double operation of unsafe seek.
+r128 [git-ff2536e] lsmashinput: Remove special treatment for Open-RAP.
+r127 [git-3979353] lsmashinput: Decode from the previous GOP if desired picture is leading.
+r126 [git-fcde4c5] lsmashinput: Implement three seek modes.
+r125 [git-f5ca3e9] lsmashinput: Call avcodec_get_frame_defaults for every video decoding.
+r124 [git-b6b27c2] lsmashinput: Signal WAVEFORMATEXTENSIBLE if needed.
+r123 [git-336f7b4] lsmashinput: nBlockAlign shall be (wBitsPerSample * nChannels) / 8.
+r122 [git-7b02c28] lsmashinput: Guess audio frame length from sample duration if frame_size = 0.
+r121 [git-0e66d88] lsmashinput: Fix typo of input plugin flag.
+r120 [git-4e71945] lsmashinput: Implement error ignorance mode at seeking.
+r119 [git-d8c188d] lsmashinput: Close and reopen the decoder whenever seeking.
+r118 [git-1679181] lsmashinput: Early termination for error of seeking.
+r117 [git-d5c5f88] lsmashinput: Decode from the previous RAP when there is doubt that the RAP is an open RAP.
+r116 [git-5bdcf08] lsmashinput: Fix seeking at the last video frames.
+r115 [git-bdcc5b1] lsmashinput: Enhance error resilience of video reading.
+r114 [git-7641ba1] lsmashinput: Update input plugin header file.
+r113 [git-3d48828] lsmashinput: Follow the newest setting method of post-roll.
+r112 [git-fb9a6e9] lsmashmuxer: Follow the newest call method of edit list function.
+r111 [git-4fdee11] lsmashmuxer: Forgot to consider audio media duration for exporting range.
+r110 [git-eb6f5be] lsmashmuxer: Export the composition duration as much as possible.
+r109 [git-7293135] lsmashmuxer: Decide duration of each edit by composition time base.
+r108 [git-72a36b0] lsmashmuxer: Fix updating progress.
+r107 [git-a7d8452] lsmashmuxer: Simplify sequence handling.
+r106 [git-0912b91] lsmashmuxer: Make edit timestamp offset of composition time base.
+r105 [git-09e5888] lsmashinput: Deduplicate part of codes of getting sample data.
+r104 [git-19e444e] lsmashinput: Remove unuseful codes to prepare video decoding.
+r103 [git-ceafc15] lsmashinput: Change the timing of setting AVDISCARD_DEFAULT.
+r102 [git-09c832d] lsmashinput: Fix memory leak when detecting CTS duplication.
+r101 [git-fed66de] lsmashinput: Write settings file in text mode.
+r100 [git-06b9582] lsmashinput: Add input reader settings.
+r99 [git-cc79185] lsmashinput: Remove an unused argument from open_file().
+r98 [git-db24aa9] AviUtl: Displays the revision number into information of filter plugin.
+r97 [git-a62a4b6] lsmashinput: Interlaced yuv420 to yuy2 convertion for Libav+L-SMASH.
+r96 [git-da9b5b1] lsmashinput: Return the desirable number of PCM samples for HE-AAC upsampling.
+r95 [git-903e1c3] lsmashinput: Seek in frame units instead of DTS list.
+r94 [git-053abf2] lsmashinput: Forgot to destroy ffms index when ffms can't get both audio and video tracks.
+r93 [git-39af0f3] lsmashinput: Change 'Libav' API call timing.
+r92 [git-3df66b6] lsmashinput: Fix the problem that 'libav-smash' hasn't been closed correctly when open_file failed.
+r91 [git-02dfbae] AviUtl: Cosmetics in configure/GNUmakefile.
+r90 [git-cd3cabe] Update copyright and authors.
+r89 [git-43d3b62] lsmashinput: Add settings dialog.
+r88 [git-d82feef] lsmashinput: Use active_thread_type instead of thread_type.
+r87 [git-483d90e] lsmashinput: Add missing free.
+r86 [git-c326f2d] lsmashinput: Create DTS list for seeking audio stream.
+r85 [git-1338a77] lsmashinput: Don't consider recovery if RAP type is closed or open.
+r84 [git-edbaf45] lsmashinput: Remove duplicated codes about colorspace.
+r83 [git-98cd8d2] lsmashinput: Separate video reader and audio reader.
+r82 [git-e6f3197] Revert "lsmashinput: A reader must not be opened again and again at a time. ".
+r81 [git-306c84c] lsmashinput: Support YC48 input for ffmpegsource.
+r80 [git-c34b6df] lsmashinput: Enhance error resistance for seeking.
+r79 [git-f4b1f5d] lsmashinput: Skip calculation for BITMAPINFOHEADER fields AviUtl ignores.
+r78 [git-78f44d8] lsmashinput: Fix RGB input from ffmpegsource.
+r77 [git-5dc0632] lsmashinput: Use rounding off for framerate calculation.
+r76 [git-8a7472a] lsmashinput: Report if CTS duplication is present.
+r75 [git-f3c004b] lsmashinput: Remove redundant 'if' branch.
+r74 [git-9f5b854] lsmashinput: Generalize the previous commit.
+r73 [git-99fde21] lsmashinput: A reader must not be opened again and again at a time.
+r72 [git-ce0e9f3] lsmashinput: Fix decoder delay.
+r71 [git-1c289a9] lsmashinput: Fix the specific case: ffms reader won't be called when libavsmash reader fails.
+r70 [git-451f53a] Use avformat_close_input instead of deprecated av_close_input_file.
+r69 [git-e5ab37a] AviUtl: cosmetics in configure.
+r68 [git-1277b3f] lsmashdumper: Support exporting timecode format v2 file.
+r67 [git-95edab9] Add L-SMASH Dumper.
+r66 [git-70be76d] AviUtl: Add new compiling option "--disable-ffms".
+r65 [git-091bf4a] lsmashinput: Add safety check for keyframe detection.
+r64 [git-1cda8ae] lsmashinput: Decide the number of threads before opening file readers.
+r63 [git-93abead] lsmashinput: Create keyframe list for Libav+L-SMASH input.
+r62 [git-a6a1be0] Detach colorspace converters from Libav+L-SMASH input.
+r61 [git-a7b0d2b] Support ffmpegsource input without YC48.
+r60 [git-12d4b49] Split Libav+L-SMASH functions from plugin functions.
+r59 [git-9f71af9] lsmashinput: Split colorspace converter into colorspace.c.
+r58 [git-44f3111] AviUtl: Update copyright.
+r57 [git-3cf3ad5] .gitignore: more untracked file types.
+r56 [git-4f768ed] AviUtl: Modified configure/GNUmakefile
+r55 [git-d4ae59c] lsmashmuxer: Move sources into AviUtl directory.
+r54 [git-14aff96] lsmashexport: Rename lsmashexport into lsmashmuxer.
+r53 [git-35b77fd] lsmashexport: Make the plugin compatible with YUY2 filter mode.
+r52 [git-d0a4f8e] lsmashexport: Validate the chapter file specified
+r51 [git-9a38458] lsmashexport: Remove redundantish MessageBoxes.
+r50 [git-ed85ab9] lsmashexport: Add chapter.
+r49 [git-8ae58bc] lsmashexport: Represent the progress of muxing.
+r48 [git-3339f1b] lsmashexport: Fix getting presentation time of the video sequence end.
+r47 [git-4855a9c] lsmashexport: Integrate media timescale.
+r46 [git-10bb5e3] lsmashexport: Fix 10L of the previous commit.
+r45 [git-c63424d] lsmashexport: Frame accurate editing.
+r44 [git-1a1274a] lsmashexport: Fix detection of presence of audio track.
+r43 [git-633b1c8] lsmashexport: Cosmetics.
+r42 [git-2497b82] lsmashexport: Add error check for finishing movie.
+r41 [git-707e08d] lsmashexport: Improve edit handling.
+r40 [git-6fe179c] lsmashexport: Ignore audio track handling if audio stream is not present.
+r39 [git-0d7594c] lsmashexport: No empty edits for synchronization.
+r38 [git-e2f954c] lsmashexport: Fix exporting when selected range starts from non-RAP.
+r37 [git-ab73fa2] lsmashexport: Fix return value for failure of opening output file.
+r36 [git-659ca9c] lsmashexport: Start from the starting sample if no RAP is present.
+r35 [git-c8093f5] lsmashexport: Presentation does NOT always start from RAP.
+r34 [git-0823dd7] Initial commit: Libav-SMASH Exporter for AviUtl plugin.
+r33 [git-7bb1c19] lsmashinput: Create AviUtl directory.
+r32 [git-516d0f0] lsmashinput: Make dst_linesizes mod16 for yuv16le->YC48.
+r31 [git-0d7b428] lsmashinput: Consider composition order for keyframe detection.
+r30 [git-0fceb04] lsmashinput: Allow audio only input.
+r29 [git-fdf26a0] lsmashinput: Reduce fraction of framerate.
+r28 [git-75f9a73] lsmashinput: Send average framerate.
+r27 [git-f776c7b] lsmashinput: Avoid compilation issue about generate .depend.
+r26 [git-dfbc2d6] lsmashinput: Faster yuv16le to YC48 convertion using SSE2.
+r25 [git-7f2b121] lsmashinput: Enable out-of-tree build.
+r24 [git-2a637bb] lsmashinput: Modified configure/Makefile.
+r23 [git-9a78985] lsmashinput: Add Makefile and configure script.
+r22 [git-4955f97] lsmashinput: Change colorspace conversion when source is YUV440P/GBRP.
+r21 [git-c3661df] lsmashinput: Define LSMASH_DEMUXER_ENABLED.
+r20 [git-46b1b3e] lsmashinput: Avoid YUV-scale conversion.
+r19 [git-2379891] lsmashinput: Fix typo: ouptut -> output.
+r18 [git-811273c] lsmashinput: Change colorspace conversion when source is RGB32.
+r17 [git-244ae62] lsmashinput: Fix setup of the number of threads for decoding.
+r16 [git-daaa1a5] lsmashinput: Cosmetics for audio reader.
+r15 [git-169a437] lsmashinput: Don't get a new audio sample if unused decoded data still exists.
+r14 [git-355923e] lsmashinput: Reset output buffer size for each audio decoding.
+r13 [git-11765b3] lsmashinput: Don't abort to open file if audio track is absent.
+r12 [git-7079958] lsmashinput: I'm an idiot! Fix double decoding from RAP for seeking.
+r11 [git-79d46c0] lsmashinput: Add license file.
+r10 [git-26fa0e1] lsmashinput: Add input plugin header file for AviUtl.
+r9 [git-0a7392f] lsmashinput: Support audio input.
+r8 [git-d4a130c] lsmashinput: Support RGB input.
+r7 [git-ce55931] lsmashinput: Support YC48 input.
+r6 [git-91d01a6] lsmashinput: Use MAKEFOURCC instead of LSMASH_4CC for biCompression.
+r5 [git-e59e2f2] lsmashinput: Improve seeking.
+r4 [git-fa8c8cf] lsmashinput: Allocate the input buffer before the first sample decoding.
+r3 [git-71be3fc] lsmashinput: Simplify getting video data from sws_scaled data.
+r2 [git-c73a0aa] lsmashinput: Fix segfault at avcodec_decode_video2 because of lack of input buffer.
+r1 [git-6c7387c] Initial commit: Libav-SMASH File Reader for AviUtl plugin.
