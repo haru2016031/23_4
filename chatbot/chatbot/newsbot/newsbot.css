@@ -20,8 +20,13 @@ body{
     background: #E6F0F7;
     border-radius: 9px;
     color: #161616;
+    text-align: center;
     justify-content: center;
     align-items: center;
+}
+
+.newsbot-left-rounded > :not(.newsbot-url):not(.newsbot-underAll) {
+    text-align: left;
 }
 
 .newsbot-title{
@@ -31,11 +36,24 @@ body{
     font-size: 18px;
 }
 
+.newsbot-releace{
+    font-size: 14px;
+    color: #7e7e7e;
+}
+
 .newsbot-img{
     width: 90%;
     height:40%;
     margin: 5px 5%;
     background: #E6F0F7;
+    border: 2px solid #ccc; /* 縁のスタイルと色を指定 */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 影のスタイルと色を指定 */
+}
+
+.newsbot-url{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .newsbot-right{

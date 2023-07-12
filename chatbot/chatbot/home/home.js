@@ -173,7 +173,8 @@ const ballStyle = window.getComputedStyle(ball);
 
 var x = parseInt(ballStyle.left);  // ボールのX座標の初期値
 var y = parseInt(ballStyle.top);  // ボールのY座標の初期値
-var speed = 3;  // ボールの速度
+const defaultSpeed = 3;
+var speed = defaultSpeed;  // ボールの速度
 var pastelColors = ['#dddddd', '#ffffcc', '#ffcccc', '#e6ccff', '#ccddff', '#ccffcc', '#ffddb3', '#f9ccdc', '#ccffe6', '#ffccc9'];
 
 // ボールの速度ベクトルを正規化する関数
@@ -204,6 +205,10 @@ function moveBall() {
     }
     if (y < 0 || y + ball.offsetHeight > homescreen.offsetHeight-borderSize) {
         speedY *= -1;
+        if(y + ball.offsetHeight > homescreen.offsetHeight-borderSize){
+          speed = defaultSpeed;
+          updateVelocity();
+        }
     }
 
     var centerX = x + ball.offsetWidth/2;
@@ -249,6 +254,10 @@ function moveBall() {
         }else{
           appIconElement.classList.add('shakeY');
         }
+
+        //速度を上げる
+        speed += 0.1;
+        updateVelocity();
 
         //色を変化させる
         var randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];

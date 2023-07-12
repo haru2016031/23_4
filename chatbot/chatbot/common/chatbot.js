@@ -7,10 +7,11 @@ let myIconID = '../../resource/img/botIcon2.png';
 let robotIconID = '../../resource/img/botIcon1.png';
 
 //投稿ロード時間
-const defaultDelay = 100;
-let delay = 800;
+const defaultDelay = 800;
+let delay = defaultDelay;
 const stampDelay = 800;
 
+const defaultTextDelay = 100;
 let textDelay = 100; // 一文字ごとの遅延時間（ミリ秒）
 let textFlag = false;
 
@@ -341,6 +342,8 @@ class Chatbot{
         //ひとつ前の台本がcontinue=falseなら遅延描画をなくす
         if(this.chatList[this.robotCount].continue == false && delay > 0){
             delay =0;
+        }else if(this.chatList[this.robotCount].continue == true && delay != defaultDelay){
+            delay = defaultDelay;
         }
     
         // ulとliを作り、左寄せのスタイルを適用し投稿
@@ -396,7 +399,6 @@ class Chatbot{
     
     
         }, delay*1.5);
-    
     }    
    
     //自分の投稿生成
@@ -463,7 +465,7 @@ class Chatbot{
                     // clearInterval(timeID);
                     timeID = null;
                 }
-              } else if (timeID == null){
+              } else if (timeID == null && bot.botType != 'NEWS'){
                 timeID = setTimeout(function() {
                 // timeID = setInterval(function() {
                     bot.waitOutput(bot);
@@ -686,7 +688,7 @@ class Chatbot{
 
 document.addEventListener('keyup', function(event) {
     if (event.key === "ArrowRight") {
-      textDelay = defaultDelay;
+      textDelay = defaultTextDelay;
     }
   });
 

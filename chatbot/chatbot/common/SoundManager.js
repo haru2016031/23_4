@@ -26,7 +26,7 @@ constructor() {
               const randomKey = keys[Math.floor(Math.random() * keys.length)]
               const randomSound = soundTypeList[randomKey];
               randomSound.volume = this.soundVolume;
-              // randomSound.loop = true;
+              randomSound.loop = true;
               randomSound.play();
             });
         }
@@ -45,7 +45,7 @@ constructor() {
           const randomKey = keys[Math.floor(Math.random() * keys.length)]
           const randomSound = typeList[randomKey];
           randomSound.volume = this.soundVolume;
-          // randomSound.loop = true;
+          randomSound.loop = true;
           randomSound.play();
         });
       }  
@@ -64,9 +64,9 @@ constructor() {
           typeList[name].pause();
           typeList[name].currentTime = 0;
           typeList[name].play();
-          // if(loop){
-          //     this.soundList[name].loop = true;
-          // }
+          if(loop){
+            typeList[name].loop = true;
+          }
           if(fade){
             this.FadeIn(typeList[name]);
           }

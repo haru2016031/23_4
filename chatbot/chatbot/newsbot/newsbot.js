@@ -10,8 +10,10 @@ class Newsbot extends Chatbot{
 
         //検索ワード
         this.query = 'Twitter';
+        //検索ワードエラーフラグ
+        this.queryError = false;
         //サウンドマネージャー
-        const soundNameList = {'correct':'se','incorrect':'se','quizBot':'bgm','LAMIA':'bgm','ADĀM':'bgm','oreo':'bgm'}
+        const soundNameList = {'correct':'se','incorrect':'se','newsBot':'bgm','LAMIA':'bgm','ADĀM':'bgm','oreo':'bgm'}
         this.soundMng = new SoundManager();
         for (const key in soundNameList) {
             if (soundNameList.hasOwnProperty(key)) {
@@ -44,6 +46,7 @@ class Newsbot extends Chatbot{
         .catch(error => {
             // エラーハンドリング
             console.error("An error occurred:", error);
+            bot.queryError = true;
         });
     }
 
@@ -57,17 +60,6 @@ class Newsbot extends Chatbot{
         //問題の答えか
         let text = '';
 
-        // if(chatList[robotCount].news){
-        //     //ニュース表示の場合は情報取得→textに挿入
-        //     const news = bot.chatList[bot.chatList.length-1][0];
-        //     const modifytext = news.content.replace(/\n/g, '').replace(/。/g, "。\n");
-        //     text = modifytext;
-        //     const newsImg = document.createElement('img');
-        //     newsImg.src = news.image;
-        //     div.appendChild(newsImg);         
-        // }else{
-        //     text = chatList[robotCount].text;
-        // }
         text = chatList[robotCount].text;
 
         if(bot.robotCount == 8){
@@ -81,40 +73,75 @@ class Newsbot extends Chatbot{
     }
 
     RobotOutputNews(li,bot){
-        //ニュース記事の土台のdiv作成
-        const newsField = document.createElement('div');
-        newsField.classList.add('newsbot-left-rounded','chatbot-left-rounded-size');
-        const news = bot.chatList[bot.chatList.length-1][0];
-
-        //タイトルを追加
-        const titleDiv = document.createElement('div');
-        titleDiv.classList.add('newsbot-title');
-        newsField.appendChild(titleDiv);
-        //画像を追加
-        const newsImg = document.createElement('img');
-        newsImg.classList.add('newsbot-img');
-        //内容を追加
-        const contentDiv = document.createElement('div');
-        newsImg.classList.add('newsbot-content');
-        let modifytext = news.content.replace(/\n/g, '').replace(/。/g, "。\n").replace(/\s*\[\d+ chars\]/, '');
-        modifytext += '\n↓続きは、こちらをクリック！↓'
-        //全文のURLを追加
-        const contentURL = document.createElement('a');
-        contentURL.href = news.url;
-        contentURL.textContent = news.source.url;
-        contentURL.target = "_blank";
-
-        bot.displayText(news.title,titleDiv,bot,function(){
-            newsField.appendChild(newsImg);
-            newsImg.src = news.image;
-            newsField.appendChild(contentDiv);
-            bot.displayText(modifytext,contentDiv,bot,function(){
-                newsField.appendChild(contentURL);
+        //検索でエラーが出たかどうか
+        if(bot.queryError){
+            const div = document.createElement('div');
+            li.appendChild(div);
+            div.classList.add('chatbot-left');
+            const text = `${userData[1]}に関するニュースが見つかりませんでした。\n他の言葉に変更してください。`;
+            bot.displayText(text,div,bot,function(){
+                bot.queryError = false;
                 bot.robotOutput(); 
-            })
-        })
+            });
+        }else{
+            //ニュース記事の土台のdiv作成
+            const newsField = document.createElement('div');
+            newsField.classList.add('newsbot-left-rounded','chatbot-left-rounded-size');
+            const news = bot.chatList[bot.chatList.length-1][0];
 
-        li.appendChild(newsField);
+            //タイトルを追加
+            const titleDiv = document.createElement('div');
+            titleDiv.classList.add('newsbot-title');
+            newsField.appendChild(titleDiv);
+            //公開日を追加
+            const releaceDiv = document.createElement('div');
+            releaceDiv.classList.add('newsbot-releace')
+            const formattedDate = news.publishedAt.replace("T", " ").replace("Z", "");
+
+            //画像を追加
+            const newsImg = document.createElement('img');
+            newsImg.classList.add('newsbot-img');
+            //内容を追加
+            const contentDiv = document.createElement('div');
+            newsImg.classList.add('newsbot-content');
+            let modifytext = news.content.replace(/\n/g, '').replace(/。/g, "。\n").replace(/\s*\[\d+ chars\]/, '');
+            //全文案内
+            const underAllContent = document.createElement('div');
+            underAllContent.classList.add('newsbot-underAll');
+            const underURL =  '\n↓続きは、こちらをクリック！↓'
+
+            //全文のURLを追加
+            const contentURL = document.createElement('a');
+            contentURL.classList.add('newsbot-url');
+            contentURL.href = news.url;
+            contentURL.textContent = news.source.url;
+            contentURL.target = "_blank";
+
+            //タイトル
+            bot.displayText(news.title,titleDiv,bot,function(){
+                //公開日
+                newsField.appendChild(releaceDiv);
+                bot.displayText(formattedDate,releaceDiv,bot,function(){
+                    //画像
+                    newsField.appendChild(newsImg);
+                    newsImg.src = news.image;
+                    newsField.appendChild(contentDiv);
+                    //本文
+                    bot.displayText(modifytext,contentDiv,bot,function(){
+                        newsField.appendChild(underAllContent);
+                        //全文案内
+                        bot.displayText(underURL,underAllContent,bot,function(){
+                            //全文URL
+                            newsField.appendChild(contentURL);
+                            bot.robotOutput();
+                        }) 
+                    })    
+                })
+            })
+
+            li.appendChild(newsField);
+        }
+
     }
 
     textSpecial(){
@@ -134,7 +161,7 @@ class Newsbot extends Chatbot{
  script.src = '../../resource/data/newsData.js';
  script.onload = function(){
     newsbot.loadjsonReady(newsbot);
-    // soundMng.PlaySound('quizBot','true','true');
+    soundMng.PlaySound('newsBot','true','true');
  }
  document.body.appendChild(script);
 
