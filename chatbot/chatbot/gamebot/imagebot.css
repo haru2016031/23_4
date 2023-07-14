@@ -1,0 +1,74 @@
+
+body{
+    box-sizing: border-box;
+    background-image: url(../../resource/img/background.png);
+    background-size: cover;
+    font-family:'Kiwi Maru';
+}
+
+.imagebot-header{
+    background: #FFF8E7;
+}
+
+.imagebot-body{
+    background: #FFF8E7;
+}
+
+.imagebot-left-rounded{
+    display: flex;
+    margin-left: 10px;
+    background: #E6F0F7;
+    border-radius: 9px;
+    color: #161616;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagebot-left-rounded > :not(.imagebot-url):not(.imagebot-underAll) {
+    text-align: left;
+}
+
+.imagebot-title{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold; /* テキストの太さを設定 */
+    font-size: 18px;
+}
+
+.imagebot-releace{
+    font-size: 14px;
+    color: #7e7e7e;
+}
+
+.imagebot-img{
+    width: 90%;
+    height:40%;
+    margin: 5px 5%;
+    background: #E6F0F7;
+    border: 2px solid #ccc; /* 縁のスタイルと色を指定 */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 影のスタイルと色を指定 */
+}
+
+.imagebot-url{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.imagebot-right{
+    background: #76d476;
+}
+
+#chatbot-back{
+    color:#202020;
+}
+
+#chatbot-logo{
+    color:#202020;
+}
+
+#chatbot-setButton{
+    color:#202020;
+}
+

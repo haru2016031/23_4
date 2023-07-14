@@ -107,6 +107,7 @@ class Chatbot{
                 bot.pushChoice(bot,choiceButton);
             }else if(type==='SELECT'){
                 bot.pushSelect(bot,choiceButton);
+                soundMng.PlaySound('select');
             }
           });            
         choiceButton.classList.add('choice-button');
@@ -265,7 +266,6 @@ class Chatbot{
             return true;
             
         })
-        soundMng.PlaySound('select');
     }
 
     displayChoicesWithDelay(choices, index, choiceField, bot,type) {
@@ -551,11 +551,10 @@ class Chatbot{
             bot.chatList[bot.robotCount-1].option == 'choices'){
             bot.itemList.push(bot.userText.value);
         }else{
-            if(bot.botType == 'NEWS' && 
-            bot.chatList[bot.robotCount].query){
+            if(bot.chatList[bot.robotCount].query){
                 userData[1] = bot.userText.value;
                 bot.query = userData[1];
-                bot.GetNews(bot);
+                bot.GetInfo(bot);
             }else{
                 userData.push(bot.userText.value);
             }

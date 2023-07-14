@@ -14,7 +14,7 @@
         this.qPoint = 0;
 
         //サウンドマネージャー
-        const soundNameList = {'correct':'se','incorrect':'se','quizBot':'bgm','LAMIA':'bgm','ADĀM':'bgm','oreo':'bgm'}
+        const soundNameList = {'correct':'se','incorrect':'se','quizBot':'bgm'}
         this.soundMng = new SoundManager();
         for (const key in soundNameList) {
             if (soundNameList.hasOwnProperty(key)) {

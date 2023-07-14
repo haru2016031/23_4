@@ -13,7 +13,7 @@ class Newsbot extends Chatbot{
         //検索ワードエラーフラグ
         this.queryError = false;
         //サウンドマネージャー
-        const soundNameList = {'correct':'se','incorrect':'se','newsBot':'bgm','LAMIA':'bgm','ADĀM':'bgm','oreo':'bgm'}
+        const soundNameList = {'correct':'se','incorrect':'se','newsBot':'bgm'}
         this.soundMng = new SoundManager();
         for (const key in soundNameList) {
             if (soundNameList.hasOwnProperty(key)) {
@@ -23,7 +23,7 @@ class Newsbot extends Chatbot{
         }
     }
 
-    GetNews(bot){
+    GetInfo(bot){
         // GNews APIのエンドポイントURLを指定
         const apiUrl = "https://gnews.io/api/v4/search";
 
@@ -148,9 +148,6 @@ class Newsbot extends Chatbot{
      
         this.chatList[3].text = `こんにちは！${userData[0]}先生`;
         this.chatList[5].text = `${userData[1]}についてですね！`;
-        //  chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
-        //  chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
-        //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
      }
  }
 
