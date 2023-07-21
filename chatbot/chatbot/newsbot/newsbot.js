@@ -72,7 +72,7 @@ class Newsbot extends Chatbot{
 
     }
 
-    RobotOutputNews(li,bot){
+    RobotOutputInfo(li,bot){
         //検索でエラーが出たかどうか
         if(bot.queryError){
             const div = document.createElement('div');

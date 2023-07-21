@@ -60,9 +60,9 @@ class Chatbot{
             'select':this.RobotOutputSelect,
             'normal':this.RobotOutputNormal,
             'click':this.RobotOutputClick,
-            'news':this.RobotOutputNews
+            'info':this.RobotOutputInfo
         }
-        }
+    }
     Init(){
         this.robotCount = 4;
         this.qPoint = 0;
@@ -113,7 +113,6 @@ class Chatbot{
         choiceButton.classList.add('choice-button');
         choiceButton.textContent = text;
         return choiceButton;
-
     }
 
 
@@ -183,9 +182,7 @@ class Chatbot{
             document.getElementById(choicedId).classList.remove('choice-button-disabled');
         }
         bot.CreateMyOutput(ans.split('.')[1])
-
         bot.robotOutput();
-
     }
 
     //選択肢のある投稿を生成
@@ -330,7 +327,7 @@ class Chatbot{
      BotOrgNormal(){};
 
      //ニュース専用の投稿
-     RobotOutputNews(){};
+     RobotOutputInfo(){};
 
      //ボットの投稿のメイン部分
      robotOutput() {
@@ -465,7 +462,7 @@ class Chatbot{
                     // clearInterval(timeID);
                     timeID = null;
                 }
-              } else if (timeID == null && bot.botType != 'NEWS'){
+              } else if (timeID == null && bot.botType != 'NEWS' && bot.botType != 'IMAGE'){
                 timeID = setTimeout(function() {
                 // timeID = setInterval(function() {
                     bot.waitOutput(bot);

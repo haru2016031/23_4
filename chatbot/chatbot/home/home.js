@@ -1,10 +1,11 @@
-const createAppList=['quiz','personal','psycho','news','background'];
+const createAppList=['quiz','personal','psycho','news','image','background'];
 
 const appList={
   'quiz':{'name':'Quiz','func':CreateAppFunc},
   'personal':{'name':'心理テスト','func':CreateAppFunc},
   'psycho':{'name':'サイコパス診断','func':CreateAppFunc},
   'news':{'name':'ニュース','func':CreateAppFunc},
+  'image':{'name':'画像検索','func':CreateAppFunc},
   'background':{'name':'背景変更','func':ChangeBackGround},
 };
 
@@ -159,7 +160,6 @@ function BarInit(){
         barElement.style.left = newLeft + 'px';
       }
       startPosX = event.clientX;
-
     }
   });
   
@@ -208,6 +208,8 @@ function moveBall() {
         if(y + ball.offsetHeight > homescreen.offsetHeight-borderSize){
           speed = defaultSpeed;
           updateVelocity();
+          x = oldX;
+          y = oldY;
         }
     }
 

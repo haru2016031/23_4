@@ -79,8 +79,6 @@ class Psychobot extends Chatbot{
             }
         }
 
-  
-
         //質問文
         const choiceQ = document.createElement('div');
         choiceQ.classList.add('choice-q');
@@ -94,10 +92,8 @@ class Psychobot extends Chatbot{
           qImg.classList.add('q-Img');
           choiceField.appendChild(qImg);
           chatToBottom();
-
       }
         bot.displayText(qData.question,choiceQ,bot,function(){
-            //choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
             //選択肢
             if(chatList[chatList.length-1][bot.randomNum].choices){
                 bot.displayChoicesWithDelay(chatList[chatList.length-1][bot.randomNum].choices, 0, choiceField, bot,'CHOICE');

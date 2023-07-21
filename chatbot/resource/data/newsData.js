@@ -6,11 +6,7 @@ window.SWEETS = [
     {text: 'どういったことについて知りたいですか？', continue: true, option: 'normal'},
     {text: '', continue: false, option: 'normal',query:true},
     {text: 'それではニュースを記載しますね。',continue: true,option:'normal'},
-    {text: '',continue:true,option:'news'},
+    {text: '',continue:true,option:'info'},
     {text: '他に知りたいことはありますか？',continue: false,option:'normal'},
-    // {text: {title:'Q1',question:'',choices:[''],answer:''},continue:true,option:'choices'},
-    // {text: {qTrue:'あってるぅ！',qFalse:'' }, continue: false, option: 'normal'},
-    // {text: '', continue: true, option: 'normal',questionNextSupport: true},
-    // {text: '次の問題へ', continue: true, option: 'click'},
     [ ]
 ]

@@ -86,7 +86,7 @@ class Personalbot extends Chatbot{
             //choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
             //選択肢
             if(chatList[chatList.length-1][bot.randomNum].choices){
-                    bot.displayChoicesWithDelay(chatList[chatList.length-1][bot.randomNum].choices, 0, choiceField, bot,'CHOICE');
+                bot.displayChoicesWithDelay(chatList[chatList.length-1][bot.randomNum].choices, 0, choiceField, bot,'CHOICE');
             }else if(chatList[chatList.length-1][bot.randomNum].items){
                 bot.displayItemWithDelay(chatList[chatList.length-1][bot.randomNum].items,0,choiceField,bot);
                 bot.chatSubmitBtn.disabled = false;

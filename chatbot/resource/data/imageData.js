@@ -6,7 +6,7 @@ window.SWEETS = [
     {text: 'どういった画像を探していますか？', continue: true, option: 'normal'},
     {text: '', continue: false, option: 'normal',query:true},
     {text: 'それでは画像を表示しますね。',continue: true,option:'normal'},
-    {text: '',continue:true,option:'news'},
+    {text: '',continue:true,option:'info'},
     {text: '他に探している画像はありますか？',continue: false,option:'normal'},
     [ ]
 ]
