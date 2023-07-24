@@ -167,9 +167,10 @@ class Chatbot{
         const randomNum = bot.randomNum;
         const num = robotCount - 1;
 
+        //問題出題時に選択肢をクリックされた場合、処理をはじく
         for (let i = 0; i < chatList[chatList.length-1][randomNum].choices.length; i++) {
             if(!document.getElementById('q-' + num + '-' + i)){
-                return;
+                return false;
             }
         }
 
@@ -183,6 +184,7 @@ class Chatbot{
         }
         bot.CreateMyOutput(ans.split('.')[1])
         bot.robotOutput();
+        return true;
     }
 
     //選択肢のある投稿を生成

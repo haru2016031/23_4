@@ -82,6 +82,16 @@ class Personalbot extends Chatbot{
         choiceQ.classList.add('choice-q');
         choiceField.appendChild(choiceQ);
 
+        //画像付きの質問の場合
+        const qData = chatList[chatList.length-1][bot.randomNum];
+        if(qData.img){
+            const qImg = document.createElement('img');
+            qImg.src = qData.img;
+            qImg.classList.add('q-Img');
+            choiceField.appendChild(qImg);
+            chatToBottom();
+        }
+
         bot.displayText(chatList[chatList.length-1][bot.randomNum].question,choiceQ,bot,function(){
             //choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
             //選択肢

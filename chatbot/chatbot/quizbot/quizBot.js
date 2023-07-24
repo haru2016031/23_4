@@ -106,7 +106,9 @@
     pushChoice(bot,e){
         const choicedId = e.getAttribute('id'); //選択した選択肢のid
 
-        super.pushChoice(bot,choicedId);
+        if(!super.pushChoice(bot,choicedId)){
+            return;
+        }
         const chatList = bot.chatList;
         const robotCount = bot.robotCount;
         const randomNum = bot.randomNum;
