@@ -74,7 +74,6 @@ function CreateWeather(el,weather){
   weatherImg.setAttribute('src', `./resource/img/weather/${weather}.png`);
   weatherDiv.appendChild(weatherImg);
   el.appendChild(weatherDiv);
-
 }
 
 //気温の表示
@@ -84,7 +83,6 @@ function CreateTemperature(el,temperature){
   const roundedNumber = temperature.toFixed(1);
   temperatureDiv.textContent = `${roundedNumber}℃`;
   el.appendChild(temperatureDiv);
-
 }
 
 

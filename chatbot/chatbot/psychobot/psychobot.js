@@ -26,27 +26,18 @@ class Psychobot extends Chatbot{
         this.psyPt = 0;
     }
 
-    CreateMyText(text,li){
-        const div = super.CreateMyText(text);
-        div.classList.add('psychobot-right');
-        li.appendChild(div);
-    }
-
     CreateChoiceTitle(choiceField,text){
         const div = super.CreateChoiceTitle(text);
-        div.classList.add('psycho-choice-title');
         choiceField.appendChild(div);
     }
 
     CreateChoiceButton(choiceField,text,num,bot,type){
         const div = super.CreateChoiceButton(choiceField,text,num,bot,type);
-        div.classList.add('psycho-choice-button');
         choiceField.appendChild(div);
     }
 
     RobotOutputClick(li,bot){
         const div = super.RobotOutputClick(li,bot)
-        div.classList.add('psycho-choice-button');
         return true;
     }
 
@@ -84,16 +75,17 @@ class Psychobot extends Chatbot{
         choiceQ.classList.add('choice-q');
         choiceField.appendChild(choiceQ);
         
-      //画像付きの質問の場合
       const qData = chatList[chatList.length-1][bot.randomNum];
-      if(qData.img){
-          const qImg = document.createElement('img');
-          qImg.src = qData.img;
-          qImg.classList.add('q-Img');
-          choiceField.appendChild(qImg);
-          chatToBottom();
-      }
+
         bot.displayText(qData.question,choiceQ,bot,function(){
+            //画像付きの質問の場合
+            if(qData.img){
+                const qImg = document.createElement('img');
+                qImg.src = qData.img;
+                qImg.classList.add('q-Img');
+                choiceField.appendChild(qImg);
+                chatToBottom();
+            }
             //選択肢
             if(chatList[chatList.length-1][bot.randomNum].choices){
                 bot.displayChoicesWithDelay(chatList[chatList.length-1][bot.randomNum].choices, 0, choiceField, bot,'CHOICE');

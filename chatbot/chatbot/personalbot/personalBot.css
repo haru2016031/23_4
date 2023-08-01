@@ -10,19 +10,19 @@ body{
     font-family: 'Kiwi Maru';
 }
 
-.personalbot-header{
+.chatbot-header{
     background: rgb(60, 131, 198);
 }
 
-.personalbot-right{
+.chatbot-right{
     background: #FFC0CB;
 }
 
-.personalbot-body{
+.chatbot-body{
     background: rgb(60, 131, 198);
 }
 
-.personal-choice-title{
+.choice-title{
     background: #FFC0CB;
 }
 
@@ -40,7 +40,6 @@ body{
     width: 100%;
 }
 
-.personal-choice-button{
-    font-family:'Kiwi Maru';
+.choice-button{
     background: #FFC0CB;
 }

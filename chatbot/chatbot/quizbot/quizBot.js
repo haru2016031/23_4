@@ -24,27 +24,18 @@
         }
     }
 
-    CreateMyText(text,li){
-        const div = super.CreateMyText(text);
-        div.classList.add('quizbot-right');
-        li.appendChild(div);
-    }
-
     CreateChoiceTitle(choiceField,text){
         const div = super.CreateChoiceTitle(text);
-        div.classList.add('quiz-choice-title');
         choiceField.appendChild(div);
     }
 
     CreateChoiceButton(choiceField,text,num,bot,type){
         const div = super.CreateChoiceButton(choiceField,text,num,bot,type);
-        div.classList.add('quiz-choice-button');
         choiceField.appendChild(div);
     }
 
     RobotOutputClick(li,bot){
         const div = super.RobotOutputClick(li,bot);
-        div.classList.add('quiz-choice-button');
     }    
     
     BotOrgNormal(chatList,robotCount,div,bot,randomNum){
@@ -86,6 +77,7 @@
                 }
             }
         }
+
         //答えの詳細か
         else if (robotCount > 1 && chatList[robotCount].questionNextSupport) {
             console.log('次の回答の選択肢は' + bot.nextTextOption);
@@ -146,20 +138,20 @@
 
     textSpecial(){
      
-        this.chatList[3].text = `こんにちは！${userData[0]}先生`;
-        this.chatList[this.chatList.length-4].text = `問題は以上です！${this.qNum}問中${this.qPoint}問正解でした！`;
-        //  chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
-        //  chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
-        //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
+    this.chatList[3].text = `こんにちは！${userData[0]}先生`;
+    this.chatList[this.chatList.length-4].text = `問題は以上です！${this.qNum}問中${this.qPoint}問正解でした！`;
+    //  chatList[11].text.qTrue = `正解！${userData[0]}先生,すごいですねー`;
+    //  chatList[12].text = `${userData[0]}先生、ありがとうございました。今日はここで終了とさせていただきます。`;
+    //  chatList[15].text = `${userData[0]}さんの満足度は「${userData[4]}」，ご感想は「${userData[5]}」ですね！ありがとうございました。`;
      }
  }
 
  // loadjson.jsファイルの読み込み
  const quizbot = new Quizbot();
- var script = document.createElement('script');
- script.type = 'text/javascript';
- script.src = '../../resource/data/quizData.js';
- script.onload = function(){
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '../../resource/data/quizData.js';
+    script.onload = function(){
     quizbot.loadjsonReady(quizbot);
     soundMng.PlaySound('quizBot','true','true');
  }

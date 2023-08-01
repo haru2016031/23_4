@@ -41,7 +41,6 @@ for (const key in soundNameList) {
     }
 }
 
-
 class Chatbot{
     constructor(){
         this.Init()
@@ -79,16 +78,6 @@ class Chatbot{
 
     //可変する文章
     textSpecial(){};
-
-    //自分の投稿作成
-    CreateMyText(text) {
-        // 入力内容を含む要素を作成
-        const contentDiv = document.createElement('div');
-        contentDiv.classList.add('chatbot-right');
-        contentDiv.textContent = text;
-        return contentDiv;
-        
-    };
 
     //選択肢のタイトル作成
     CreateChoiceTitle(text){
@@ -225,6 +214,15 @@ class Chatbot{
 
         bot.displayText(chatList[chatList.length-1][bot.randomNum].question,choiceQ,bot,function(){
             // choiceQ.textContent = chatList[chatList.length-1][bot.randomNum].question;
+                    //画像付きの質問の場合
+            const qData = chatList[chatList.length-1][bot.randomNum];
+            if(qData.img){
+                const qImg = document.createElement('img');
+                qImg.src = qData.img;
+                qImg.classList.add('q-Img');
+                choiceField.appendChild(qImg);
+                chatToBottom();
+            }
             //選択肢
             if(chatList[chatList.length-1][bot.randomNum].choices){
                 bot.displayChoicesWithDelay(chatList[chatList.length-1][bot.randomNum].choices,0,choiceField,bot,'CHOICE');
@@ -413,7 +411,7 @@ class Chatbot{
        CreateName(li);
    
        //投稿するテキスト作成
-       this.CreateMyText(text,li);
+       CreateMyText(text,li);
 
        // アイコン用の要素を作成し、チャットボットのアイコンを設定する
        const iconDiv = document.createElement('div');
@@ -883,6 +881,15 @@ function ChangeRobotIcon() {
 
 }
 
+//自分の投稿作成
+function CreateMyText(text,li) {
+    // 入力内容を含む要素を作成
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('chatbot-right');
+    contentDiv.textContent = text;
+    li.appendChild(contentDiv)
+    // return contentDiv;
+};
 
 //自分のアイコンを変える
 function ChangeMyIcon() {

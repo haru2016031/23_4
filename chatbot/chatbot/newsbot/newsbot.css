@@ -6,11 +6,11 @@ body{
     font-family:'Kiwi Maru';
 }
 
-.newsbot-header{
+.chatbot-header{
     background: #FFF8E7;
 }
 
-.newsbot-body{
+.chatbot-body{
     background: #FFF8E7;
 }
 
@@ -56,7 +56,7 @@ body{
     text-align: center;
 }
 
-.newsbot-right{
+.chatbot-right{
     background: #76d476;
 }
 

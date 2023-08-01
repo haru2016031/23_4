@@ -6,11 +6,11 @@ body{
     font-family:'Kiwi Maru';
 }
 
-.imagebot-header{
+.chatbot-header{
     background: #e7fffd;
 }
 
-.imagebot-body{
+.chatbot-body{
     background: #e7fffd;
 }
 
@@ -29,18 +29,6 @@ body{
     text-align: left;
 }
 
-.imagebot-title{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-weight: bold; /* テキストの太さを設定 */
-    font-size: 18px;
-}
-
-.imagebot-releace{
-    font-size: 14px;
-    color: #7e7e7e;
-}
-
 .imagebot-img{
     width: 90%;
     height:40%;
@@ -56,7 +44,7 @@ body{
     text-align: center;
 }
 
-.imagebot-right{
+.chatbot-right{
     background: #ec86b1;
 }
 

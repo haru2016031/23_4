@@ -49,12 +49,6 @@ class Newsbot extends Chatbot{
             bot.queryError = true;
         });
     }
-
-    CreateMyText(text,li){
-        const div = super.CreateMyText(text);
-        div.classList.add('newsbot-right');
-        li.appendChild(div);
-    }
     
     BotOrgNormal(chatList,robotCount,div,bot,randomNum){
         //問題の答えか

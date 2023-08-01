@@ -10,23 +10,23 @@ body{
     font-family: 'Kiwi Maru';
 }
 
-.psychobot-header{
+.chatbot-header{
     background: rgb(0, 0, 102)
 }
 
-.psychobot-right{
+.chatbot-right{
     background: rgb(255, 255, 153);
 }
 
-.psychobot-body{
+.chatbot-body{
     background: rgb(0, 0, 102)
 }
 
-.psycho-choice-title{
+.choice-title{
     background: rgb(255, 255, 153);
 }
 
-.psycho-choice-button{
+.choice-button{
     font-family:'Kiwi Maru';
     background: rgb(255, 255, 153);;
 }

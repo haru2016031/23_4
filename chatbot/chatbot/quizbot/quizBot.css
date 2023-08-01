@@ -16,24 +16,23 @@ body{
     cursor:pointer;
 }
 
-.quizbot-header{
+.chatbot-header{
     background: #5b69ae;
 }
 
-.quizbot-body{
+.chatbot-body{
     background: #5b69ae;
 }
 
-.quizbot-right{
+.chatbot-right{
     background: #30d649;
 }
 
-.quiz-choice-title{
+.choice-title{
     background: #4cc25e;
 }
 
-.quiz-choice-button{
-    font-family:'Kiwi Maru';
+.choice-button{
     background: #4cc25e;
 }
 

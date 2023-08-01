@@ -41,12 +41,6 @@ class Imagebot extends Chatbot{
         });
     }
 
-    CreateMyText(text,li){
-        const div = super.CreateMyText(text);
-        div.classList.add('imagebot-right');
-        li.appendChild(div);
-    }
-
     BotOrgNormal(chatList,robotCount,div,bot,randomNum){
         //問題の答えか
         let text = '';

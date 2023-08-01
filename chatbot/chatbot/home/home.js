@@ -168,6 +168,38 @@ function BarInit(){
   });  
 }
 
+let pointNum = 0; //ポイント数
+const pointInc = 100; //加算されるポイント数
+const point = document.getElementById('point'); //ポイントの実体
+
+//ポイント計算関数
+function changePoint(){
+  point.textContent = pointNum;
+  
+  // 要素の幅を取得
+  const width = point.offsetWidth;
+
+  // transformプロパティを使用して要素を一瞬拡大
+  point.style.transform = `translateX(${-width / 2}px) scale(1.2)`;
+
+  // 一定時間後に元のサイズに戻す
+  setTimeout(() => {
+    point.style.transform = `translateX(${-width / 2}px)`;
+  }, 100); // 100ミリ秒後に元のサイズに戻す
+}
+
+//最大ポイント数の判定
+function changeMaxPoint(){
+  const maxPoint = document.getElementById('maxPoint');
+  const maxPointNum = parseInt(maxPoint.textContent);
+  if(maxPointNum < pointNum){
+    maxPoint.textContent = pointNum;
+    const width = maxPoint.offsetWidth;
+    maxPoint.style.transform = `translateX(${- width / 2}px)`;
+
+  }
+}
+
 var ball = document.getElementById('ball');
 const ballStyle = window.getComputedStyle(ball);
 
@@ -200,16 +232,24 @@ function moveBall() {
     // 要素内の境界に到達した場合、速度を反転させます
     const computedStyle = window.getComputedStyle(homescreen);
     var borderSize = parseInt(computedStyle.borderLeftWidth) + parseInt(computedStyle.borderRightWidth);
+    //  x方向の判定
     if (x < 0 || x + ball.offsetWidth > homescreen.offsetWidth-borderSize) {
         speedX *= -1;
     }
+    //  y方向の判定
     if (y < 0 || y + ball.offsetHeight > homescreen.offsetHeight-borderSize) {
         speedY *= -1;
+        //  下の壁に当たったらスピードを戻す
         if(y + ball.offsetHeight > homescreen.offsetHeight-borderSize){
           speed = defaultSpeed;
           updateVelocity();
           x = oldX;
           y = oldY;
+          //  最大ポイントの判定
+          changeMaxPoint();
+          //  ポイントも０にする
+          pointNum = 0;
+          changePoint();
         }
     }
 
@@ -275,6 +315,11 @@ function moveBall() {
             this.classList.remove('shakeY');
           }
         }
+
+        //ポイント加算
+        pointNum += pointInc;
+        changePoint();
+        console.log(pointNum);
       };
   
     }

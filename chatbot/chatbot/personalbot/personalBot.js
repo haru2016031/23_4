@@ -11,25 +11,16 @@ class Personalbot extends Chatbot{
               const path = soundNameList[key];
               this.soundMng.LoadSound(key,key,path);
             }
-          }
-
-    }
-
-    CreateMyText(text,li){
-        const div = super.CreateMyText(text);
-        div.classList.add('personalbot-right');
-        li.appendChild(div);
+        }
     }
 
     CreateChoiceTitle(choiceField,text){
         const div = super.CreateChoiceTitle(text);
-        div.classList.add('personal-choice-title');
         choiceField.appendChild(div);
     }
 
     CreateChoiceButton(choiceField,text,num,bot,type){
         const div = super.CreateChoiceButton(choiceField,text,num,bot,type);
-        div.classList.add('personal-choice-button');
         choiceField.appendChild(div);
     }
 
@@ -38,13 +29,11 @@ class Personalbot extends Chatbot{
         itemDiv.id = `${choiceField.id}-${num}`;
         itemDiv.classList.add('personal-item');
         itemDiv.textContent = text;
-        itemDiv.classList.add('personal-choice-button');
         choiceField.appendChild(itemDiv);
     }
 
     RobotOutputClick(li,bot){
         const div = super.RobotOutputClick(li,bot)
-        div.classList.add('personal-choice-button');
         return true;
     }
 
